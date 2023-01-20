@@ -29,10 +29,6 @@ class AbsensiController extends Controller
     public function create()
     {
         $query = Absensi::select('code')->max('code');
-        $kode_count = substr_count($query, 11) + 1;
-        $maxkode = sprintf("%03s",$kode_count);
-        $create_code = "ABSEN-KODE-".$maxkode;
-        $data['code']  = $create_code;
         $data['title'] = "Create Master Absen";
         $data['month'] = array("","Januari","Februari","Maret","April","Mei","Juni","Juli", 'Agustus', 'September', 'Oktober', 'November', 'Desember');
         return view('absensi.master.create', $data);
@@ -55,7 +51,7 @@ class AbsensiController extends Controller
         $absen_detail = new Absensi();
         $tanggal_absen = date('Y-m-d', strtotime($request->tanggal));
         $cek_absen = $absen_detail->where(['tanggal_absen' => $tanggal_absen])->count();
-        if ($cek_absen >0 ){
+        if ($cek_absen > 0 ){
             $message = [
                 'alert-type' => 'error',
                 'message' => 'Anda sudah absen pada tanggal '.tgl_indo($tanggal_absen).' ini, Absen lagi ditanggal berikutnya.'
@@ -98,7 +94,7 @@ class AbsensiController extends Controller
 
             $message = [
                 'alert-type' => 'success',
-                'message' => 'Absensi created successfully.'
+                'message' => 'Berhasil Absen'
             ];
             return redirect()->route('absensi.index')->with($message);
         }
