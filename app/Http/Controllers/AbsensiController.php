@@ -29,6 +29,10 @@ class AbsensiController extends Controller
     public function create()
     {
         $query = Absensi::select('code')->max('code');
+        $kode_count = substr($query, 11) . 1;
+        $maxkode = sprintf("%03s",$kode_count);
+        $create_code = "ABSEN-KODE-".$maxkode;
+        $data['code']  = $create_code;
         $data['title'] = "Create Master Absen";
         $data['month'] = array("","Januari","Februari","Maret","April","Mei","Juni","Juli", 'Agustus', 'September', 'Oktober', 'November', 'Desember');
         return view('absensi.master.create', $data);
