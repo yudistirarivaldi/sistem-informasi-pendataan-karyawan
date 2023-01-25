@@ -20,7 +20,7 @@
 
 <body>
     <div style="text-align: center; font-size: 20px;">
-        <b>DATA CUTI STAFF</b>
+        <b>DATA CUTI KARYAWAN</b>
     </div>
 
     <br>

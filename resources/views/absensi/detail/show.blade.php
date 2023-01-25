@@ -36,7 +36,7 @@
                                         </div>
                                     </form>
                                 </div>
-                            </div> 
+                            </div>
                             <div class="container-fluid row p-2" style="font-size: 14px;">
                                 <div class="col-md-9 p-0">
                                     <table class="table no-border header-table mb-0" style="white-space: normal;">
@@ -67,7 +67,7 @@
                                                 <td>Nama</td>
                                                 <td>Status</td>
                                                 <td>Departement</td>
-                                                
+
                                                 @foreach ($attendance_date as $d)
                                                     <td class="count_date_absen" style="width:20px; vertical-align: middle; text-align: center;">{{ date('d', strtotime($d->tanggal_absen)) }}</td>
                                                 @endforeach
@@ -75,7 +75,7 @@
                                                 @php
                                                     $grand_total = 0;
                                                 @endphp
-    
+
                                                 @forelse ($schedules as $schedule)
                                                 <tr style="line-height: 0.2;">
                                                     <td class="text-center">{{ $loop->iteration }}</td>
@@ -88,15 +88,15 @@
                                                         $sum_kehadiran = 0;
                                                         $count_absen_staff = $schedule->absensi->where('periode', $absensi->periode)->count();
                                                     @endphp
-                                                    
+
                                                     @foreach ($schedule->absensi->where('periode', $absensi->periode) as $item)
                                                         @if ($loop->first)
                                                             @if (count($attendance_date) != $count_absen_staff)
                                                                 <td colspan="{{ intval(count($attendance_date)) - intval($count_absen_staff) }}"><hr class="p-0 m-0 label-danger"></td>
-                                                            @endif 
+                                                            @endif
                                                         @endif
-    
-                                                        @if ($item->attendance_id != '')     
+
+                                                        @if ($item->attendance_id != '')
                                                             <td class="text-center">
                                                                 {!! '<span class="'.$item->attendance->label.'">'.$item->attendance->singkatan.'</span>' !!}
                                                             </td>
@@ -106,7 +106,7 @@
                                                         @php
                                                             $sum_kehadiran +=  $item->attendance->value;
                                                         @endphp
-    
+
                                                     @endforeach
                                                     @if ($count_absen_staff == 0)
                                                         <td class="not_absen text-center">-</td>
@@ -126,9 +126,15 @@
                                         <a href="{{ route('absensi.export.excel', [$absensi->periode, $filter]) }}" class="btn btn-success btn-sm" id="export-excel">
                                             <i class="fa fa-file-excel-o fa-fw"></i> Export Excel
                                         </a>
+                                        <a href="{{ route('absensi.export.pdf', [$absensi->periode, $filter]) }}" class="btn btn-danger btn-sm" id="export-pdf">
+                                            <i class="fa fa-file-pdf-o fa-fw"></i> Export PDF
+                                        </a>
                                     @else
                                         <a href="{{ route('absensi.export.excel', [$absensi->periode, 'all']) }}" class="btn btn-success btn-sm" id="export-excel">
                                             <i class="fa fa-file-excel-o fa-fw"></i> Export Excel
+                                        </a>
+                                        <a href="{{ route('absensi.export.pdf', [$absensi->periode, 'all']) }}" class="btn btn-danger btn-sm" id="export-pdf">
+                                            <i class="fa fa-file-pdf-o fa-fw"></i> Export PDF
                                         </a>
                                     @endif
                                 </div>

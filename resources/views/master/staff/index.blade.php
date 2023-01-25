@@ -32,7 +32,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header bg-light">
-                                Data Staff
+                                Data Karyawan
                                 <span id="count"
                                     class="badge badge-dark float-right float-xl-right mt-1">{{ $count }}</span>
                             </div>
@@ -41,11 +41,14 @@
                                     <tr>
                                         <th class="text-center" style="width: 100px;">#</th>
                                         <th>Nama</th>
+                                        <th>NIK</th>
+                                        <th>Jenis Kelamin</th>
                                         <th>Tgl. Lahir</th>
                                         <th>Alamat</th>
                                         <th>No. Telpon</th>
                                         <th>Position</th>
                                         <th>Departement</th>
+
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -69,6 +72,8 @@
                                                 </div>
                                             </td>
                                             <td>{{ $item->name ?? '' }}</td>
+                                            <td>{{ $item->nik ?? '' }}</td>
+                                            <td>{{ $item->jenis_kelamin ?? '' }}</td>
                                             <td>{{ $item->birth ?? '' }}</td>
                                             <td>{{ $item->addres ?? '' }}</td>
                                             <td>{{ $item->phone ?? '' }}</td>
@@ -88,6 +93,11 @@
                                     <a href="{{ route('master.staff.export.excel') }}" class="btn btn-success btn-sm"
                                         id="export-excel">
                                         <i class="fa fa-file-excel-o fa-fw"></i> Export Excel
+                                    </a>
+
+                                    <a href="{{ route('master.staff.export.pdf') }}" class="btn btn-danger btn-sm"
+                                        id="export-pdf">
+                                        <i class="fa fa-file-pdf-o fa-fw"></i> Export PDF
                                     </a>
                                 </div>
                             </div>

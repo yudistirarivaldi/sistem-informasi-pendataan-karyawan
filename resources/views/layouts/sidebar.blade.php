@@ -5,7 +5,7 @@
 
         {{-- <i class="nav-icon fas fa-chart-line"></i> --}}
 
-        <span class="brand-text font-weight-lighter font-weight-bolder">SIAP - APP</span>
+        <span class="brand-text font-weight-lighter font-weight-bolder">SIPK - APP</span>
     </a>
 
     <div class="sidebar">
@@ -51,7 +51,7 @@
                         <a href="{{ route('master.staff.index') }}"
                             class="nav-link {{ \Route::current()->getName() == 'master.staff.index' ? 'active' : '' }} ">
                             <i class="nav-icon fas fa-users"></i>
-                            <p>Staff</p>
+                            <p>Karyawan</p>
                         </a>
                     </li>
 

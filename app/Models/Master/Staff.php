@@ -11,7 +11,7 @@ class Staff extends Model
     // use SoftDeletes;
 
     protected $table = 'tb_staff';
-    protected $fillable = ['users_id', 'position_id', 'departement_id', 'name', 'birth', 'addres', 'startdate', 'phone', 'photo'];
+    protected $fillable = ['users_id', 'position_id', 'departement_id', 'name', 'nik', 'birth', 'jenis_kelamin', 'addres', 'startdate', 'phone', 'photo'];
     protected $dates = ['deleted_at'];
 
     public function getNameAttribute($name)
@@ -45,5 +45,5 @@ class Staff extends Model
     public function salary() {
         return $this->hasMany(\App\Models\Salary::class);
     }
-    
+
 }

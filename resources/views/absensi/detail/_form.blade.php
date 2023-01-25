@@ -1,10 +1,10 @@
 <div class="card-body">
-        
+
     @if ($staff ?? '')
         <div class="alert alert-warning text-justify">
-            <strong>Warning !!</strong> Data staff belum ada, anda tidak dapat melakukan absensi. Silahkan input data staff terlebih dulu 
+            <strong>Warning !!</strong> Data Karyawan belum ada, anda tidak dapat melakukan absensi. Silahkan input data karyawan terlebih dulu
             <a class="float-right" href="{{ route('staff.create') }}" data-toggle="tooltip" title="Silahkan klik untuk menginput data pekerja" style="text-decoration-color: blue;">
-                <span class="text-primary">Input Sekarang ?</span>  
+                <span class="text-primary">Input Sekarang ?</span>
             </a>
         </div>
     @else
@@ -17,7 +17,7 @@
             </div>
         </div>
     @endif
-    
+
     <div class="row">
         <div class="col-md-12">
             <div class="card-header with-border pl-0 pb-1">
@@ -76,7 +76,7 @@
         <div class="text-right">
             <div class="form-group mb-0">
                 <button type="reset" class="btn btn-secondary"><i class="fas fa-undo mr-1"></i> Reset</button>
-                <button type="submit" class="btn btn-primary" name="btn_absen" {{ $info ?? '' }}><i class="fas fa-check-double mr-1"></i> Simpan</button> 
+                <button type="submit" class="btn btn-primary" name="btn_absen" {{ $info ?? '' }}><i class="fas fa-check-double mr-1"></i> Simpan</button>
             </div>
         </div>
     </div>

@@ -71,6 +71,7 @@ Route::middleware('auth')->group(function(){
                 Route::patch('staff/{staff}/update', 'StaffController@update')->name('staff.update');
                 Route::get('staff/{id}', 'StaffController@destroy')->name('staff.destroy');
                 Route::get('staff/export/excel', 'StaffController@excel')->name('staff.export.excel');
+                Route::get('staff/export/pdf', 'StaffController@pdf')->name('staff.export.pdf');
             });
         });
 
@@ -104,6 +105,7 @@ Route::middleware('auth')->group(function(){
         Route::post('absensi/detail/store', 'AbsensiController@storeDetail')->name('absensi.detail.store');
         Route::get('absensi/detail/periode={periode}', 'AbsensiController@show')->name('absensi.detail');
         Route::get('absensi/export/excel/periode={periode}/filter={filter}', 'AbsensiController@excel')->name('absensi.export.excel');
+        Route::get('absensi/export/pdf/periode={periode}/filter={filter}', 'AbsensiController@pdf')->name('absensi.export.pdf');
 
         Route::middleware('role:admin|accounting')->group(function(){
             Route::get('schedule/create', 'ScheduleController@create')->name('schedule.create');

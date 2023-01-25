@@ -41,6 +41,8 @@
                                     <tr>
                                         <th class="text-center" style="width: 100px;">#</th>
                                         <th>Staff</th>
+                                        <th>NIK</th>
+                                        <th>Jenis Kelamin</th>
                                         <th>Tgl. Masuk</th>
                                         <th>Ket. Jadwal</th>
                                         <th>Status</th>
@@ -66,6 +68,8 @@
                                                 </div>
                                             </td>
                                             <td>{{ $item->staff->name ?? '' }}</td>
+                                            <td>{{ $item->staff->nik ?? '' }}</td>
+                                            <td>{{ $item->staff->jenis_kelamin ?? '' }}</td>
                                             <td>{{ $item->tgl_masuk ?? '' }}</td>
                                             <td>{{ $item->ket_schedule ?? '' }}</td>
                                             <td>

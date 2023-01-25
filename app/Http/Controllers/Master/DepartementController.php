@@ -18,7 +18,7 @@ class DepartementController extends Controller
         $data['departement'] = Departement::all();
         $data['count'] = Departement::count();
         return view('master.departement.index', $data);
-    }   
+    }
 
     public function create()
     {
@@ -26,7 +26,7 @@ class DepartementController extends Controller
     }
 
     public function store(Request $request)
-    {   
+    {
         $request->merge([
             'salary' => preg_replace('/\D/', '', $request->salary),
         ]);
@@ -40,7 +40,7 @@ class DepartementController extends Controller
         $message = [
             'alert-type'=>'success',
             'message'=> 'Data departement created successfully'
-        ];  
+        ];
         return redirect()->route('master.departement.index')->with($message);
     }
 
@@ -48,7 +48,7 @@ class DepartementController extends Controller
     {
         $data['title'] = 'Edit Departement';
         $data['departement'] = $departement;
-        return view('master.departement.edit', $data);       
+        return view('master.departement.edit', $data);
     }
 
     public function update(Request $request, Departement $departement)
@@ -66,7 +66,7 @@ class DepartementController extends Controller
         $message = [
             'alert-type'=>'success',
             'message'=> 'Data departement updated successfully'
-        ];  
+        ];
         return redirect()->route('master.departement.index')->with($message);
     }
 
@@ -74,7 +74,7 @@ class DepartementController extends Controller
     {
         $id = $request->id;
         if($id)
-        {   
+        {
             $departement = Departement::find($id);
             if($departement)
             {

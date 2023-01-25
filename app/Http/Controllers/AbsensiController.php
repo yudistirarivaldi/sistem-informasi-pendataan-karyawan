@@ -176,4 +176,37 @@ class AbsensiController extends Controller
             $data['filter'] = $f;
         return view('absensi.detail.excel', $data);
     }
+
+     public function pdf($id, $filter)
+    {
+        // filter berdasarkan departement
+        $f = $filter ?? null;
+        $detail_absen = new Absensi;
+        $detail_absen->where('periode', $id)->first();
+        $data['title'] = "Detail Absensi";
+            if ($f == '' || $f == 'all') {
+                $data['schedules'] = Schedule::orderBy('a.name', 'asc')
+                                    ->select(DB::raw('tb_schedule.*, a.name'))
+                                    ->join('tb_staff AS a', 'a.id', '=', 'tb_schedule.staff_id')
+                                    ->get();
+            }
+            else
+            {
+                $data['schedules'] = Schedule::orderBy('a.name', 'asc')
+                ->select(DB::raw('tb_schedule.*, a.name'))
+                ->join('tb_staff AS a', 'a.id', '=', 'tb_schedule.staff_id')
+                ->join('tb_departement AS b', 'b.id', '=', 'a.departement_id')
+                ->where('b.name', $f)
+                ->get();
+            }
+            $data['attendance_date']    = $detail_absen->groupBy( 'tanggal_absen' )
+                                        ->orderBy( 'tanggal_absen' )
+                                        ->select(DB::raw('count(*) as count, DATE( tanggal_absen ) as tanggal_absen'))
+                                        ->where('periode', $id)
+                                        ->get();
+            $data['absensi'] = Absensi::where('periode', $id)->first();
+            $data['departement'] = Departement::all();
+            $data['filter'] = $f;
+        return view('absensi.detail.pdf', $data);
+    }
 }

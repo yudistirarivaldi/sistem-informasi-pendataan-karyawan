@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers\Master;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\Master\Staff;
-use App\Models\Master\Position;
-use App\Models\Master\Departement;
 use App\Models\Roles;
 use App\Models\Users;
+use PDF;
+use App\Models\Master\Staff;
+use Illuminate\Http\Request;
+use App\Models\Master\Position;
+use App\Models\Master\Departement;
+use App\Http\Controllers\Controller;
+
 
 class StaffController extends Controller
 {
@@ -33,7 +35,9 @@ class StaffController extends Controller
         // dd($request->all());
         $request->validate([
             'name'=>'required|max:100',
+            'nik'=>'required',
             'birth'=>'required|date',
+            'jenis_kelamin'=>'required',
             'startdate'=>'required|date',
             'phone'=>'required|max:13',
             'position_id'=>'required',
@@ -64,7 +68,7 @@ class StaffController extends Controller
 
         $message = [
             'alert-type'=>'success',
-            'message'=> 'Data staff created successfully'
+            'message'=> 'Data karyawan created successfully'
         ];
         return redirect()->route('master.staff.index')->with($message);
     }
@@ -114,7 +118,7 @@ class StaffController extends Controller
 
         $message = [
             'alert-type'=>'success',
-            'message'=> 'Data staff updated successfully'
+            'message'=> 'Data karyawan updated successfully'
         ];
         return redirect()->route('master.staff.index')->with($message);
     }
@@ -133,7 +137,7 @@ class StaffController extends Controller
             $message = [
                 'alert-type' => 'success',
                 'count' => $count,
-                'message' => 'Data staff deleted successfully.'
+                'message' => 'Data karyawan deleted successfully.'
             ];
             return response()->json($message);
         }
@@ -147,6 +151,15 @@ class StaffController extends Controller
         return view('master.staff.excel', [
            'items' => $items
         ]);
+    }
+
+    public function pdf()
+    {
+
+        $items = Staff::all();
+
+        $pdf = PDF::loadview('master.staff.pdf', ['items'=>$items]);
+    	return $pdf->download('laporan-karyawan-pdf');
     }
 
 }

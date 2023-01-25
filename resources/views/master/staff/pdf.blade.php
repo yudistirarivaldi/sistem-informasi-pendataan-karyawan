@@ -1,10 +1,4 @@
-@php
-    header('Cache-Control: no-cache, must-revalidate');
-    header('Pragma: no-cache');
-    header('Content-type: application/x-msexcel');
-    header('Content-type: application/octet-stream');
-    header('Content-Disposition: attachment; filename=Laporan-staff-' . 'staff' . '.xls');
-@endphp
+`
 <!DOCTYPE html>
 <html>
 
@@ -28,8 +22,6 @@
         <thead>
             <tr style="background-color: royalblue">
                 <th>Nama</th>
-                <th>NIK</th>
-                <th>Jenis Kelamin</th>
                 <th>Tanggal Lahir</th>
                 <th>Alamat</th>
                 <th>No Telepon</th>
@@ -42,8 +34,6 @@
             @forelse ($items as $item)
                 <tr style="line-height: 1;">
                     <td>{{ $item->name }}</td>
-                    <td>{{ $item->nik }}</td>
-                    <td>{{ $item->jenis_kelamin }}</td>
                     <td>{{ $item->birth }}</td>
                     <td>{{ $item->addres }}</td>
                     <td>{{ $item->phone }}</td>
