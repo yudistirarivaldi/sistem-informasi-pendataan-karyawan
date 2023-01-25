@@ -71,7 +71,7 @@ Route::middleware('auth')->group(function(){
                 Route::patch('staff/{staff}/update', 'StaffController@update')->name('staff.update');
                 Route::get('staff/{id}', 'StaffController@destroy')->name('staff.destroy');
                 Route::get('staff/export/excel', 'StaffController@excel')->name('staff.export.excel');
-                Route::get('staff/export/pdf', 'StaffController@pdf')->name('staff.export.pdf');
+                Route::get('/staff/export/pdf', 'StaffController@pdf')->name('staff.export.pdf');
             });
         });
 

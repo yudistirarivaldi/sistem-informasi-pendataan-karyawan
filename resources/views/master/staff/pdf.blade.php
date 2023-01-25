@@ -1,26 +1,31 @@
-`
 <!DOCTYPE html>
 <html>
 
 <head>
-    <title>SIPG - Report</title>
-    <style>
-        #master td {
-            vertical-align: middle;
-
-        }
-    </style>
+    <title>Laporan Data Karyawan</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
 <body>
-    <div style="text-align: center; font-size: 20px;">
-        <b>DATA JADWAL STAFF YANG SEDANG AKTIF</b>
-    </div>
+    <style type="text/css">
+        table tr td,
+        table tr th {
+            font-size: 9pt;
+        }
+    </style>
+    <center>
+        <h5>Laporan Data Karyawan
+
+        </h5>
+    </center>
 
     <br>
-    <table border="1" style="font-size: 14px;width: 50%;">
+
+    <table class='table table-bordered'>
         <thead>
-            <tr style="background-color: royalblue">
+            <tr>
+                <th>No</th>
                 <th>Nama</th>
                 <th>Tanggal Lahir</th>
                 <th>Alamat</th>
@@ -30,9 +35,9 @@
             </tr>
         </thead>
         <tbody>
-
             @forelse ($items as $item)
                 <tr style="line-height: 1;">
+                    <td>{{ $loop->iteration }}</td>
                     <td>{{ $item->name }}</td>
                     <td>{{ $item->birth }}</td>
                     <td>{{ $item->addres }}</td>
@@ -42,12 +47,11 @@
                 </tr>
             @empty
                 <tr>
-                    <td class="text-center" colspan="7">Tidak ada data untuk ditampilkan</td>
+                    <td class="text-center" colspan="6">Tidak ada data untuk ditampilkan</td>
                 </tr>
             @endforelse
         </tbody>
     </table>
-    <br>
 
 </body>
 

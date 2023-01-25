@@ -4,12 +4,12 @@ namespace App\Http\Controllers\Master;
 
 use App\Models\Roles;
 use App\Models\Users;
-use PDF;
 use App\Models\Master\Staff;
 use Illuminate\Http\Request;
 use App\Models\Master\Position;
 use App\Models\Master\Departement;
 use App\Http\Controllers\Controller;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 
 class StaffController extends Controller
@@ -158,8 +158,8 @@ class StaffController extends Controller
 
         $items = Staff::all();
 
-        $pdf = PDF::loadview('master.staff.pdf', ['items'=>$items]);
-    	return $pdf->download('laporan-karyawan-pdf');
+        $pdf = Pdf::loadview('master.staff.pdf', ['items'=>$items]);
+    	return $pdf->download('laporan-karyawan.pdf');
     }
 
 }
