@@ -47,7 +47,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td class="text-center" colspan="6">Tidak ada data untuk ditampilkan</td>
+                    <td class="text-center" colspan="7">Tidak ada data untuk ditampilkan</td>
                 </tr>
             @endforelse
         </tbody>
