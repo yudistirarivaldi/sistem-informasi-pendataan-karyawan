@@ -36,17 +36,29 @@
                             <table id="datatable" class="table table-hover table-striped">
                                 <thead>
                                     <tr>
-                                        <th class="text-center" style="width: 100px;">#</th>
+                                        <th>No</th>
                                         <th>Staff</th>
                                         <th>Position</th>
                                         <th>Status</th>
                                         <th>Salary</th>
-                                        <th class="text-right">Detail</th>
+                                        <th>Detail</th>
+                                        <th class="text-center" style="width: 100px;">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($salary as $item)
                                         <tr id="hide{{ $item->id }}">
+                                            <td>{{ $loop->iteration }}</td>
+
+                                            <td>{{ $item->staff->name ?? '' }}</td>
+                                            <td>{{ $item->staff->position->name ?? '' }}</td>
+                                            <td>
+                                                <span class="badge {{ $item->staff->position->status == 'Staff' ? 'badge-info' : 'badge-secondary' }}">{{ $item->staff->position->status ?? '' }}</span>
+                                            </td>
+                                            <td>{{ 'Rp. ' . number_format($item->staff->position->salary ?? '', 0, ',', '.') }} {{ $item->staff->position->status == 'Staff' ? '/ Bln' : '/ Hari' }}</td>
+                                            <td>
+                                                <a href="{{ route('salary.show', $item->staff_id) }}" class="btn btn-sm btn-info">Detail Salary</a>
+                                            </td>
                                             <td class="text-center">
                                                 <a href="#" class="text-secondary nav-link p-0" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                     <i class="fas fa-ellipsis-v"></i>
@@ -60,15 +72,6 @@
                                                         <i class="far fa-trash-alt mr-2"></i> Hapus
                                                     </a>
                                                 </div>
-                                            </td>
-                                            <td>{{ $item->staff->name ?? '' }}</td>
-                                            <td>{{ $item->staff->position->name ?? '' }}</td>
-                                            <td>
-                                                <span class="badge {{ $item->staff->position->status == 'Staff' ? 'badge-info' : 'badge-secondary' }}">{{ $item->staff->position->status ?? '' }}</span>
-                                            </td>
-                                            <td>{{ 'Rp. ' . number_format($item->staff->position->salary ?? '', 0, ',', '.') }} {{ $item->staff->position->status == 'Staff' ? '/ Bln' : '/ Hari' }}</td>
-                                            <td class="text-right">
-                                                <a href="{{ route('salary.show', $item->staff_id) }}" class="btn btn-sm btn-info">Detail Salary</a>
                                             </td>
                                         </tr>
                                     @endforeach

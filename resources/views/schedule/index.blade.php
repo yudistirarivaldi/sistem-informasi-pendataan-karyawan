@@ -39,18 +39,29 @@
                             <table id="datatable" class="table table-hover table-striped">
                                 <thead>
                                     <tr>
-                                        <th class="text-center" style="width: 100px;">#</th>
+                                        <th>No</th>
                                         <th>Staff</th>
                                         <th>NIK</th>
                                         <th>Jenis Kelamin</th>
                                         <th>Tgl. Masuk</th>
                                         <th>Ket. Jadwal</th>
                                         <th>Status</th>
+                                        <th class="text-center" style="width: 100px;">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($schedule as $item)
                                         <tr id="hide{{ $item->id }}">
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $item->staff->name ?? '' }}</td>
+                                            <td>{{ $item->staff->nik ?? '' }}</td>
+                                            <td>{{ $item->staff->jenis_kelamin ?? '' }}</td>
+                                            <td>{{ $item->tgl_masuk ?? '' }}</td>
+                                            <td>{{ $item->ket_schedule ?? '' }}</td>
+                                            <td>
+                                                <span
+                                                    class="badge {{ $item->staff->position->status == 'Staff' ? 'badge-info' : 'badge-secondary' }}">{{ $item->staff->position->status ?? '' }}</span>
+                                            </td>
                                             <td class="text-center">
                                                 <a href="#" class="text-secondary nav-link p-0" role="button"
                                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -67,15 +78,6 @@
                                                     </a>
                                                 </div>
                                             </td>
-                                            <td>{{ $item->staff->name ?? '' }}</td>
-                                            <td>{{ $item->staff->nik ?? '' }}</td>
-                                            <td>{{ $item->staff->jenis_kelamin ?? '' }}</td>
-                                            <td>{{ $item->tgl_masuk ?? '' }}</td>
-                                            <td>{{ $item->ket_schedule ?? '' }}</td>
-                                            <td>
-                                                <span
-                                                    class="badge {{ $item->staff->position->status == 'Staff' ? 'badge-info' : 'badge-secondary' }}">{{ $item->staff->position->status ?? '' }}</span>
-                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -89,6 +91,11 @@
                                     <a href="{{ route('schedule.export.excel') }}" class="btn btn-success btn-sm"
                                         id="export-excel">
                                         <i class="fa fa-file-excel-o fa-fw"></i> Export Excel
+                                    </a>
+
+                                    <a href="{{ route('schedule.export.pdf') }}" class="btn btn-danger btn-sm"
+                                        id="export-pdf">
+                                        <i class="fa fa-file-pdf-o fa-fw"></i> Export PDF
                                     </a>
                                 </div>
                             </div>

@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Absensi;
-use App\Models\Master\Staff;
-use App\Models\Master\Keterangan;
-use App\Models\Master\Attendance;
-use App\Models\Master\Departement;
-use App\Models\Salary;
-use App\Models\Schedule;
 use DB;
+use App\Models\Salary;
+use App\Models\Absensi;
+use App\Models\Schedule;
+use App\Models\Master\Staff;
+use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\Master\Attendance;
+use App\Models\Master\Keterangan;
+use App\Models\Master\Departement;
 use Illuminate\Support\Facades\Input;
 
 class AbsensiController extends Controller
@@ -207,6 +208,10 @@ class AbsensiController extends Controller
             $data['absensi'] = Absensi::where('periode', $id)->first();
             $data['departement'] = Departement::all();
             $data['filter'] = $f;
-        return view('absensi.detail.pdf', $data);
+
+        $customPaper = array(0,0,567.00,1000);
+        $pdf = Pdf::loadview('absensi.detail.pdf', $data)->setPaper($customPaper,'landscape');
+    	return $pdf->download('laporan-jadwal-masuk-karyawan.pdf');
+
     }
 }

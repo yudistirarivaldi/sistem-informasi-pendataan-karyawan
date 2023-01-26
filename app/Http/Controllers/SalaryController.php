@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use DB;
 use App\Models\Salary;
 use App\Models\Absensi;
 use App\Models\Schedule;
 use App\Models\Master\Staff;
+use Illuminate\Http\Request;
 use App\Models\Master\Position;
-use DB;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class SalaryController extends Controller
 {
@@ -36,7 +37,7 @@ class SalaryController extends Controller
     }
 
     public function store(Request $request)
-    {   
+    {
         $request->validate([
             'status'=>'required',
             'periode'=>'required'
@@ -74,7 +75,7 @@ class SalaryController extends Controller
     }
 
     public function storeDetail(Request $request)
-    {   
+    {
         $salary = $request->session()->get('salary');
         $request->merge([
             'status' => $salary['status'],
@@ -106,14 +107,14 @@ class SalaryController extends Controller
             $message = [
                 'alert-type'=>'success',
                 'message'=> 'Data salary created successfully'
-            ];  
+            ];
         }
         else
         {
             $message = [
                 'alert-type'=>'warning',
                 'message'=> 'Penggajian staff '.$cek->staff->name.' pada periode '.$request->periode.' ini sudah di lakukan pembayaran.'
-            ];  
+            ];
         }
 
         return redirect()->route('salary.index')->with($message);
@@ -156,7 +157,7 @@ class SalaryController extends Controller
         $message = [
             'alert-type'=>'success',
             'message'=> 'Data salary updated successfully'
-        ];  
+        ];
         return redirect()->route('salary.index')->with($message);
     }
 
@@ -164,7 +165,7 @@ class SalaryController extends Controller
     {
         $id = $request->id;
         if($id)
-        {   
+        {
             $salary = Salary::find($id);
             if($salary)
             {
@@ -202,7 +203,7 @@ class SalaryController extends Controller
                 ->select(DB::raw('count(*) as count, periode'))
                 ->get();
         $data['filter'] = $f;
-        return view('salary.show', $data);      
+        return view('salary.show', $data);
     }
 
     public function excel($id, $filter)
@@ -227,6 +228,33 @@ class SalaryController extends Controller
                 ->get();
         $data['filter'] = $f;
         return view('salary.excel', $data);
+    }
+
+    public function pdf($id, $filter)
+    {
+        // filter berdasarkan departement
+        $f = $filter ?? 'all';
+        $data['title'] = "Detail Penggajian";
+        $data['staff'] = Staff::find($id);
+        if($f == '' || $f == 'all')
+        {
+            $data['salary'] = Salary::where('staff_id', $id)->get();
+        }
+        else
+        {
+            $data['salary'] = Salary::where('staff_id', $id)
+                                    ->where('periode', $f)
+                                    ->get();
+        }
+        $data['periode'] = Salary::groupBy( 'periode' )
+                ->orderBy( 'periode' )
+                ->select(DB::raw('count(*) as count, periode'))
+                ->get();
+        $data['filter'] = $f;
+
+        $customPaper = array(0,0,400,700);
+        $pdf = Pdf::loadview('salary.pdf', $data)->setPaper($customPaper,'landscape');
+    	return $pdf->download('laporan-gaji-karyawan.pdf');
     }
 
 }

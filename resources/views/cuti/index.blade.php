@@ -40,18 +40,57 @@
                             <table id="datatable" class="table table-hover">
                                 <thead>
                                     <tr>
-                                        <th class="text-center" style="width: 100px;">#</th>
+                                        <th>No</th>
                                         <th>Staff</th>
                                         <th>Tgl. Mulai</th>
                                         <th>Tgl. Selesai</th>
                                         <th>Durasi</th>
                                         <th>Keterangan</th>
-                                        <th class="text-right">Status</th>
+                                        <th class="text-left">Status</th>
+                                        <th class="text-center" style="width: 100px;">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($cuti as $item)
                                         <tr id="hide{{ $item->id }}">
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $item->staff->name ?? '' }}</td>
+                                            <td>{{ tgl_indo($item->tgl_mulai ?? '') }}</td>
+                                            <td>{{ tgl_indo($item->tgl_selesai ?? '') }}</td>
+                                            <td>{{ $item->jumlah_cuti ?? '' }} Hari</td>
+                                            <td>{{ $item->keterangan }}</td>
+                                            <td>
+                                                @if ($item->status == 0)
+                                                    @if (Auth::user()->hasRole('admin'))
+                                                        <form action="{{ route('cuti.validated', $item->id) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            @method('patch')
+                                                            <div class="input-group">
+                                                                <select name="validasi"
+                                                                    class="form-control input-sm select2">
+                                                                    <option value="">Verifikasi</option>
+                                                                    <option value="disetujui">Setujui</option>
+                                                                    <option value="ditolak">Tolak</option>
+                                                                </select>
+                                                                <div class="input-group-append">
+                                                                    <button type="submit"
+                                                                        class="btn btn-secondary btn-sm">OK</button>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    @else
+                                                        <span class="badge badge-warning">Tunggu Persetujuan</span>
+                                                    @endif
+                                                @else
+                                                    <div>
+                                                        {!! $item->status == "terima"
+                                                            ? '<span class="badge badge-success">disetujui</span>'
+                                                            : '<span class="badge badge-danger">ditolak</span>' !!}
+                                                    </div>
+                                                @endif
+
+                                            </td>
                                             <td class="text-center">
                                                 <a href="#" class="text-secondary" role="button"
                                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -75,43 +114,6 @@
                                                     @endif
                                                 </div>
                                             </td>
-                                            <td>{{ $item->staff->name ?? '' }}</td>
-                                            <td>{{ tgl_indo($item->tgl_mulai ?? '') }}</td>
-                                            <td>{{ tgl_indo($item->tgl_selesai ?? '') }}</td>
-                                            <td>{{ $item->jumlah_cuti ?? '' }} Hari</td>
-                                            <td>{{ $item->keterangan }}</td>
-                                            <td style="min-width: 160px;">
-                                                @if ($item->status == 0)
-                                                    @if (Auth::user()->hasRole('admin'))
-                                                        <form action="{{ route('cuti.validated', $item->id) }}"
-                                                            method="POST" class="float-right">
-                                                            @csrf
-                                                            @method('patch')
-                                                            <div class="input-group">
-                                                                <select name="validasi"
-                                                                    class="form-control input-sm select2">
-                                                                    <option value="">Verifikasi</option>
-                                                                    <option value="terima">Terima</option>
-                                                                    <option value="tolak">Tolak</option>
-                                                                </select>
-                                                                <div class="input-group-append">
-                                                                    <button type="submit"
-                                                                        class="btn btn-secondary btn-sm">OK</button>
-                                                                </div>
-                                                            </div>
-                                                        </form>
-                                                    @else
-                                                        <span class="badge badge-warning">Tunggu Persetujuan</span>
-                                                    @endif
-                                                @else
-                                                    <div class="text-right">
-                                                        {!! $item->status == "terima"
-                                                            ? '<span class="badge badge-success">disetujui</span>'
-                                                            : '<span class="badge badge-danger">ditolak</span>' !!}
-                                                    </div>
-                                                @endif
-
-                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -122,6 +124,10 @@
                                     <a href="{{ route('cuti.export.excel') }}" class="btn btn-success btn-sm"
                                         id="export-excel">
                                         <i class="fa fa-file-excel-o fa-fw"></i> Export Excel
+                                    </a>
+                                    <a href="{{ route('cuti.export.pdf') }}" class="btn btn-danger btn-sm"
+                                        id="export-pdf">
+                                        <i class="fa fa-file-pdf-o fa-fw"></i> Export PDF
                                     </a>
                                 </div>
                             </div>

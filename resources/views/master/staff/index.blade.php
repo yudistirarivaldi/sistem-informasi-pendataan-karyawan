@@ -39,7 +39,7 @@
                             <table id="datatable" class="table table-hover table-striped">
                                 <thead>
                                     <tr>
-                                        <th class="text-center" style="width: 100px;">#</th>
+                                        <th>No</th>
                                         <th>Nama</th>
                                         <th>NIK</th>
                                         <th>Jenis Kelamin</th>
@@ -48,12 +48,26 @@
                                         <th>No. Telpon</th>
                                         <th>Position</th>
                                         <th>Departement</th>
+                                        <th class="text-center" style="width: 100px;">Action</th>
 
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($staff as $item)
                                         <tr id="hide{{ $item->id }}">
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $item->name ?? '' }}</td>
+                                            <td>{{ $item->nik ?? '' }}</td>
+                                            <td>{{ $item->jenis_kelamin ?? '' }}</td>
+                                            <td>{{ $item->birth ?? '' }}</td>
+                                            <td>{{ $item->addres ?? '' }}</td>
+                                            <td>{{ $item->phone ?? '' }}</td>
+                                            <td style="line-height: 1">
+                                                {{ $item->position->name ?? '' }} <br>
+                                                <small><span
+                                                        class="badge {{ $item->position->status == 'Staff' ? 'badge-info' : 'badge-secondary' }}">{{ $item->position->status ?? '' }}</span></small>
+                                            </td>
+                                            <td>{{ $item->departement->name ?? '' }}</td>
                                             <td class="text-center">
                                                 <a href="#" class="text-secondary nav-link p-0" role="button"
                                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -71,18 +85,6 @@
                                                     </a>
                                                 </div>
                                             </td>
-                                            <td>{{ $item->name ?? '' }}</td>
-                                            <td>{{ $item->nik ?? '' }}</td>
-                                            <td>{{ $item->jenis_kelamin ?? '' }}</td>
-                                            <td>{{ $item->birth ?? '' }}</td>
-                                            <td>{{ $item->addres ?? '' }}</td>
-                                            <td>{{ $item->phone ?? '' }}</td>
-                                            <td style="line-height: 1">
-                                                {{ $item->position->name ?? '' }} <br>
-                                                <small><span
-                                                        class="badge {{ $item->position->status == 'Staff' ? 'badge-info' : 'badge-secondary' }}">{{ $item->position->status ?? '' }}</span></small>
-                                            </td>
-                                            <td>{{ $item->departement->name ?? '' }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>

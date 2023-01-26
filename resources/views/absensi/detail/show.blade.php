@@ -164,6 +164,11 @@
             setTimeout(RemoveClass, 1000);
         });
 
+        $('#export-pdf').on("click", function () {
+            $(this).addClass('disabled');
+            setTimeout(RemoveClass, 1000);
+        });
+
         function RemoveClass() {
             $('#export-excel').removeClass("disabled");
 		}

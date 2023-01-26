@@ -89,6 +89,8 @@ Route::middleware('auth')->group(function(){
             Route::get('staff/get_salary', 'SalaryController@getSalary');
             Route::get('salary/export/excel/id={id}/filter={filter}', 'SalaryController@excel')->name('salary.export.excel');
 
+            Route::get('salary/export/pdf/id={id}/filter={filter}', 'SalaryController@pdf')->name('salary.export.pdf');
+
             Route::get('overtime/create', 'OvertimeController@create')->name('overtime.create');
             Route::post('overtime', 'OvertimeController@store')->name('overtime.store');
             Route::get('overtime/{overtime}/edit', 'OvertimeController@edit')->name('overtime.edit');
@@ -114,6 +116,7 @@ Route::middleware('auth')->group(function(){
             Route::patch('schedule/{schedule}/update', 'ScheduleController@update')->name('schedule.update');
             Route::get('schedule/{id}', 'ScheduleController@destroy')->name('schedule.destroy');
             Route::get('schedule/export/excel', 'ScheduleController@excel')->name('schedule.export.excel');
+            Route::get('schedule/export/pdf', 'ScheduleController@pdf')->name('schedule.export.pdf');
 
         });
     });
@@ -129,5 +132,6 @@ Route::middleware('auth')->group(function(){
         Route::get('cuti/{id}', 'CutiController@destroy')->name('cuti.destroy');
         Route::patch('/cuti/{id}/validated', 'CutiController@validasi')->name('cuti.validated');
         Route::get('cuti/export/excel', 'CutiController@excel')->name('cuti.export.excel');
+        Route::get('cuti/export/pdf', 'CutiController@pdf')->name('cuti.export.pdf');
     });
 });

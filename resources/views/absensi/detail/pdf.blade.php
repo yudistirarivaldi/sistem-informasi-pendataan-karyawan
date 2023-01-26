@@ -1,21 +1,8 @@
-@php
-    header('Cache-Control: no-cache, must-revalidate');
-    header('Pragma: no-cache');
-    header('Content-type: application/pdf');
-    header('Content-type: application/octet-stream');
-    header('Content-Disposition: attachment; filename=Laporan-absensi-departement-' . strtolower($filter) . '-periode-' . ucwords($absensi->periode) . '.pdf');
-@endphp
 <!DOCTYPE html>
 <html>
 
 <head>
     <title>Apurav - Report</title>
-    <style>
-        #master td {
-            vertical-align: middle;
-
-        }
-    </style>
 </head>
 
 <body>
@@ -90,7 +77,7 @@
 
                         @if ($item->attendance_id != '')
                             <td
-                                style="color: white; text-align: center; background-color: {{ $item->attendance->color }}">
+                                style="color: black; text-align: center; background-color:  {{ $item->attendance->color }}">
                                 {{ $item->attendance->singkatan }}
                             </td>
                         @else

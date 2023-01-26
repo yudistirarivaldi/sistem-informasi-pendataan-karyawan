@@ -7,6 +7,7 @@ use App\Models\Schedule;
 use App\Models\Master\Staff;
 use App\Models\Master\Keterangan;
 use DB;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class ScheduleController extends Controller
 {
@@ -102,6 +103,15 @@ class ScheduleController extends Controller
         return view('schedule.excel', [
            'items' => $items
         ]);
+    }
+
+    public function pdf()
+    {
+
+        $items = Schedule::with(['staff'])->get();
+
+        $pdf = Pdf::loadview('schedule.pdf', ['items'=>$items]);
+    	return $pdf->download('laporan-jadwal-masuk-karyawan.pdf');
     }
 
 }

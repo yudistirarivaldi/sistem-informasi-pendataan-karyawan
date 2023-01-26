@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Auth;
 use App\Models\Cuti;
 use App\Models\Master\Staff;
-use Auth;
+use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class CutiController extends Controller
 {
@@ -179,6 +180,17 @@ class CutiController extends Controller
         return view('cuti.excel', [
            'items' => $items
         ]);
+    }
+
+     public function pdf()
+    {
+
+        $items = Cuti::all();
+
+        $pdf = Pdf::loadview('cuti.pdf', [
+            'items'=> $items
+        ]);
+    	return $pdf->download('laporan-jadwal-cuti-karyawan.pdf');
     }
 
 }
