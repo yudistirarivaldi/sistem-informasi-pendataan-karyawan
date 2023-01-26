@@ -187,10 +187,11 @@ class CutiController extends Controller
 
         $items = Cuti::all();
 
-        $pdf = Pdf::loadview('cuti.pdf', [
-            'items'=> $items
-        ]);
+        $customPaper = array(0,0,567.00,1000);
+        $pdf = Pdf::loadview('cuti.pdf', [ 'items'=> $items ])->setPaper($customPaper,'landscape');
     	return $pdf->download('laporan-jadwal-cuti-karyawan.pdf');
+
+
     }
 
 }

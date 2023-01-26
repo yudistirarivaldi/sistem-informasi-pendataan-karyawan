@@ -27,6 +27,8 @@
             <tr>
                 <th>No</th>
                 <th>Staff</th>
+                <th>NIK</th>
+                <th>Jenis Kelamin</th>
                 <th>Tanggal Mulai</th>
                 <th>Tanggal Selesai</th>
                 <th>Durasi</th>
@@ -39,6 +41,8 @@
                 <tr style="line-height: 1;">
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $item->staff->name }}</td>
+                    <td>{{ $item->staff->nik }}</td>
+                    <td>{{ $item->staff->jenis_kelamin }}</td>
                     <td>{{ $item->tgl_mulai }}</td>
                     <td>{{ $item->tgl_selesai }}</td>
                     <td>{{ $item->jumlah_cuti }}</td>

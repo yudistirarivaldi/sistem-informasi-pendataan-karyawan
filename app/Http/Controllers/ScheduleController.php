@@ -110,8 +110,11 @@ class ScheduleController extends Controller
 
         $items = Schedule::with(['staff'])->get();
 
-        $pdf = Pdf::loadview('schedule.pdf', ['items'=>$items]);
+        $customPaper = array(0,0,567.00,1000);
+        $pdf = Pdf::loadview('schedule.pdf', ['items'=>$items])->setPaper($customPaper,'landscape');
     	return $pdf->download('laporan-jadwal-masuk-karyawan.pdf');
+
+
     }
 
 }

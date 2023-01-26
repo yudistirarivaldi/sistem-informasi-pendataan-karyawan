@@ -27,6 +27,8 @@
             <tr>
                 <th>No</th>
                 <th>Nama</th>
+                <th>NIK</th>
+                <th>Jenis Kelamin</th>
                 <th>Tanggal Lahir</th>
                 <th>Alamat</th>
                 <th>No Telepon</th>
@@ -39,6 +41,8 @@
                 <tr style="line-height: 1;">
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $item->name }}</td>
+                    <td>{{ $item->nik }}</td>
+                    <td>{{ $item->jenis_kelamin }}</td>
                     <td>{{ $item->birth }}</td>
                     <td>{{ $item->addres }}</td>
                     <td>{{ $item->phone }}</td>

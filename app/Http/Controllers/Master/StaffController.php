@@ -158,8 +158,10 @@ class StaffController extends Controller
 
         $items = Staff::all();
 
-        $pdf = Pdf::loadview('master.staff.pdf', ['items'=>$items]);
+        $customPaper = array(0,0,567.00,1000);
+        $pdf = Pdf::loadview('master.staff.pdf', ['items'=>$items])->setPaper($customPaper,'landscape');
     	return $pdf->download('laporan-karyawan.pdf');
+
     }
 
 }
