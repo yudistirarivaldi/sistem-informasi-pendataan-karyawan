@@ -12,20 +12,24 @@
     <style>
         #master td{
             vertical-align: middle;
-            
+
         }
     </style>
 </head>
 <body>
     <div style="text-align: center; font-size: 20px;">
         <b>DATA SALARY STAFF</b>
-    </div>         
-    
+    </div>
+
     <br>
     <table style="">
         <tr>
             <td width="100">Nama</td>
             <td colspan="3">: {{ $staff->name }}</td>
+        </tr>
+         <tr>
+            <td width="100">NIK</td>
+            <td colspan="3">: {{ $staff->nik }}</td>
         </tr>
         <tr>
             <td width="100">Position Status</td>
@@ -37,7 +41,7 @@
         </tr>
     </table>
     <br>
-    
+
     <table border="1" style="font-size: 14px;width: 100%;">
         <thead>
             <tr style="background-color: royalblue">
@@ -75,6 +79,6 @@
                 </tr>
             @endforelse
         </tbody>
-    </table>       
+    </table>
 </body>
 </html>

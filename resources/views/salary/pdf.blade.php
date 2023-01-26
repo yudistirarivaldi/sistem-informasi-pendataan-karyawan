@@ -29,6 +29,10 @@
             <td colspan="3">: {{ $staff->name }}</td>
         </tr>
         <tr>
+            <td width="100">NIK</td>
+            <td colspan="3">: {{ $staff->nik }}</td>
+        </tr>
+        <tr>
             <td width="100">Position Status</td>
             <td colspan="3">: {{ $staff->position->status }}</td>
         </tr>

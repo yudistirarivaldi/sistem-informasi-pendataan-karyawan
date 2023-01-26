@@ -18,6 +18,7 @@ class CreateTableStaff extends Migration
             $table->text('addres')->nullable();
             $table->date('startdate');
             $table->text('phone');
+            $table->text('photo');
             $table->timestamps();
             $table->softDeletes();
 
