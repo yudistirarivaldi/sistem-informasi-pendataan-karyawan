@@ -47,8 +47,8 @@
         <thead>
             <tr style="background-color: royalblue">
                 <th>Periode</th>
-                <th>Salary</th>
-                <th>Tgl. Salary</th>
+                <th>Gaji</th>
+                <th>Tgl. Gaji</th>
                 <th>Status</th>
                 <th>Lembur</th>
                 <th>Gaji Lembur</th>
@@ -82,6 +82,21 @@
             @endforelse
         </tbody>
     </table>
+
+    <br>
+    <br>
+
+    <div class="ttd mr-7" style="position: relative; left: 80%">
+        <p>Banjarbaru, {{ date('d-M-Y') }} </p>
+        <p>HRD</p>
+        <br>
+        <br>
+        <br>
+        <br>
+        <b>Lulu Agustin, SE.</b>
+    </div>
+
+
 </body>
 
 </html>

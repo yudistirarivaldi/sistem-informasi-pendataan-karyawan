@@ -32,7 +32,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header bg-light">
-                                Data Jadwal Staf
+                                Data Jadwal Masuk Karyawan
                                 <span id="count"
                                     class="badge badge-dark float-right float-xl-right mt-1">{{ $count }}</span>
                             </div>

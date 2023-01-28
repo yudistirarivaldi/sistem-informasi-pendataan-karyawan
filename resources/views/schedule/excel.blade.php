@@ -20,7 +20,7 @@
 
 <body>
     <div style="text-align: center; font-size: 20px;">
-        <b>DATA JADWAL MASUK STAFF</b>
+        <b>DATA JADWAL MASUK KARYAWAN</b>
     </div>
 
     <br>

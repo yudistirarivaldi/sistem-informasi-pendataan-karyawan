@@ -1,7 +1,6 @@
 <aside class="main-sidebar sidebar-light-dark elevation-4">
     <a href="{{ route('home') }}" class="brand-link bg-dark">
-        <img src="{{ asset('img/logo-2.png') }}" alt="Logo" class="brand-image elevation-3"
-            style="opacity: .8">
+        <img src="{{ asset('img/logo-2.png') }}" alt="Logo" class="brand-image elevation-3" style="opacity: .8">
 
         {{-- <i class="nav-icon fas fa-chart-line"></i> --}}
 
@@ -35,19 +34,19 @@
                         <a href="{{ route('master.position.index') }}"
                             class="nav-link {{ \Route::current()->getName() == 'master.position.index' ? 'active' : '' }}">
                             <i class="nav-icon fas fa-user"></i>
-                            <p>Position</p>
+                            <p>Posisi</p>
                         </a>
                     </li>
 
-                     <li class="nav-item">
+                    <li class="nav-item">
                         <a href="{{ route('master.departement.index') }}"
-                        class="nav-link {{ \Route::current()->getName() == 'master.departement.index' ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-building"></i>
-                            <p>Departement</p>
+                            class="nav-link {{ \Route::current()->getName() == 'master.departement.index' ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-building"></i>
+                            <p>Departemen</p>
                         </a>
                     </li>
 
-                     <li class="nav-item">
+                    <li class="nav-item">
                         <a href="{{ route('master.staff.index') }}"
                             class="nav-link {{ \Route::current()->getName() == 'master.staff.index' ? 'active' : '' }} ">
                             <i class="nav-icon fas fa-users"></i>
@@ -56,18 +55,19 @@
                     </li>
 
                     {{-- <li class="nav-item">
-                    <a href="{{ route('overtime.index') }}" class="nav-link {{ $page == 'overtime' ? 'active' : '' }}">
-                        <i class="nav-icon fa fa-clock"></i>
-                        <p>Overtime</p>
-                    </a>
-                </li> --}}
+                        <a href="{{ route('overtime.index') }}"
+                            class="nav-link {{ $page == 'overtime' ? 'active' : '' }}">
+                            <i class="nav-icon fa fa-clock"></i>
+                            <p>Overtime</p>
+                        </a>
+                    </li> --}}
                 @endif
 
                 <li class="nav-item">
                     <a href="{{ route('schedule.index') }}"
                         class="nav-link {{ $page == 'schedule' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-clipboard-list"></i>
-                        <p>Schedule</p>
+                        <p>Jadwal Masuk</p>
                     </a>
                 </li>
 

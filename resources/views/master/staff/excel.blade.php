@@ -20,7 +20,7 @@
 
 <body>
     <div style="text-align: center; font-size: 20px;">
-        <b>DATA JADWAL STAFF YANG SEDANG AKTIF</b>
+        <b>DATA JADWAL KARYAWAN YANG SEDANG AKTIF</b>
     </div>
 
     <br>
