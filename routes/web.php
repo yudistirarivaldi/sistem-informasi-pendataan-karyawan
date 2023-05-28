@@ -77,6 +77,8 @@ Route::middleware('auth')->group(function(){
 
         Route::get('salary', 'SalaryController@index')->name('salary.index');
         Route::get('salary/detail/id={id}', 'SalaryController@show')->name('salary.show');
+        Route::get('salary/{id}', 'SalaryController@destroy')->name('salary.destroy');
+        Route::get('overtime', 'OvertimeController@index')->name('overtime.index');
         Route::get('overtime', 'OvertimeController@index')->name('overtime.index');
 
         Route::middleware('role:admin|accounting')->group(function(){

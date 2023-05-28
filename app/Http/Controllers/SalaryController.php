@@ -252,7 +252,7 @@ class SalaryController extends Controller
                 ->get();
         $data['filter'] = $f;
 
-        $customPaper = array(0,0,400,700);
+        $customPaper = array(0,0,500,700);
         $pdf = Pdf::loadview('salary.pdf', $data)->setPaper($customPaper,'landscape');
     	return $pdf->download('laporan-gaji-karyawan.pdf');
     }

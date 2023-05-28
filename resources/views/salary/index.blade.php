@@ -64,11 +64,20 @@
                                                     <i class="fas fa-ellipsis-v"></i>
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-right">
-                                                    {{-- <a class="dropdown-item" href="{{ route('salary.edit', $item->id) }}">
+                                                    <a class="dropdown-item" href="{{ route('salary.edit', $item->id) }}">
                                                         <i class="far fa-edit mr-1"></i> Edit
                                                     </a>
-                                                    <div class="dropdown-divider"></div> --}}
-                                                    <a class="dropdown-item" href="javascript:void(0)" onClick="hapus({{$item->id}})">
+
+                                                    {{-- @if (Auth::user()->hasRole('admin'))
+                                                        <div class="dropdown-divider"></div>
+                                                        <a class="dropdown-item" href="javascript:void(0)"
+                                                            onClick="hapus({{ $item->id }})">
+                                                            <i class="far fa-trash-alt mr-2"></i> Hapus
+                                                        </a>
+                                                    @endif --}}
+
+                                                    <div class="dropdown-divider"></div>
+                                                    <a class="dropdown-item" href="javascript:void(0)" onClick="hapus({{ $item->id }})">
                                                         <i class="far fa-trash-alt mr-2"></i> Hapus
                                                     </a>
                                                 </div>

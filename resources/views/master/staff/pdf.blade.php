@@ -13,14 +13,42 @@
         table tr th {
             font-size: 9pt;
         }
+
+        body {
+            font-family: arial;
+
+        }
+
+        table {
+            border-bottom: 4px solid #000;
+            padding: 2px
+        }
+
+        .tengah {
+            text-align: center;
+            line-height: 5px;
+        }
     </style>
+
+    <div class="rangkasurat">
+        <table width="100%">
+            <tr>
+                <td><img src="img/hicol.png" alt="" width="140px"></td>
+                <td class="tengah">
+                    <h2>PT. GENERASI ANAK MUDA BERKARYA</h2>
+                    <p style="font-size: 15px">Jl. Letjen S. Parman No.24, RT.1/RW.4, Palmerah Kota Jakarta Barat</p>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <br>
     <center>
         <h5>Laporan Data Karyawan
 
         </h5>
     </center>
 
-    <br>
+
 
     <table class='table table-bordered'>
         <thead>

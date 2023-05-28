@@ -84,7 +84,7 @@
                                                     @endif
                                                 @else
                                                     <div>
-                                                        {!! $item->status == "terima"
+                                                        {!! $item->status == 'disetujui'
                                                             ? '<span class="badge badge-success">disetujui</span>'
                                                             : '<span class="badge badge-danger">ditolak</span>' !!}
                                                     </div>
@@ -98,7 +98,8 @@
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-right">
                                                     @if ($item->status == 0)
-                                                        <a class="dropdown-item" href="{{ route('cuti.edit', $item->id) }}">
+                                                        <a class="dropdown-item"
+                                                            href="{{ route('cuti.edit', $item->id) }}">
                                                             <i class="far fa-edit mr-1"></i> Edit
                                                         </a>
                                                     @else
@@ -125,8 +126,7 @@
                                         id="export-excel">
                                         <i class="fa fa-file-excel-o fa-fw"></i> Export Excel
                                     </a>
-                                    <a href="{{ route('cuti.export.pdf') }}" class="btn btn-danger btn-sm"
-                                        id="export-pdf">
+                                    <a href="{{ route('cuti.export.pdf') }}" class="btn btn-danger btn-sm" id="export-pdf">
                                         <i class="fa fa-file-pdf-o fa-fw"></i> Export PDF
                                     </a>
                                 </div>

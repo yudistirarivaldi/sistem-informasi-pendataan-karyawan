@@ -2,7 +2,7 @@
     header('Cache-Control: no-cache, must-revalidate');
     header('Pragma: no-cache');
     header('Content-type: application/octet-stream');
-
+    
 @endphp
 <!DOCTYPE html>
 <html>
@@ -14,12 +14,39 @@
             vertical-align: middle;
 
         }
+
+        body {
+            font-family: arial;
+
+        }
+
+        table.table {
+            border-bottom: 4px solid #000;
+            padding: 2px
+        }
+
+        .tengah {
+            text-align: center;
+            line-height: 5px;
+        }
     </style>
 </head>
 
 <body>
+    <div class="rangkasurat">
+        <table class="table" width="100%">
+            <tr>
+                {{-- <td><img src="img/hicol.png" alt="" width="140px"></td> --}}
+                <td class="tengah">
+                    <h2>PT. GENERASI ANAK MUDA BERKARYA</h2>
+                    <p>Jl. Letjen S. Parman No.24, RT.1/RW.4, Palmerah Kota Jakarta Barat</p>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <br>
     <div style="text-align: center; font-size: 20px;">
-        <b>DATA GAJI KARYAWAN</b>
+        <b>SLIP GAJI KARYAWAN</b>
     </div>
 
     <br>
