@@ -53,15 +53,15 @@
                             <p>Karyawan</p>
                         </a>
                     </li>
-
-                    {{-- <li class="nav-item">
-                        <a href="{{ route('overtime.index') }}"
-                            class="nav-link {{ $page == 'overtime' ? 'active' : '' }}">
-                            <i class="nav-icon fa fa-clock"></i>
-                            <p>Overtime</p>
-                        </a>
-                    </li> --}}
                 @endif
+
+                <li class="nav-item">
+                    <a href="{{ route('overtime.index') }}"
+                        class="nav-link {{ $page == 'overtime' ? 'active' : '' }}">
+                        <i class="nav-icon fa fa-clock"></i>
+                        <p>Lembur</p>
+                    </a>
+                </li>
 
                 <li class="nav-item">
                     <a href="{{ route('schedule.index') }}"
@@ -77,6 +77,13 @@
                         <p>Permohonan Cuti</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                        <a href="{{ route('absensi.index') }}"
+                            class="nav-link {{ $page == 'absensi' ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-tasks"></i>
+                            <p>Absensi</p>
+                        </a>
+                    </li>
                 @if (Auth::user()->hasRole('admin'))
                     <li class="nav-item">
                         <a href="{{ route('salary.index') }}"
@@ -85,31 +92,25 @@
                             <p>Penggajian</p>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="{{ route('absensi.index') }}"
-                            class="nav-link {{ $page == 'absensi' ? 'active' : '' }}">
-                            <i class="nav-icon fas fa-tasks"></i>
-                            <p>Absensi</p>
-                        </a>
-                    </li>
 
-                    {{-- <li class="nav-header">Special Menu</li>
+{{-- 
+                    <li class="nav-header">Special Menu</li>
 
                     <li class="nav-item">
                         <a href="{{ route('users.index') }}" class="nav-link {{ $page == 'users' ? 'active' : '' }}">
                             <i class="nav-icon fa fa-user-circle-o"></i>
                             <p>Users</p>
                         </a>
-                    </li> --}}
+                    </li>
 
-                    {{-- <li class="nav-item">
+                    <li class="nav-item">
                         <a href="{{ route('roles.index') }}" class="nav-link {{ $page == 'roles' ? 'active' : '' }}">
                             <i class="nav-icon fa fa-cog"></i>
                             <p>Role</p>
                         </a>
-                    </li> --}}
+                    </li>
 
-                    {{-- <li class="nav-item">
+                    <li class="nav-item">
                         <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="nav-link">
                             <i class="nav-icon fa fa-sign-out"></i>
                             <p>Logout</p>

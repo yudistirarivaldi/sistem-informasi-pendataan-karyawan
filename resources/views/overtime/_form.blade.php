@@ -10,9 +10,9 @@
     <div class="card-header with-border pl-0 pb-1">
         <span class="col-form-label text-bold">Overtime</span>
     </div>
-    <br> 
-    <div class="form-group row">
-        <label class="col-md-4 col-xs-4 col-form-label justify-flex-end">Staff <span class="text-danger">*</span></label> 
+    <br>
+    {{-- <div class="form-group row">
+        <label class="col-md-4 col-xs-4 col-form-label justify-flex-end">Staff <span class="text-danger">*</span></label>
         <div class="col-12 col-md-5 col-lg-5">
             <select name="staff_id" class="form-control select2 @error('staff_id') is-invalid @enderror">
                 <option value=""></option>
@@ -25,11 +25,79 @@
                     {{ $errors->first('staff_id') }}
                 </span>
             @enderror
-        </div> 
+        </div>
+    </div> --}}
+
+    <div class="form-group row">
+        <label class="col-md-4 col-xs-4 col-form-label justify-flex-end">Staff <span class="text-danger">*</span></label>
+        <div class="col-12 col-md-5 col-lg-5">
+            @if (Auth::user()->hasRole('admin'))
+                <select name="staff_id" class="form-control select2 @error('staff_id') is-invalid @enderror">
+                    <option value=""></option>
+                    @foreach ($staff as $item)
+                        <option value="{{ $item->id }}" {{ $item->id == old('staff_id', $overtime->staff_id ?? '') ? 'selected' : '' }}>{{ $item->name }}</option>
+                    @endforeach
+                </select>
+            @else
+                <select name="staff_id" class="form-control select2 @error('staff_id') is-invalid @enderror">
+                    @foreach ($staff->where('id', Auth::user()->staff->id) as $item)
+                        <option value="{{ $item->id }}" {{ $item->id == old('staff_id', $overtime->staff_id ?? '') ? 'selected' : '' }}>{{ $item->name }}</option>
+                    @endforeach
+                </select>
+            @endif
+
+            @error('staff_id')
+                <span class="text-danger" role="alert">
+                    {{ $errors->first('staff_id') }}
+                </span>
+            @enderror
+        </div>
+    </div>
+
+     {{-- <div class="form-group row">
+        <label class="col-md-4 col-xs-4 col-form-label justify-flex-end">Departement<span class="text-danger">*</span></label>
+        <div class="col-12 col-md-5 col-lg-5">
+            <select name="departement_id" class="form-control select3 @error('departement_id') is-invalid @enderror">
+                <option value=""></option>
+                @foreach ($departement as $item)
+                    <option value="{{ $item->id }}" {{ $item->id == old('departement_id', $overtime->departement_id ?? '') ? 'selected' : '' }}>{{ $item->name }}</option>
+                @endforeach
+            </select>
+            @error('departement_id')
+                <span class="text-danger" role="alert">
+                    {{ $errors->first('departement_id') }}
+                </span>
+            @enderror
+        </div>
+    </div> --}}
+
+     <div class="form-group row">
+        <label class="col-md-4 col-xs-4 col-form-label justify-flex-end">Departement <span class="text-danger">*</span></label>
+        <div class="col-12 col-md-5 col-lg-5">
+            @if (Auth::user()->hasRole('admin'))
+                <select name="departement_id" class="form-control select2 @error('departement_id') is-invalid @enderror">
+                    <option value=""></option>
+                    @foreach ($departement as $item)
+                        <option value="{{ $item->id }}" {{ $item->id == old('departement_id', $overtime->departement_id ?? '') ? 'selected' : '' }}>{{ $item->name }}</option>
+                    @endforeach
+                </select>
+            @else
+                <select name="departement_id" class="form-control select2 @error('departement_id') is-invalid @enderror">
+                    @foreach ($departement->where('id', Auth::user()->staff->departement_id) as $item)
+                        <option value="{{ $item->id }}" {{ $item->id == old('departement_id', $overtime->departement_id ?? '') ? 'selected' : '' }}>{{ $item->name }}</option>
+                    @endforeach
+                </select>
+            @endif
+            @error('departement_id')
+                <span class="text-danger" role="alert">
+                    {{ $errors->first('departement_id') }}
+                </span>
+            @enderror
+        </div>
     </div>
 
     <div class="form-group row">
-        <label class="col-md-4 col-xs-4 col-form-label justify-flex-end">Jam Lembur<span class="text-danger">*</span></label> 
+        <label class="col-md-4 col-xs-4 col-form-label justify-flex-end">Jam Lembur<span class="text-danger">*</span></label>
         <div class="col-12 col-md-5 col-lg-5">
             <div class="input-group">
                 <input type="number" name="jumlah_overtime" class="form-control @error('jumlah_overtime') is-invalid @enderror" value="{{ old('jumlah_overtime', $overtime->jumlah_overtime ?? '') }}" min="0" autocomplete="off" placeholder="0">
@@ -42,11 +110,11 @@
                    {{ $errors->first('jumlah_overtime') }}
                 </span>
             @enderror
-        </div> 
+        </div>
     </div>
 
     <div class="form-group row">
-        <label class="col-md-4 col-xs-4 col-form-label justify-flex-end">Tgl. Lembur <span class="text-danger">*</span></label> 
+        <label class="col-md-4 col-xs-4 col-form-label justify-flex-end">Tgl. Lembur <span class="text-danger">*</span></label>
         <div class="col-12 col-md-5 col-lg-5">
             <input type="date" name="tgl_overtime" class="form-control @error('tgl_overtime') is-invalid @enderror" value="{{ old('tgl_overtime', $overtime->tgl_overtime ?? '') }}" autocomplete="off">
             @error('tgl_overtime')
@@ -54,13 +122,13 @@
                     {{ $errors->first('tgl_overtime') }}
                 </span>
             @enderror
-        </div> 
+        </div>
     </div>
 </div>
 <div class="card-footer">
     <div class="offset-md-4">
         <div class="form-group mb-0">
-            <button type="submit" class="btn btn-primary mr-1"><i class="fas fa-check-double mr-1"></i> Simpan</button> 
+            <button type="submit" class="btn btn-primary mr-1"><i class="fas fa-check-double mr-1"></i> Simpan</button>
             <button type="reset" class="btn btn-secondary"><i class="fas fa-undo mr-1"></i> Reset</button>
         </div>
     </div>

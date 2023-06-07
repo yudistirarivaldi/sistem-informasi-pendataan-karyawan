@@ -12,6 +12,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Master\Attendance;
 use App\Models\Master\Keterangan;
 use App\Models\Master\Departement;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 
 class AbsensiController extends Controller
@@ -29,6 +30,21 @@ class AbsensiController extends Controller
 
     public function create()
     {
+
+        // if(Auth::user()->hasRole('admin'))
+        // {
+        //     $data['overtime'] = Overtime::all();
+        //     $data['count']    = Overtime::count();
+        //     return view('overtime.index', $data);
+
+        // }
+        // else
+        // {
+        //     $data['overtime'] = Overtime::where('staff_id', Auth::user()->staff->id)->get();
+        //     $data['count'] = 1;
+        //     return view('overtime.index', $data);
+        // }
+
         $query = Absensi::select('code')->max('code');
         $kode_count = substr($query, 11) . 1;
         $maxkode = sprintf("%03s",$kode_count);
@@ -55,30 +71,35 @@ class AbsensiController extends Controller
         }
         $absen_detail = new Absensi();
         $tanggal_absen = date('Y-m-d', strtotime($request->tanggal));
-        $cek_absen = $absen_detail->where(['tanggal_absen' => $tanggal_absen])->count();
-        if ($cek_absen > 0 ){
-            $message = [
-                'alert-type' => 'error',
-                'message' => 'Anda sudah absen pada tanggal '.tgl_indo($tanggal_absen).' ini, Absen lagi ditanggal berikutnya.'
-            ];
-            return redirect()->back()->with($message);
-        }
+
+        // $cek_absen = $absen_detail->where(['tanggal_absen' => $tanggal_absen])->count();
+
+        // if ($cek_absen == 1 ){
+        //     $message = [
+        //         'alert-type' => 'error',
+        //         'message' => 'Anda sudah absen pada tanggal '.tgl_indo($tanggal_absen).' ini, Absen lagi ditanggal berikutnya.'
+        //     ];
+        //     return redirect()->back()->with($message);
+        // }
 
         $data['title'] = "Absen Harian";
         $data['request']  = $request;
         $keterangan = new Keterangan();
         $data['attendance'] = Attendance::all();
+        // $data['overtime'] = Overtime::where('staff_id', Auth::user()->staff->id)->get();
         $data['status'] = $keterangan->status;
         $data['schedule'] = Schedule::orderBy('a.name', 'asc')
                                     ->select(DB::raw('tb_schedule.*, a.name'))
                                     ->join('tb_staff AS a', 'a.id', '=', 'tb_schedule.staff_id')
+                                    ->where('a.id', Auth::user()->staff->id)
                                     ->get();
+        // $data['schedule'] = Schedule::where('staff_id', Auth::user()->staff->id)->get();
         return view('absensi.detail.create', $data);
     }
 
     public function storeDetail(Request $request)
     {
-        $a      = 0;
+        $a = 0;
         if($request->schedule_id)
         {
             foreach ($request->schedule_id as $score)

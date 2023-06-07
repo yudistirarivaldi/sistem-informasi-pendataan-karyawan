@@ -77,9 +77,8 @@ Route::middleware('auth')->group(function(){
 
         Route::get('salary', 'SalaryController@index')->name('salary.index');
         Route::get('salary/detail/id={id}', 'SalaryController@show')->name('salary.show');
-        Route::get('salary/{id}', 'SalaryController@destroy')->name('salary.destroy');
-        Route::get('overtime', 'OvertimeController@index')->name('overtime.index');
-        Route::get('overtime', 'OvertimeController@index')->name('overtime.index');
+
+
 
         Route::middleware('role:admin|accounting')->group(function(){
             Route::get('salary/create', 'SalaryController@create')->name('salary.create');
@@ -88,26 +87,16 @@ Route::middleware('auth')->group(function(){
 
             Route::get('salary/{salary}/edit', 'SalaryController@edit')->name('salary.edit');
             Route::patch('salary/{salary}/update', 'SalaryController@update')->name('salary.update');
+            Route::get('salary/{id}', 'SalaryController@destroy')->name('salary.destroy');
             Route::get('staff/get_salary', 'SalaryController@getSalary');
             Route::get('salary/export/excel/id={id}/filter={filter}', 'SalaryController@excel')->name('salary.export.excel');
 
             Route::get('salary/export/pdf/id={id}/filter={filter}', 'SalaryController@pdf')->name('salary.export.pdf');
 
-            Route::get('overtime/create', 'OvertimeController@create')->name('overtime.create');
-            Route::post('overtime', 'OvertimeController@store')->name('overtime.store');
-            Route::get('overtime/{overtime}/edit', 'OvertimeController@edit')->name('overtime.edit');
-            Route::patch('overtime/{overtime}/update', 'OvertimeController@update')->name('overtime.update');
-            Route::get('overtime/{id}', 'OvertimeController@destroy')->name('overtime.destroy');
+
         });
 
-        Route::get('absensi', 'AbsensiController@index')->name('absensi.index');
-        Route::get('absensi/create', 'AbsensiController@create')->name('absensi.create');
-        Route::post('absensi/detail/create', 'AbsensiController@store')->name('absensi.store');
-        Route::get('absensi/delete/{id}', 'AbsensiController@destroy')->name('absensi.destroy');
 
-        Route::get('absensi/detail/create', 'AbsensiController@createDetail')->name('absensi.detail.create');
-        Route::post('absensi/detail/store', 'AbsensiController@storeDetail')->name('absensi.detail.store');
-        Route::get('absensi/detail/periode={periode}', 'AbsensiController@show')->name('absensi.detail');
         Route::get('absensi/export/excel/periode={periode}/filter={filter}', 'AbsensiController@excel')->name('absensi.export.excel');
         Route::get('absensi/export/pdf/periode={periode}/filter={filter}', 'AbsensiController@pdf')->name('absensi.export.pdf');
 
@@ -136,4 +125,26 @@ Route::middleware('auth')->group(function(){
         Route::get('cuti/export/excel', 'CutiController@excel')->name('cuti.export.excel');
         Route::get('cuti/export/pdf', 'CutiController@pdf')->name('cuti.export.pdf');
     });
+
+    Route::get('overtime', 'OvertimeController@index')->name('overtime.index');
+    Route::get('overtime', 'OvertimeController@index')->name('overtime.index');
+    Route::get('overtime/create', 'OvertimeController@create')->name('overtime.create');
+    Route::post('overtime', 'OvertimeController@store')->name('overtime.store');
+    Route::get('overtime/{overtime}/edit', 'OvertimeController@edit')->name('overtime.edit');
+    Route::patch('overtime/{overtime}/update', 'OvertimeController@update')->name('overtime.update');
+    Route::get('overtime/{id}', 'OvertimeController@destroy')->name('overtime.destroy');
+    Route::middleware('role:admin')->group(function(){
+        Route::get('overtime/export/excel', 'OvertimeController@excel')->name('overtime.export.excel');
+        Route::get('overtime/export/pdf', 'OvertimeController@pdf')->name('overtime.export.pdf');
+    });
+
+      Route::get('absensi', 'AbsensiController@index')->name('absensi.index');
+        Route::get('absensi/create', 'AbsensiController@create')->name('absensi.create');
+        Route::post('absensi/detail/create', 'AbsensiController@store')->name('absensi.store');
+        Route::get('absensi/delete/{id}', 'AbsensiController@destroy')->name('absensi.destroy');
+
+        Route::get('absensi/detail/create', 'AbsensiController@createDetail')->name('absensi.detail.create');
+        Route::post('absensi/detail/store', 'AbsensiController@storeDetail')->name('absensi.detail.store');
+        Route::get('absensi/detail/periode={periode}', 'AbsensiController@show')->name('absensi.detail');
+
 });

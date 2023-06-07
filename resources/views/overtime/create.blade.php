@@ -20,7 +20,7 @@
                                     <i class="fa fa-arrow-left fa-fw"></i></span>
                                 </a>
                             </div>
-                            </div> 
+                            </div>
                             <form action="{{ route('overtime.store') }}" method="POST" class="form-horizontal" enctype="multipart/form-data">
                                 @csrf
                                 @include('overtime._form')
@@ -43,7 +43,10 @@
     	$('.select2').select2({
 			placeholder : 'Pilih Karyawan..'
         });
-        
+        $('.select3').select2({
+			placeholder : 'Pilih Departement..'
+        });
+
 		$('.datepicker').daterangepicker({
 		  singleDatePicker: true,
 		  showDropdowns: true,
