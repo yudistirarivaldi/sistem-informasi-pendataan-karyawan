@@ -138,7 +138,7 @@ Route::middleware('auth')->group(function(){
         Route::get('overtime/export/pdf', 'OvertimeController@pdf')->name('overtime.export.pdf');
     });
 
-      Route::get('absensi', 'AbsensiController@index')->name('absensi.index');
+        Route::get('absensi', 'AbsensiController@index')->name('absensi.index');
         Route::get('absensi/create', 'AbsensiController@create')->name('absensi.create');
         Route::post('absensi/detail/create', 'AbsensiController@store')->name('absensi.store');
         Route::get('absensi/delete/{id}', 'AbsensiController@destroy')->name('absensi.destroy');

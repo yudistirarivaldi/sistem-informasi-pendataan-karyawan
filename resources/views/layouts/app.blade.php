@@ -7,6 +7,7 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name', 'SIPK') }} - Sistem Informasi Pendataan Karyawan</title>
+    <link rel="icon" type="image/x-icon" href="{{ asset('img/logo-2.png') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" />
     @yield('styles')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.0.0-alpha/dist/css/adminlte.min.css">
