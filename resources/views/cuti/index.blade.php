@@ -122,13 +122,19 @@
 
                             <div class="card-footer">
                                 <div class="text-right">
-                                    <a href="{{ route('cuti.export.excel') }}" class="btn btn-success btn-sm"
-                                        id="export-excel">
-                                        <i class="fa fa-file-excel-o fa-fw"></i> Export Excel
-                                    </a>
-                                    <a href="{{ route('cuti.export.pdf') }}" class="btn btn-danger btn-sm" id="export-pdf">
-                                        <i class="fa fa-file-pdf-o fa-fw"></i> Export PDF
-                                    </a>
+
+                                    @if (!Auth::user()->hasRole('karyawan'))
+                                        <a href="{{ route('cuti.export.excel') }}" class="btn btn-success btn-sm"
+                                            id="export-excel">
+                                            <i class="fa fa-file-excel-o fa-fw"></i> Export Excel
+                                        </a>
+                                        <a href="{{ route('cuti.export.pdf') }}" class="btn btn-danger btn-sm"
+                                            id="export-pdf">
+                                            <i class="fa fa-file-pdf-o fa-fw"></i> Export PDF
+                                        </a>
+                                    @endif
+
+
                                 </div>
                             </div>
 

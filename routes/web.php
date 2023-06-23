@@ -93,6 +93,8 @@ Route::middleware('auth')->group(function(){
 
             Route::get('salary/export/pdf/id={id}/filter={filter}', 'SalaryController@pdf')->name('salary.export.pdf');
 
+            Route::get('salary/export/pdf', 'SalaryController@pdfSemuaKaryawan')->name('salary.semua.export.pdf');
+
 
         });
 
@@ -110,6 +112,7 @@ Route::middleware('auth')->group(function(){
             Route::get('schedule/export/pdf', 'ScheduleController@pdf')->name('schedule.export.pdf');
 
         });
+
     });
 
     Route::get('schedule', 'ScheduleController@index')->name('schedule.index');
@@ -147,4 +150,29 @@ Route::middleware('auth')->group(function(){
         Route::post('absensi/detail/store', 'AbsensiController@storeDetail')->name('absensi.detail.store');
         Route::get('absensi/detail/periode={periode}', 'AbsensiController@show')->name('absensi.detail');
 
+        Route::get('sanksi/create', 'SanksiController@create')->name('sanksi.create');
+            Route::post('sanksi', 'SanksiController@store')->name('sanksi.store');
+            Route::get('sanksi/{sanksi}/edit', 'SanksiController@edit')->name('sanksi.edit');
+            Route::patch('sanksi/{sanksi}/update', 'SanksiController@update')->name('sanksi.update');
+            Route::get('sanksi/{id}', 'SanksiController@destroy')->name('sanksi.destroy');
+            Route::get('sanksi/export/excel', 'SanksiController@excel')->name('sanksi.export.excel');
+            Route::get('sanksi/export/pdf', 'SanksiController@pdf')->name('sanksi.export.pdf');
+            Route::get('sanksi', 'SanksiController@index')->name('sanksi.index');
+
+            Route::get('mutasi/create', 'MutasiController@create')->name('mutasi.create');
+            Route::post('mutasi', 'MutasiController@store')->name('mutasi.store');
+            Route::get('mutasi/{mutasi}/edit', 'MutasiController@edit')->name('mutasi.edit');
+            Route::patch('mutasi/{mutasi}/update', 'MutasiController@update')->name('mutasi.update');
+            Route::get('mutasi/{id}', 'MutasiController@destroy')->name('mutasi.destroy');
+            Route::get('mutasi/export/excel', 'MutasiController@excel')->name('mutasi.export.excel');
+            Route::get('mutasi/export/pdf', 'MutasiController@pdf')->name('mutasi.export.pdf');
+            Route::get('mutasi', 'MutasiController@index')->name('mutasi.index');
+
+
+        Route::middleware('role:admin')->group(function(){
+        Route::get('cuti/{id}', 'CutiController@destroy')->name('cuti.destroy');
+        Route::patch('/cuti/{id}/validated', 'CutiController@validasi')->name('cuti.validated');
+        Route::get('cuti/export/excel', 'CutiController@excel')->name('cuti.export.excel');
+        Route::get('cuti/export/pdf', 'CutiController@pdf')->name('cuti.export.pdf');
+    });
 });

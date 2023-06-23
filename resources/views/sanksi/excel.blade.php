@@ -3,7 +3,7 @@
     header('Pragma: no-cache');
     header('Content-type: application/x-msexcel');
     header('Content-type: application/octet-stream');
-    header('Content-Disposition: attachment; filename=Laporan-staff-' . 'staff' . '.xls');
+    header('Content-Disposition: attachment; filename=Laporan-schedule-staff-' . 'schedule' . '.xls');
 @endphp
 <!DOCTYPE html>
 <html>
@@ -20,7 +20,7 @@
 
 <body>
     <div style="text-align: center; font-size: 20px;">
-        <b>DATA LEMBUR KARYAWAN</b>
+        <b>DATA SANKSI KARYAWAN</b>
     </div>
 
     <br>
@@ -28,9 +28,10 @@
         <thead>
             <tr style="background-color: royalblue">
                 <th>Staff</th>
-                <th>Departement</th>
-                <th>Jumlah Lembur</th>
-                <th>Tgl Lembur</th>
+                <th>NIK</th>
+                <th>Jenis Kelamin</th>
+                <th>Keterangan</th>
+                <th>Status</th>
             </tr>
         </thead>
         <tbody>
@@ -38,9 +39,10 @@
             @forelse ($items as $item)
                 <tr style="line-height: 1;">
                     <td>{{ $item->staff->name }}</td>
-                    <td>{{ $item->departement->name }}</td>
-                    <td>{{ $item->jumlah_overtime . ' Jam' }}</td>
-                    <td>{{ $item->tgl_overtime }}</td>
+                    <td>{{ $item->staff->nik }}</td>
+                    <td>{{ $item->staff->jenis_kelamin }}</td>
+                    <td>{{ $item->keterangan }}</td>
+                    <td>{{ $item->peringatan->name }}</td>
                 </tr>
             @empty
                 <tr>

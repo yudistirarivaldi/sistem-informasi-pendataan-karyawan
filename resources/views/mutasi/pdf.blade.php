@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Laporan Data Cuti Karyawan</title>
+    <title>Laporan Data Mutasi Masuk Karyawan</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
@@ -41,23 +41,25 @@
             </tr>
         </table>
     </div>
-
     <center>
-        <h5>Laporan Data Lembur Karyawan
+        <br>
+        <h5>Laporan Data Mutasi Karyawan
 
         </h5>
     </center>
 
-    <br>
 
     <table class='table table-bordered'>
         <thead>
             <tr>
                 <th>No</th>
                 <th>Staff</th>
-                <th>Departement</th>
-                <th>Jumlah Lembur</th>
-                <th>Tgl Lembur</th>
+                <th>NIK</th>
+                <th>Jenis Kelamin</th>
+                <th>Dari Kantor</th>
+                <th>Kantor Tujuan</th>
+                <th>Keterangan</th>
+
             </tr>
         </thead>
         <tbody>
@@ -65,13 +67,15 @@
                 <tr style="line-height: 1;">
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $item->staff->name }}</td>
-                    <td>{{ $item->departement->name }}</td>
-                    <td>{{ $item->jumlah_overtime . ' Jam' }}</td>
-                    <td>{{ $item->tgl_overtime }}</td>
+                    <td>{{ $item->staff->nik }}</td>
+                    <td>{{ $item->staff->jenis_kelamin }}</td>
+                    <td>{{ $item->dari }}</td>
+                    <td>{{ $item->ke }}</td>
+                    <td>{{ $item->keterangan }}</td>
                 </tr>
             @empty
                 <tr>
-                    <td class="text-center" colspan="7">Tidak ada data untuk ditampilkan</td>
+                    <td class="text-center" colspan="5">Tidak ada data untuk ditampilkan</td>
                 </tr>
             @endforelse
         </tbody>

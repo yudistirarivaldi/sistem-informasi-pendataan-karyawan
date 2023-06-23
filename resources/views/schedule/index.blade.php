@@ -68,7 +68,8 @@
                                                     <i class="fas fa-ellipsis-v"></i>
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-right">
-                                                    <a class="dropdown-item" href="{{ route('schedule.edit', $item->id) }}">
+                                                    <a class="dropdown-item"
+                                                        href="{{ route('schedule.edit', $item->id) }}">
                                                         <i class="far fa-edit mr-1"></i> Edit
                                                     </a>
                                                     <div class="dropdown-divider"></div>
@@ -88,15 +89,20 @@
 
                             <div class="card-footer">
                                 <div class="text-right">
-                                    <a href="{{ route('schedule.export.excel') }}" class="btn btn-success btn-sm"
-                                        id="export-excel">
-                                        <i class="fa fa-file-excel-o fa-fw"></i> Export Excel
-                                    </a>
 
-                                    <a href="{{ route('schedule.export.pdf') }}" class="btn btn-danger btn-sm"
-                                        id="export-pdf">
-                                        <i class="fa fa-file-pdf-o fa-fw"></i> Export PDF
-                                    </a>
+                                    @if (!Auth::user()->hasRole('karyawan'))
+                                        <a href="{{ route('schedule.export.excel') }}" class="btn btn-success btn-sm"
+                                            id="export-excel">
+                                            <i class="fa fa-file-excel-o fa-fw"></i> Export Excel
+                                        </a>
+
+                                        <a href="{{ route('schedule.export.pdf') }}" class="btn btn-danger btn-sm"
+                                            id="export-pdf">
+                                            <i class="fa fa-file-pdf-o fa-fw"></i> Export PDF
+                                        </a>
+                                    @endif
+
+
                                 </div>
                             </div>
 

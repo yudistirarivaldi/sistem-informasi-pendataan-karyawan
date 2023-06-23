@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Laporan Data Cuti Karyawan</title>
+    <title>Laporan Data Gaji Karyawan</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
@@ -41,23 +41,25 @@
             </tr>
         </table>
     </div>
-
     <center>
-        <h5>Laporan Data Lembur Karyawan
+        <br>
+        <h5>Laporan Data Gaji Karyawan
 
         </h5>
     </center>
 
-    <br>
 
     <table class='table table-bordered'>
         <thead>
             <tr>
                 <th>No</th>
                 <th>Staff</th>
-                <th>Departement</th>
-                <th>Jumlah Lembur</th>
-                <th>Tgl Lembur</th>
+                <th>NIK</th>
+                <th>Jenis Kelamin</th>
+                <th>Periode</th>
+                <th>Total Gaji</th>
+                <th>Tanggal</th>
+
             </tr>
         </thead>
         <tbody>
@@ -65,9 +67,11 @@
                 <tr style="line-height: 1;">
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $item->staff->name }}</td>
-                    <td>{{ $item->departement->name }}</td>
-                    <td>{{ $item->jumlah_overtime . ' Jam' }}</td>
-                    <td>{{ $item->tgl_overtime }}</td>
+                    <td>{{ $item->staff->nik }}</td>
+                    <td>{{ $item->staff->jenis_kelamin }}</td>
+                    <td>{{ ucwords($item->periode) }}</td>
+                    <td>Rp. {{ number_format($item->salary, 0, ',', '.') }}</td>
+                    <td>{{ date('d-m-Y', strtotime($item->tgl_salary)) }}</td>
                 </tr>
             @empty
                 <tr>

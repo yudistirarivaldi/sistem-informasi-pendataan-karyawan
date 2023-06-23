@@ -17,9 +17,9 @@
                             <input type="search" placeholder="Search" aria-label="Search..."
                                 class="form-control input-flat border-0" id="search">
                         </div>
-                        <a href="{{ route('salary.create') }}"
+                        <a href="{{ route('sanksi.create') }}"
                             class="btn btn-default app-shadow d-none d-md-inline-block ml-auto">
-                            <i class="fas fa-dollar fa-fw"></i> Input Salary
+                            <i class="fas fa-user-plus fa-fw"></i> Tambah
                         </a>
                     </div>
                 </form>
@@ -32,7 +32,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header bg-light">
-                                Data Gaji Karyawan
+                                Data Sanksi Karyawan
                                 <span id="count"
                                     class="badge badge-dark float-right float-xl-right mt-1">{{ $count }}</span>
                             </div>
@@ -41,29 +41,28 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Staff</th>
-                                        <th>Position</th>
+                                        <th>Posisi</th>
+                                        <th>Keterangan</th>
                                         <th>Status</th>
-                                        <th>Salary</th>
-                                        <th>Detail</th>
                                         <th class="text-center" style="width: 100px;">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($salary as $item)
+                                    @foreach ($sanksi as $item)
                                         <tr id="hide{{ $item->id }}">
                                             <td>{{ $loop->iteration }}</td>
-
                                             <td>{{ $item->staff->name ?? '' }}</td>
-                                            <td>{{ $item->staff->position->name ?? '' }}</td>
+                                            <td>{{ $item->position->name ?? '' }}</td>
+                                            <td>{{ $item->keterangan ?? '' }}</td>
                                             <td>
                                                 <span
-                                                    class="badge {{ $item->staff->position->status == 'Staff' ? 'badge-info' : 'badge-secondary' }}">{{ $item->staff->position->status ?? '' }}</span>
-                                            </td>
-                                            <td>{{ 'Rp. ' . number_format($item->staff->position->salary ?? '', 0, ',', '.') }}
-                                                {{ $item->staff->position->status == 'Staff' ? '/ Bln' : '/ Hari' }}</td>
-                                            <td>
-                                                <a href="{{ route('salary.show', $item->staff_id) }}"
-                                                    class="btn btn-sm btn-info">Detail Salary</a>
+                                                    class="badge {{ $item->peringatan->name == 'SP1'
+                                                        ? 'badge-info'
+                                                        : ($item->peringatan->name == 'SP2'
+                                                            ? 'badge-warning'
+                                                            : ($item->peringatan->name == 'SP3'
+                                                                ? 'badge-danger'
+                                                                : 'badge-secondary')) }}">{{ $item->peringatan->name ?? '' }}</span>
                                             </td>
                                             <td class="text-center">
                                                 <a href="#" class="text-secondary nav-link p-0" role="button"
@@ -71,17 +70,11 @@
                                                     <i class="fas fa-ellipsis-v"></i>
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-right">
+                                                    <a class="dropdown-item" href="{{ route('sanksi.edit', $item->id) }}">
 
-
-                                                    {{-- @if (Auth::user()->hasRole('admin'))
-                                                        <div class="dropdown-divider"></div>
-                                                        <a class="dropdown-item" href="javascript:void(0)"
-                                                            onClick="hapus({{ $item->id }})">
-                                                            <i class="far fa-trash-alt mr-2"></i> Hapus
-                                                        </a>
-                                                    @endif --}}
-
-                                                   
+                                                        <i class="far fa-edit mr-1"></i> Edit
+                                                    </a>
+                                                    <div class="dropdown-divider"></div>
                                                     <a class="dropdown-item" href="javascript:void(0)"
                                                         onClick="hapus({{ $item->id }})">
                                                         <i class="far fa-trash-alt mr-2"></i> Hapus
@@ -91,7 +84,29 @@
                                         </tr>
                                     @endforeach
                                 </tbody>
+
+
+
                             </table>
+
+                            <div class="card-footer">
+                                <div class="text-right">
+
+                                    @if (!Auth::user()->hasRole('karyawan'))
+                                        <a href="{{ route('sanksi.export.excel') }}" class="btn btn-success btn-sm"
+                                            id="export-excel">
+                                            <i class="fa fa-file-excel-o fa-fw"></i> Export Excel
+                                        </a>
+
+                                        <a href="{{ route('sanksi.export.pdf') }}" class="btn btn-danger btn-sm"
+                                            id="export-pdf">
+                                            <i class="fa fa-file-pdf-o fa-fw"></i> Export PDF
+                                        </a>
+                                    @endif
+
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -99,9 +114,9 @@
         </div>
     </div>
 
-    <a href="{{ route('salary.create') }}"
+    <a href="{{ route('schedule.create') }}"
         class="btn btn-lg rounded-circle btn-primary btn-fly d-block d-md-none app-shadow">
-        <span><i class="fas fa-plus fa-sm align-middle"></i></span>
+        <span><i class="fas fa-user-plus fa-sm align-middle"></i></span>
     </a>
 @endsection
 
@@ -127,7 +142,7 @@
                 function(isConfirm) {
                     if (isConfirm) {
                         $.ajax({
-                            url: "{{ URL::to('/salary/destroy') }}",
+                            url: "{{ URL::to('/sanksi/destroy') }}",
                             data: "id=" + id,
                             success: function(data) {
                                 swal("Deleted", data.message, "success");
@@ -142,4 +157,23 @@
                 });
         }
     </script>
+
+    {{-- @include('alert.mk-notif')
+    <script>
+        $('.select2').select2({
+            placeholder: 'Periode..'
+        });
+        $(document).ready(function() {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+
+        $('#export-excel').on("click", function() {
+            $(this).addClass('disabled');
+            setTimeout(RemoveClass, 1000);
+        });
+
+        function RemoveClass() {
+            $('#export-excel').removeClass("disabled");
+        }
+    </script> --}}
 @endsection

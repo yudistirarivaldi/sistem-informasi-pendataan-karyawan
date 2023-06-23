@@ -30,30 +30,110 @@
                 </li>
 
                 @if (!Auth::user()->hasRole('karyawan'))
-                    <li class="nav-item">
-                        <a href="{{ route('master.position.index') }}"
-                            class="nav-link {{ \Route::current()->getName() == 'master.position.index' ? 'active' : '' }}">
-                            <i class="nav-icon fas fa-user"></i>
-                            <p>Posisi</p>
+                    <li class="nav-item has-treeview {{ $page == 'master' ? 'menu-open' : '' }}">
+                        <a href="#" class="nav-link {{ $page == 'master' ? 'active' : '' }}">
+                            <i class="nav-icon fa fa-laptop"></i>
+                            <p>
+                                Master
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
                         </a>
-                    </li>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ route('master.position.index') }}"
+                                    class="nav-link {{ \Route::current()->getName() == 'master.position.index' ? 'active' : '' }}">
+                                    <i class="nav-icon fas fa-user"></i>
+                                    <p>Posisi</p>
+                                </a>
+                            </li>
 
-                    <li class="nav-item">
-                        <a href="{{ route('master.departement.index') }}"
-                            class="nav-link {{ \Route::current()->getName() == 'master.departement.index' ? 'active' : '' }}">
-                            <i class="nav-icon fas fa-building"></i>
-                            <p>Departemen</p>
-                        </a>
-                    </li>
+                            <li class="nav-item">
+                                <a href="{{ route('master.departement.index') }}"
+                                    class="nav-link {{ \Route::current()->getName() == 'master.departement.index' ? 'active' : '' }}">
+                                    <i class="nav-icon fas fa-building"></i>
+                                    <p>Departemen</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('master.staff.index') }}"
+                                    class="nav-link {{ \Route::current()->getName() == 'master.staff.index' ? 'active' : '' }} ">
+                                    <i class="nav-icon fas fa-users"></i>
+                                    <p>Karyawan</p>
+                                </a>
+                            </li>
+                        </ul>
 
-                    <li class="nav-item">
-                        <a href="{{ route('master.staff.index') }}"
-                            class="nav-link {{ \Route::current()->getName() == 'master.staff.index' ? 'active' : '' }} ">
-                            <i class="nav-icon fas fa-users"></i>
-                            <p>Karyawan</p>
-                        </a>
                     </li>
                 @endif
+
+                 @if (!Auth::user()->hasRole('karyawan'))
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fa fa-book"></i>
+                            <p>
+                                Laporan
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ route('master.staff.export.pdf') }}"
+                                    class="nav-link">
+                                    <i class="nav-icon fas fa-book"></i>
+                                    <p>Karyawan</p>
+                                </a>
+                            </li>
+                             <li class="nav-item">
+                                <a href="{{ route('schedule.export.pdf') }}"
+                                    class="nav-link">
+                                    <i class="nav-icon fas fa-book"></i>
+                                    <p>Jadwal Masuk</p>
+                                </a>
+                            </li>
+                             <li class="nav-item">
+                                <a href="{{ route('cuti.export.pdf') }}"
+                                    class="nav-link">
+                                    <i class="nav-icon fas fa-book"></i>
+                                    <p>Cuti</p>
+                                </a>
+                            </li>
+                             <li class="nav-item">
+                                <a href="{{ route('sanksi.export.pdf') }}"
+                                    class="nav-link">
+                                    <i class="nav-icon fas fa-book"></i>
+                                    <p>Sanksi</p>
+                                </a>
+                            </li>
+                             <li class="nav-item">
+                                <a href="{{ route('mutasi.export.pdf') }}"
+                                    class="nav-link">
+                                    <i class="nav-icon fas fa-book"></i>
+                                    <p>Mutasi</p>
+                                </a>
+                            </li>
+                             <li class="nav-item">
+                                <a href="{{ route('salary.semua.export.pdf') }}"
+                                    class="nav-link">
+                                    <i class="nav-icon fas fa-book"></i>
+                                    <p>Penggajian</p>
+                                </a>
+                            </li>
+                             <li class="nav-item">
+                                <a href="{{ route('overtime.export.pdf') }}"
+                                    class="nav-link">
+                                    <i class="nav-icon fas fa-book"></i>
+                                    <p>Lembur</p>
+                                </a>
+                            </li>
+
+                        </ul>
+
+
+                    </li>
+                @endif
+
+
+                <li class="nav-header">Manajemen Karyawan</li>
 
                 <li class="nav-item">
                     <a href="{{ route('overtime.index') }}"
@@ -77,13 +157,24 @@
                         <p>Permohonan Cuti</p>
                     </a>
                 </li>
+                 <li class="nav-item">
+                    <a href="{{ route('sanksi.index') }}" class="nav-link {{ $page == 'sanksi' ? 'active' : '' }}">
+                        <i class="nav-icon fa fa-user-times"></i>
+                        <p>Sanksi Karyawan</p>
+                    </a>
+                </li>
                 <li class="nav-item">
-                        <a href="{{ route('absensi.index') }}"
-                            class="nav-link {{ $page == 'absensi' ? 'active' : '' }}">
-                            <i class="nav-icon fas fa-tasks"></i>
-                            <p>Absensi</p>
-                        </a>
-                    </li>
+                    <a href="{{ route('mutasi.index') }}" class="nav-link {{ $page == 'mutasi' ? 'active' : '' }}">
+                        <i class="nav-icon fa fa-exchange"></i>
+                        <p>Mutasi Karyawan</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('absensi.index') }}" class="nav-link {{ $page == 'absensi' ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-tasks"></i>
+                        <p>Absensi</p>
+                    </a>
+                </li>
                 @if (Auth::user()->hasRole('admin'))
                     <li class="nav-item">
                         <a href="{{ route('salary.index') }}"
@@ -92,33 +183,6 @@
                             <p>Penggajian</p>
                         </a>
                     </li>
-
-{{-- 
-                    <li class="nav-header">Special Menu</li>
-
-                    <li class="nav-item">
-                        <a href="{{ route('users.index') }}" class="nav-link {{ $page == 'users' ? 'active' : '' }}">
-                            <i class="nav-icon fa fa-user-circle-o"></i>
-                            <p>Users</p>
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="{{ route('roles.index') }}" class="nav-link {{ $page == 'roles' ? 'active' : '' }}">
-                            <i class="nav-icon fa fa-cog"></i>
-                            <p>Role</p>
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="nav-link">
-                            <i class="nav-icon fa fa-sign-out"></i>
-                            <p>Logout</p>
-                        </a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                            @csrf
-                        </form>
-                    </li> --}}
                 @endif
             </ul>
         </nav>

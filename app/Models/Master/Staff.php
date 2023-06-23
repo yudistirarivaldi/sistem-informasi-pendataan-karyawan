@@ -2,9 +2,12 @@
 
 namespace App\Models\Master;
 
-use Illuminate\Database\Eloquent\Model;
-// use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Mutasi;
 use App\Models\Users;
+// use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Sanksi;
+use App\Models\Schedule;
+use Illuminate\Database\Eloquent\Model;
 
 class Staff extends Model
 {
@@ -39,7 +42,15 @@ class Staff extends Model
     }
 
     public function schedules() {
-        return $this->hasMany(\App\Models\Schedule::class);
+        return $this->hasMany(Schedule::class);
+    }
+
+    public function sanksi() {
+        return $this->hasMany(Sanksi::class);
+    }
+
+    public function mutasi() {
+        return $this->hasMany(Mutasi::class);
     }
 
     public function salary() {

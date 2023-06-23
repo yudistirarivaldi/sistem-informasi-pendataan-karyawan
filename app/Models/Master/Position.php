@@ -2,6 +2,7 @@
 
 namespace App\Models\Master;
 
+use App\Models\Sanksi;
 use Illuminate\Database\Eloquent\Model;
 
 class Position extends Model
@@ -18,4 +19,13 @@ class Position extends Model
     {
         return $this->hasMany(Staff::class);
     }
+
+    public function sanksi() {
+        return $this->hasOne(Sanksi::class);
+    }
+
+    public function mutasi() {
+        return $this->hasMany(Mutasi::class);
+    }
+
 }

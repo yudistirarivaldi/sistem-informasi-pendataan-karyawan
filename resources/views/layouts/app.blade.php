@@ -37,7 +37,7 @@
             @include('layouts.sidebar')
         @endauth
 
-        @yield('content')
+        @yield('content') 
 
         @auth
             @include('layouts.footer')

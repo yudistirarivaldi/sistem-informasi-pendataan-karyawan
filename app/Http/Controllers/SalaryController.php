@@ -257,4 +257,18 @@ class SalaryController extends Controller
     	return $pdf->download('laporan-gaji-karyawan.pdf');
     }
 
+    public function pdfSemuaKaryawan()
+    {
+
+        $items = Salary::all();
+
+
+        $customPaper = array(0,0,567.00,1000);
+
+        $pdf = Pdf::loadview('salary.pdf_all', [ 'items'=> $items ])->setPaper($customPaper);
+    	return $pdf->download('laporan-gaji-karyawan.pdf');
+
+
+    }
+
 }
