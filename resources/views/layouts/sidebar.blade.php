@@ -66,72 +66,6 @@
                     </li>
                 @endif
 
-                 @if (!Auth::user()->hasRole('karyawan'))
-                    <li class="nav-item has-treeview">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fa fa-book"></i>
-                            <p>
-                                Laporan
-                                <i class="right fas fa-angle-left"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="{{ route('master.staff.export.pdf') }}"
-                                    class="nav-link">
-                                    <i class="nav-icon fas fa-book"></i>
-                                    <p>Karyawan</p>
-                                </a>
-                            </li>
-                             <li class="nav-item">
-                                <a href="{{ route('schedule.export.pdf') }}"
-                                    class="nav-link">
-                                    <i class="nav-icon fas fa-book"></i>
-                                    <p>Jadwal Masuk</p>
-                                </a>
-                            </li>
-                             <li class="nav-item">
-                                <a href="{{ route('cuti.export.pdf') }}"
-                                    class="nav-link">
-                                    <i class="nav-icon fas fa-book"></i>
-                                    <p>Cuti</p>
-                                </a>
-                            </li>
-                             <li class="nav-item">
-                                <a href="{{ route('sanksi.export.pdf') }}"
-                                    class="nav-link">
-                                    <i class="nav-icon fas fa-book"></i>
-                                    <p>Sanksi</p>
-                                </a>
-                            </li>
-                             <li class="nav-item">
-                                <a href="{{ route('mutasi.export.pdf') }}"
-                                    class="nav-link">
-                                    <i class="nav-icon fas fa-book"></i>
-                                    <p>Mutasi</p>
-                                </a>
-                            </li>
-                             <li class="nav-item">
-                                <a href="{{ route('salary.semua.export.pdf') }}"
-                                    class="nav-link">
-                                    <i class="nav-icon fas fa-book"></i>
-                                    <p>Penggajian</p>
-                                </a>
-                            </li>
-                             <li class="nav-item">
-                                <a href="{{ route('overtime.export.pdf') }}"
-                                    class="nav-link">
-                                    <i class="nav-icon fas fa-book"></i>
-                                    <p>Lembur</p>
-                                </a>
-                            </li>
-
-                        </ul>
-
-
-                    </li>
-                @endif
-
 
                 <li class="nav-header">Manajemen Karyawan</li>
 
@@ -157,7 +91,7 @@
                         <p>Permohonan Cuti</p>
                     </a>
                 </li>
-                 <li class="nav-item">
+                <li class="nav-item">
                     <a href="{{ route('sanksi.index') }}" class="nav-link {{ $page == 'sanksi' ? 'active' : '' }}">
                         <i class="nav-icon fa fa-user-times"></i>
                         <p>Sanksi Karyawan</p>
@@ -184,6 +118,68 @@
                         </a>
                     </li>
                 @endif
+
+                <li class="nav-header">Laporan Data Karyawan</li>
+
+                @if (!Auth::user()->hasRole('karyawan'))
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fa fa-book"></i>
+                            <p>
+                                Laporan
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ route('master.staff.export.pdf') }}" class="nav-link">
+                                    <i class="nav-icon fas fa-book"></i>
+                                    <p>Karyawan</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('schedule.export.pdf') }}" class="nav-link">
+                                    <i class="nav-icon fas fa-book"></i>
+                                    <p>Jadwal Masuk</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('cuti.export.pdf') }}" class="nav-link">
+                                    <i class="nav-icon fas fa-book"></i>
+                                    <p>Cuti</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('sanksi.export.pdf') }}" class="nav-link">
+                                    <i class="nav-icon fas fa-book"></i>
+                                    <p>Sanksi</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('mutasi.export.pdf') }}" class="nav-link">
+                                    <i class="nav-icon fas fa-book"></i>
+                                    <p>Mutasi</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('salary.semua.export.pdf') }}" class="nav-link">
+                                    <i class="nav-icon fas fa-book"></i>
+                                    <p>Penggajian</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('overtime.export.pdf') }}" class="nav-link">
+                                    <i class="nav-icon fas fa-book"></i>
+                                    <p>Lembur</p>
+                                </a>
+                            </li>
+
+                        </ul>
+
+
+                    </li>
+                @endif
+
             </ul>
         </nav>
     </div>
