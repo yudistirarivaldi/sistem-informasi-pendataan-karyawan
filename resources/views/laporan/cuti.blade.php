@@ -87,12 +87,12 @@
                                     @if (!empty($filter))
                                         <a href="{{ route('laporan.cuti.export.pdf', $filter) }}"
                                             class="btn btn-danger btn-sm" id="export-pdf">
-                                            <i classs="fa fa-file-pdf-o fa-fw"></i> Export PDF
+                                            <i class="fa fa-file-pdf-o fa-fw"></i> Export PDF
                                         </a>
                                     @else
                                         <a href="{{ route('laporan.cuti.export.pdf', 'all') }}"
                                             class="btn btn-danger btn-sm" id="export-pdf">
-                                            <i classs="fa fa-file-pdf-o fa-fw"></i> Export PDF
+                                            <i class="fa fa-file-pdf-o fa-fw"></i> Export PDF
                                         </a>
                                     @endif
                                 </div>
