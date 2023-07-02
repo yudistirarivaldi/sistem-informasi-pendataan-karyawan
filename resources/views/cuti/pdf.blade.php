@@ -67,7 +67,7 @@
             </tr>
         </thead>
         <tbody>
-            @forelse ($items as $item)
+            @forelse ($cuti as $item)
                 <tr style="line-height: 1;">
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $item->staff->name }}</td>
@@ -81,7 +81,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td class="text-center" colspan="7">Tidak ada data untuk ditampilkan</td>
+                    <td class="text-center" colspan="9">Tidak ada data untuk ditampilkan</td>
                 </tr>
             @endforelse
         </tbody>

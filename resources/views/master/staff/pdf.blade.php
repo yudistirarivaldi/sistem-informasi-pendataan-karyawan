@@ -65,7 +65,7 @@
             </tr>
         </thead>
         <tbody>
-            @forelse ($items as $item)
+            @forelse ($staff as $item)
                 <tr style="line-height: 1;">
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $item->name }}</td>

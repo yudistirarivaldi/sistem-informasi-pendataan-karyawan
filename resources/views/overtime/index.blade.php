@@ -75,20 +75,6 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                            <div class="card-footer">
-                                @if (!Auth::user()->hasRole('karyawan'))
-                                    <div class="text-right">
-                                        <a href="{{ route('overtime.export.excel') }}" class="btn btn-success btn-sm"
-                                            id="export-excel">
-                                            <i class="fa fa-file-excel-o fa-fw"></i> Export Excel
-                                        </a>
-                                        <a href="{{ route('overtime.export.pdf') }}" class="btn btn-danger btn-sm"
-                                            id="export-pdf">
-                                            <i class="fa fa-file-pdf-o fa-fw"></i> Export PDF
-                                        </a>
-                                    </div>
-                                @endif
-                            </div>
                             <div id="loading"></div>
 
                         </div>

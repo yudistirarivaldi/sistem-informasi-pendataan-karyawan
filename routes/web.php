@@ -1,8 +1,9 @@
 <?php
 
-use App\Http\Controllers\ScheduleController;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LaporanController;
+use App\Http\Controllers\ScheduleController;
 
 // Auth::routes();
 Route::get('/help', function(){
@@ -71,7 +72,8 @@ Route::middleware('auth')->group(function(){
                 Route::patch('staff/{staff}/update', 'StaffController@update')->name('staff.update');
                 Route::get('staff/{id}', 'StaffController@destroy')->name('staff.destroy');
                 Route::get('staff/export/excel', 'StaffController@excel')->name('staff.export.excel');
-                Route::get('/staff/export/pdf', 'StaffController@pdf')->name('staff.export.pdf');
+
+
             });
         });
 
@@ -174,5 +176,32 @@ Route::middleware('auth')->group(function(){
         Route::patch('/cuti/{id}/validated', 'CutiController@validasi')->name('cuti.validated');
         Route::get('cuti/export/excel', 'CutiController@excel')->name('cuti.export.excel');
         Route::get('cuti/export/pdf', 'CutiController@pdf')->name('cuti.export.pdf');
+
     });
+
+
+      Route::prefix('laporan')->name('laporan.')->group(function(){
+        Route::middleware('role:admin')->group(function(){
+        Route::get('laporan/karyawan', 'LaporanController@index')->name('karyawan.index');
+        Route::get('laporan/jadwal_masuk', 'LaporanController@index_jadwal')->name('jadwal.index');
+        Route::get('laporan/cuti', 'LaporanController@index_cuti')->name('cuti.index');
+        Route::get('laporan/sanksi', 'LaporanController@index_sanksi')->name('sanksi.index');
+        Route::get('laporan/mutasi', 'LaporanController@index_mutasi')->name('mutasi.index');
+        Route::get('laporan/penggajian', 'LaporanController@index_penggajian')->name('gaji.index');
+        Route::get('laporan/lembur', 'LaporanController@index_lembur')->name('lembur.index');
+
+        Route::get('/staff/export/pdf/filter={filter}', 'LaporanController@pdf')->name('staff.export.pdf');
+        Route::get('/jadwal/export/pdf/filter={filter}', 'LaporanController@pdf_jadwal')->name('jadwal.export.pdf');
+        Route::get('/cuti/export/pdf/filter={filter}', 'LaporanController@pdf_cuti')->name('cuti.export.pdf');
+        Route::get('/sanksi/export/pdf/filter={filter}', 'LaporanController@pdf_sanksi')->name('sanksi.export.pdf');
+        Route::get('/mutasi/export/pdf/filter={filter}', 'LaporanController@pdf_mutasi')->name('mutasi.export.pdf');
+        Route::get('/gaji/export/pdf/filter={filter}', 'LaporanController@pdf_gaji')->name('gaji.export.pdf');
+        Route::get('/lembur/export/pdf/filter={filter}', 'LaporanController@pdf_lembur')->name('lembur.export.pdf');
+
+        });
+
+     });
+
 });
+
+

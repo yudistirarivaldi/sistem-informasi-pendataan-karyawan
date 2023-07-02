@@ -61,13 +61,13 @@
             </tr>
         </thead>
         <tbody>
-            @forelse ($items as $item)
+            @forelse ($overtime as $item)
                 <tr style="line-height: 1;">
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $item->staff->name }}</td>
                     <td>{{ $item->departement->name }}</td>
                     <td>{{ $item->jumlah_overtime . ' Jam' }}</td>
-                    <td>{{ $item->tgl_overtime }}</td>
+                    <td>{{ date('d-m-Y', strtotime($item->tgl_overtime)) }}</td>
                 </tr>
             @empty
                 <tr>

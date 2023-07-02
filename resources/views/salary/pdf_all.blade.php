@@ -63,7 +63,7 @@
             </tr>
         </thead>
         <tbody>
-            @forelse ($items as $item)
+            @forelse ($salary as $item)
                 <tr style="line-height: 1;">
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $item->staff->name }}</td>

@@ -262,7 +262,6 @@ class SalaryController extends Controller
 
         $items = Salary::all();
 
-
         $customPaper = array(0,0,567.00,1000);
 
         $pdf = Pdf::loadview('salary.pdf_all', [ 'items'=> $items ])->setPaper($customPaper);

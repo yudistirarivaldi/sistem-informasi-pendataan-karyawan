@@ -122,8 +122,8 @@
                 <li class="nav-header">Laporan Data Karyawan</li>
 
                 @if (!Auth::user()->hasRole('karyawan'))
-                    <li class="nav-item has-treeview">
-                        <a href="#" class="nav-link">
+                    <li class="nav-item has-treeview {{ $page == 'laporan' ? 'menu-open' : '' }}">
+                        <a href="#" class="nav-link {{ $page == 'laporan' ? 'active' : '' }}">
                             <i class="nav-icon fa fa-book"></i>
                             <p>
                                 Laporan
@@ -132,43 +132,43 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="{{ route('master.staff.export.pdf') }}" class="nav-link">
+                                <a href="{{ route('laporan.karyawan.index') }}" class="nav-link {{ \Route::current()->getName() == 'laporan.karyawan.index' ? 'active' : '' }}">
                                     <i class="nav-icon fas fa-book"></i>
                                     <p>Karyawan</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('schedule.export.pdf') }}" class="nav-link">
+                                <a href="{{ route('laporan.jadwal.index') }}" class="nav-link {{ \Route::current()->getName() == 'laporan.jadwal.index' ? 'active' : '' }}">
                                     <i class="nav-icon fas fa-book"></i>
                                     <p>Jadwal Masuk</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('cuti.export.pdf') }}" class="nav-link">
+                                <a href="{{ route('laporan.cuti.index') }}" class="nav-link {{ \Route::current()->getName() == 'laporan.cuti.index' ? 'active' : '' }}">
                                     <i class="nav-icon fas fa-book"></i>
                                     <p>Cuti</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('sanksi.export.pdf') }}" class="nav-link">
+                                <a href="{{ route('laporan.sanksi.index') }}" class="nav-link {{ \Route::current()->getName() == 'laporan.sanksi.index' ? 'active' : '' }}">
                                     <i class="nav-icon fas fa-book"></i>
                                     <p>Sanksi</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('mutasi.export.pdf') }}" class="nav-link">
+                                <a href="{{ route('laporan.mutasi.index') }}" class="nav-link {{ \Route::current()->getName() == 'laporan.mutasi.index' ? 'active' : '' }}">
                                     <i class="nav-icon fas fa-book"></i>
                                     <p>Mutasi</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('salary.semua.export.pdf') }}" class="nav-link">
+                                <a href="{{ route('laporan.gaji.index') }}" class="nav-link {{ \Route::current()->getName() == 'laporan.gaji.index' ? 'active' : '' }}">
                                     <i class="nav-icon fas fa-book"></i>
                                     <p>Penggajian</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('overtime.export.pdf') }}" class="nav-link">
+                                <a href="{{ route('laporan.lembur.index') }}" class="nav-link {{ \Route::current()->getName() == 'laporan.lembur.index' ? 'active' : '' }}">
                                     <i class="nav-icon fas fa-book"></i>
                                     <p>Lembur</p>
                                 </a>

@@ -55,6 +55,7 @@
                 <th>No</th>
                 <th>Staff</th>
                 <th>NIK</th>
+                <th>Posisi</th>
                 <th>Jenis Kelamin</th>
                 <th>Dari Kantor</th>
                 <th>Kantor Tujuan</th>
@@ -63,11 +64,12 @@
             </tr>
         </thead>
         <tbody>
-            @forelse ($items as $item)
+            @forelse ($mutasi as $item)
                 <tr style="line-height: 1;">
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $item->staff->name }}</td>
                     <td>{{ $item->staff->nik }}</td>
+                    <td>{{ $item->position->name }}</td>
                     <td>{{ $item->staff->jenis_kelamin }}</td>
                     <td>{{ $item->dari }}</td>
                     <td>{{ $item->ke }}</td>
