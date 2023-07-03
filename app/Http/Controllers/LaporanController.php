@@ -50,11 +50,11 @@ class LaporanController extends Controller
         }
         else
         {
-            $data['schedule'] = Schedule::where('tgl_masuk', $f)->get();
+            $data['schedule'] = Schedule::where('ket_schedule', $f)->get();
         }
-        $data['tgl_masuk'] = Schedule::groupBy( 'tgl_masuk' )
-                ->orderBy( 'tgl_masuk' )
-                ->select(DB::raw('count(*) as count, tgl_masuk'))
+        $data['ket_schedule'] = Schedule::groupBy( 'ket_schedule' )
+                ->orderBy( 'ket_schedule' )
+                ->select(DB::raw('count(*) as count, ket_schedule'))
                 ->get();
         $data['filter'] = $f;
         return view('laporan.jadwal_masuk', $data);
@@ -138,11 +138,11 @@ class LaporanController extends Controller
         }
         else
         {
-            $data['salary'] = Salary::where('tgl_salary', $f)->get();
+            $data['salary'] = Salary::where('periode', $f)->get();
         }
-        $data['tgl_salary'] = Salary::groupBy( 'tgl_salary' )
-                ->orderBy( 'tgl_salary' )
-                ->select(DB::raw('count(*) as count, tgl_salary'))
+        $data['periode'] = Salary::groupBy( 'periode' )
+                ->orderBy( 'periode' )
+                ->select(DB::raw('count(*) as count, periode'))
                 ->get();
         $data['filter'] = $f;
         return view('laporan.penggajian', $data);
@@ -208,11 +208,11 @@ class LaporanController extends Controller
         }
         else
         {
-            $data['schedule'] = Schedule::where('tgl_masuk', $f)->get();
+            $data['schedule'] = Schedule::where('ket_schedule', $f)->get();
         }
-        $data['tgl_masuk'] = Schedule::groupBy( 'tgl_masuk' )
-                ->orderBy( 'tgl_masuk' )
-                ->select(DB::raw('count(*) as count, tgl_masuk'))
+        $data['ket_schedule'] = Schedule::groupBy( 'ket_schedule' )
+                ->orderBy( 'ket_schedule' )
+                ->select(DB::raw('count(*) as count, ket_schedule'))
                 ->get();
         $data['filter'] = $f;
 
@@ -308,11 +308,11 @@ class LaporanController extends Controller
         }
         else
         {
-            $data['salary'] = Salary::where('tgl_salary', $f)->get();
+            $data['salary'] = Salary::where('periode', $f)->get();
         }
-        $data['tgl_salary'] = Salary::groupBy( 'tgl_salary' )
-                ->orderBy( 'tgl_salary' )
-                ->select(DB::raw('count(*) as count, tgl_salary'))
+        $data['periode'] = Salary::groupBy( 'periode' )
+                ->orderBy( 'periode' )
+                ->select(DB::raw('count(*) as count, periode'))
                 ->get();
         $data['filter'] = $f;
 

@@ -23,10 +23,10 @@
                                                 @if (!empty($filter))
                                                     <option value="all">SHOW ALL</option>
                                                 @endif
-                                                @foreach ($tgl_masuk as $item)
-                                                    <option value="{{ $item->tgl_masuk }}"
-                                                        {{ $item->tgl_masuk == old('filter', $filter) ? 'selected' : '' }}>
-                                                        {{ strtoupper($item->tgl_masuk) }}</option>
+                                                @foreach ($ket_schedule as $item)
+                                                    <option value="{{ $item->ket_schedule }}"
+                                                        {{ $item->ket_schedule == old('filter', $filter) ? 'selected' : '' }}>
+                                                        {{ strtoupper($item->ket_schedule) }}</option>
                                                 @endforeach
                                             </select>
                                             <div class="input-group-append">

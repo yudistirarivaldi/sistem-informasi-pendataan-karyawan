@@ -23,10 +23,10 @@
                                                 @if (!empty($filter))
                                                     <option value="all">SHOW ALL</option>
                                                 @endif
-                                                @foreach ($tgl_salary as $item)
-                                                    <option value="{{ $item->tgl_salary }}"
-                                                        {{ $item->tgl_salary == old('filter', $filter) ? 'selected' : '' }}>
-                                                        {{ date('d-m-Y', strtotime($item->tgl_salary)) }}</option>
+                                                @foreach ($periode as $item)
+                                                    <option value="{{ $item->periode }}"
+                                                        {{ $item->periode == old('filter', $filter) ? 'selected' : '' }}>
+                                                        {{ $item->periode }}</option>
                                                 @endforeach
                                             </select>
                                             <div class="input-group-append">
