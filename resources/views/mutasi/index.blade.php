@@ -17,10 +17,12 @@
                             <input type="search" placeholder="Search" aria-label="Search..."
                                 class="form-control input-flat border-0" id="search">
                         </div>
-                        <a href="{{ route('mutasi.create') }}"
-                            class="btn btn-default app-shadow d-none d-md-inline-block ml-auto">
-                            <i class="fas fa-user-plus fa-fw"></i> Tambah
-                        </a>
+                        @if (Auth::user()->hasRole('admin'))
+                            <a href="{{ route('mutasi.create') }}"
+                                class="btn btn-default app-shadow d-none d-md-inline-block ml-auto">
+                                <i class="fas fa-user-plus fa-fw"></i> Tambah
+                            </a>
+                        @endif
                     </div>
                 </form>
             </div>
@@ -45,8 +47,9 @@
                                         <th>Dari Kantor</th>
                                         <th>Tujuan Kantor</th>
                                         <th>Keterangan</th>
-
-                                        <th class="text-center" style="width: 100px;">Action</th>
+                                        @if (Auth::user()->hasRole('admin'))
+                                            <th class="text-center" style="width: 100px;">Action</th>
+                                        @endif
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -58,24 +61,26 @@
                                             <td>{{ $item->keterangan ?? '' }}</td>
                                             <td>{{ $item->dari ?? '' }}</td>
                                             <td>{{ $item->ke ?? '' }}</td>
-
-                                            <td class="text-center">
-                                                <a href="#" class="text-secondary nav-link p-0" role="button"
-                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    <i class="fas fa-ellipsis-v"></i>
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-right">
-                                                    <a class="dropdown-item" href="{{ route('mutasi.edit', $item->id) }}">
-
-                                                        <i class="far fa-edit mr-1"></i> Edit
+                                            @if (Auth::user()->hasRole('admin'))
+                                                <td class="text-center">
+                                                    <a href="#" class="text-secondary nav-link p-0" role="button"
+                                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="fas fa-ellipsis-v"></i>
                                                     </a>
-                                                    <div class="dropdown-divider"></div>
-                                                    <a class="dropdown-item" href="javascript:void(0)"
-                                                        onClick="hapus({{ $item->id }})">
-                                                        <i class="far fa-trash-alt mr-2"></i> Hapus
-                                                    </a>
-                                                </div>
-                                            </td>
+                                                    <div class="dropdown-menu dropdown-menu-right">
+                                                        <a class="dropdown-item"
+                                                            href="{{ route('mutasi.edit', $item->id) }}">
+
+                                                            <i class="far fa-edit mr-1"></i> Edit
+                                                        </a>
+                                                        <div class="dropdown-divider"></div>
+                                                        <a class="dropdown-item" href="javascript:void(0)"
+                                                            onClick="hapus({{ $item->id }})">
+                                                            <i class="far fa-trash-alt mr-2"></i> Hapus
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            @endif
                                         </tr>
                                     @endforeach
                                 </tbody>

@@ -119,9 +119,9 @@
                     </li>
                 @endif
 
-                <li class="nav-header">Laporan Data Karyawan</li>
 
                 @if (Auth::user()->hasRole('admin'))
+                <li class="nav-header">Laporan Data Karyawan</li>
                     <li class="nav-item has-treeview {{ $page == 'laporan' ? 'menu-open' : '' }}">
                         <a href="#" class="nav-link {{ $page == 'laporan' ? 'active' : '' }}">
                             <i class="nav-icon fa fa-book"></i>

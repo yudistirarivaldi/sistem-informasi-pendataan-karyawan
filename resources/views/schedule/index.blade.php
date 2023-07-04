@@ -17,10 +17,15 @@
                             <input type="search" placeholder="Search" aria-label="Search..."
                                 class="form-control input-flat border-0" id="search">
                         </div>
+
+                        @if (Auth::user()->hasRole('admin'))
+
                         <a href="{{ route('schedule.create') }}"
                             class="btn btn-default app-shadow d-none d-md-inline-block ml-auto">
                             <i class="fas fa-user-plus fa-fw"></i> Tambah
                         </a>
+
+                        @endif
                     </div>
                 </form>
             </div>
@@ -46,7 +51,9 @@
                                         <th>Tgl. Masuk</th>
                                         <th>Ket. Jadwal</th>
                                         <th>Status</th>
+                                        @if (Auth::user()->hasRole('admin'))
                                         <th class="text-center" style="width: 100px;">Action</th>
+                                        @endif
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -62,6 +69,7 @@
                                                 <span
                                                     class="badge {{ $item->staff->position->status == 'Staff' ? 'badge-info' : 'badge-secondary' }}">{{ $item->staff->position->status ?? '' }}</span>
                                             </td>
+                                            @if (Auth::user()->hasRole('admin'))
                                             <td class="text-center">
                                                 <a href="#" class="text-secondary nav-link p-0" role="button"
                                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -79,6 +87,7 @@
                                                     </a>
                                                 </div>
                                             </td>
+                                            @endif
                                         </tr>
                                     @endforeach
                                 </tbody>
