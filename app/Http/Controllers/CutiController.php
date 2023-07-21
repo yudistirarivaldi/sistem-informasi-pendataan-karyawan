@@ -38,10 +38,10 @@ class CutiController extends Controller
     public function store(Request $request)
     {
         $msg = [
-            'staff_id.unique' => 'Staff ini sudah cuti, jika ingin melakukan cuti hapus data cuti lama.',
+            'staff_id' => 'Staff ini sudah cuti, jika ingin melakukan cuti hapus data cuti lama.',
         ];
         $request->validate([
-            'staff_id'=>'required|unique:tb_cuti',
+            'staff_id'=>'required',
             'estimasi'=>'required',
             'keterangan'=>'required',
         ], $msg);

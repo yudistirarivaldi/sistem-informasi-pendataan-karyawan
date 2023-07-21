@@ -60,7 +60,7 @@
                                             <td>{{ $item->jumlah_cuti ?? '' }} Hari</td>
                                             <td>{{ $item->keterangan }}</td>
                                             <td>
-                                                @if ($item->status == 0)
+                                                @if ($item->status == 0 )
                                                     @if (Auth::user()->hasRole('admin'))
                                                         <form action="{{ route('cuti.validated', $item->id) }}"
                                                             method="POST">
