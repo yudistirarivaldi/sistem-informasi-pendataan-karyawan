@@ -57,11 +57,29 @@ class AbsensiController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+         $request->validate([
             'code'  => 'required',
             'periode'  => 'required',
             'tanggal'  => 'required',
+            'latitude'  => '',
         ]);
+
+        if ($request->latitude == "") {
+        $message = [
+            'alert-type' => 'error',
+            'message' => 'Anda harus update lokasi'
+        ];
+        return redirect()->back()->with($message);
+        }
+
+
+        if ($request->latitude != -0.502106) {
+        $message = [
+            'alert-type' => 'error',
+            'message' => 'Anda harus berada di area kantor'
+        ];
+        return redirect()->back()->with($message);
+        }
 
         $cek_schedule = Schedule::get();
 

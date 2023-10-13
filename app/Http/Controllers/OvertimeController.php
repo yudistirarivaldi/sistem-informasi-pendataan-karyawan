@@ -44,7 +44,25 @@ class OvertimeController extends Controller
             'departement_id'=>'required',
             'jumlah_overtime'=>'required|max:2',
             'tgl_overtime'=>'required|date',
+            'latitude'  => '',
         ]);
+
+        if ($request->latitude == "") {
+        $message = [
+            'alert-type' => 'error',
+            'message' => 'Anda harus update lokasi'
+        ];
+        return redirect()->back()->with($message);
+        }
+
+
+        if ($request->latitude != -0.502106) {
+        $message = [
+            'alert-type' => 'error',
+            'message' => 'Anda harus berada di area kantor'
+        ];
+        return redirect()->back()->with($message);
+        }
 
         overtime::create($request->all());
 

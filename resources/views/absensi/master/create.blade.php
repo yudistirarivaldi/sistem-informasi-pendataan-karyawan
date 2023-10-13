@@ -22,7 +22,7 @@
                                     <i class="fa fa-arrow-left fa-fw"></i></span>
                                 </a>
                             </div>
-                            </div> 
+                            </div>
                             <form action="{{ route('absensi.store') }}" method="POST" class="form-horizontal">
                                 @csrf
                                 @include('absensi.master._form')
@@ -33,6 +33,9 @@
                 </div>
             </div>
         </div>
+
+        
+
     </div>
 @endsection
 
@@ -47,7 +50,7 @@
     $('.select2').select2({
         placeholder : 'Pilih Data..'
     });
-    
+
     $('.datepicker').daterangepicker({
         singleDatePicker: true,
         showDropdowns: true,

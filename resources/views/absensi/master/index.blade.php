@@ -25,9 +25,11 @@
                                 class="btn btn-default d-none d-md-inline-block ml-auto">
                                 <i class="fas fa-plus fa-sm fa-fw"></i> Mulai Absen
                             </a>
+                            <a href="{{ route('overtime.create') }}"
+                                class="btn btn-default d-none d-md-inline-block ">
+                                <i class="fas fa-plus fa-sm fa-fw"></i> Absen Lembur
+                            </a>
                         @endif
-
-
                     </div>
                 </form>
             </div>
