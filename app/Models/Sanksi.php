@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Sanksi extends Model
 {
     protected $table = 'tb_sanksi';
-    protected $fillable = ['staff_id', 'position_id', 'keterangan', 'peringatan_id'];
+    protected $fillable = ['staff_id', 'position_id', 'keterangan', 'peringatan_id', 'dokumen'];
     protected $dates = ['deleted_at'];
 
     public function staff()

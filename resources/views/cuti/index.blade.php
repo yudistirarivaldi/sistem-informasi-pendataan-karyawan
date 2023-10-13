@@ -42,10 +42,11 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Staff</th>
-                                        <th>Tgl. Mulai</th>
-                                        <th>Tgl. Selesai</th>
+                                        {{-- <th>Tgl. Mulai</th>
+                                        <th>Tgl. Selesai</th> --}}
                                         <th>Durasi</th>
                                         <th>Keterangan</th>
+                                        <th>Catatan</th>
                                         <th class="text-left">Status</th>
                                         <th class="text-center" style="width: 100px;">Action</th>
                                     </tr>
@@ -55,12 +56,39 @@
                                         <tr id="hide{{ $item->id }}">
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $item->staff->name ?? '' }}</td>
-                                            <td>{{ tgl_indo($item->tgl_mulai ?? '') }}</td>
-                                            <td>{{ tgl_indo($item->tgl_selesai ?? '') }}</td>
+                                            {{-- <td>{{ tgl_indo($item->tgl_mulai ?? '') }}</td>
+                                            <td>{{ tgl_indo($item->tgl_selesai ?? '') }}</td> --}}
                                             <td>{{ $item->jumlah_cuti ?? '' }} Hari</td>
                                             <td>{{ $item->keterangan }}</td>
                                             <td>
-                                                @if ($item->status == 0 )
+                                                @if ($item->catatan == null)
+                                                    @if (Auth::user()->hasRole('admin'))
+                                                        <form action="{{ route('cuti.validated.catatan', $item->id) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            @method('patch')
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" name="catatan">
+                                                                <div class="input-group-append">
+                                                                    <button type="submit"
+                                                                        class="btn btn-secondary btn-sm">OK</button>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    @else
+                                                        <span class="badge badge-warning">Tunggu Persetujuan</span>
+                                                    @endif
+                                                @else
+                                                    <div>
+                                                        {!! $item->catatan != null
+                                                            ? '<span class="badge badge-success">' . $item->catatan . '</span>'
+                                                            : '<span class="badge badge-danger">belum ada catatan</span>' !!}
+                                                    </div>
+                                                @endif
+
+                                            </td>
+                                            <td>
+                                                @if ($item->status == 0)
                                                     @if (Auth::user()->hasRole('admin'))
                                                         <form action="{{ route('cuti.validated', $item->id) }}"
                                                             method="POST">

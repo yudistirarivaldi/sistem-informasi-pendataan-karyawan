@@ -66,9 +66,21 @@ class SanksiController extends Controller
             'position_id'=>'required',
             'keterangan'=>'required',
             'peringatan_id'=>'required',
+            'dokumen'=>'required',
         ]);
 
-        Sanksi::create($request->all());
+         if ($request->hasFile('dokumen')) {
+        $dokumen = $request->file('dokumen');
+        $dokumenPath = $dokumen->store('dokumen', 'public'); // Menyimpan file ke direktori "public/storage/dokumen".
+
+        Sanksi::create([
+            'staff_id' => $request->staff_id,
+            'position_id' => $request->position_id,
+            'keterangan' => $request->keterangan,
+            'peringatan_id' => $request->peringatan_id,
+            'dokumen' => $dokumenPath, // Menyimpan path file yang diunggah ke dalam database.
+        ]);
+    }
 
         $message = [
             'alert-type'=>'success',

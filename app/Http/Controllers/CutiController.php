@@ -172,6 +172,22 @@ class CutiController extends Controller
         return redirect()->back()->with($message);
     }
 
+     public function validasiCatatan($id, Request $request)
+    {
+        $cuti = Cuti::find($id);
+        if ($request->has('catatan')) {
+            $cuti->update([
+                'catatan' => $request->catatan
+            ]);
+        }
+        $message = [
+            'alert-type' => 'success',
+            'message' => 'catatan berhasil di tambahkan.'
+        ];
+        return redirect()->back()->with($message);
+    }
+
+
     public function excel()
     {
       // filter berdasarkan departement

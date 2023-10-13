@@ -8,7 +8,7 @@ use App\Models\Master\Staff;
 class Cuti extends Model
 {
     protected $table = 'tb_cuti';
-    protected $fillable = ['staff_id', 'tgl_mulai', 'tgl_selesai', 'jumlah_cuti', 'keterangan', 'status'];
+    protected $fillable = ['staff_id', 'tgl_mulai', 'tgl_selesai', 'jumlah_cuti', 'keterangan', 'status', 'catatan'];
 
     public function staff()
     {

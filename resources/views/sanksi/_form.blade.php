@@ -85,6 +85,18 @@
         </div>
     </div>
 
+     <div class="form-group row">
+        <label class="col-md-4 col-xs-4 col-form-label justify-flex-end">Surat Peringatan <span class="text-danger">*</span></label>
+        <div class="col-12 col-md-5 col-lg-5">
+            <input type="file" name="dokumen" class="form-control @error('dokumen') is-invalid @enderror" value="{{ old('dokumen', $sanksi->dokumen ?? '') }}" autocomplete="off">
+            @error('dokumen')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $errors->first('dokumen') }}</strong>
+                </span>
+            @enderror
+        </div>
+    </div>
+
 </div>
 <div class="card-footer">
     <div class="offset-md-4">

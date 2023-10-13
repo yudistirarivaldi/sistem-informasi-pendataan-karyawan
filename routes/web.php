@@ -131,6 +131,18 @@ Route::middleware('auth')->group(function(){
         Route::get('cuti/export/pdf', 'CutiController@pdf')->name('cuti.export.pdf');
     });
 
+    Route::get('pasien', 'PasienController@index')->name('pasien.index');
+    Route::get('pasien/create', 'PasienController@create')->name('pasien.create');
+    Route::post('pasien', 'PasienController@store')->name('pasien.store');
+    Route::get('pasien/{pasien}/edit', 'PasienController@edit')->name('pasien.edit');
+    Route::patch('pasien/{pasien}/update', 'PasienController@update')->name('pasien.update');
+    Route::get('pasien/{id}', 'PasienController@destroy')->name('pasien.destroy');
+    Route::middleware('role:admin')->group(function(){
+        Route::get('pasien/export/excel', 'PasienController@excel')->name('pasien.export.excel');
+        Route::get('pasien/export/pdf', 'PasienController@pdf')->name('pasien.export.pdf');
+    });
+
+
     Route::get('overtime', 'OvertimeController@index')->name('overtime.index');
     Route::get('overtime', 'OvertimeController@index')->name('overtime.index');
     Route::get('overtime/create', 'OvertimeController@create')->name('overtime.create');
@@ -174,6 +186,7 @@ Route::middleware('auth')->group(function(){
         Route::middleware('role:admin')->group(function(){
         Route::get('cuti/{id}', 'CutiController@destroy')->name('cuti.destroy');
         Route::patch('/cuti/{id}/validated', 'CutiController@validasi')->name('cuti.validated');
+        Route::patch('/cuti/{id}/validated/catatan', 'CutiController@validasiCatatan')->name('cuti.validated.catatan');
         Route::get('cuti/export/excel', 'CutiController@excel')->name('cuti.export.excel');
         Route::get('cuti/export/pdf', 'CutiController@pdf')->name('cuti.export.pdf');
 

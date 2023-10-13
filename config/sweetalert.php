@@ -183,7 +183,7 @@ return [
 
         'auto_display_error_messages' => env('SWEET_ALERT_AUTO_DISPLAY_ERROR_MESSAGES', false),
     ],
-
+    
     /*
     |--------------------------------------------------------------------------
     | Custom Class

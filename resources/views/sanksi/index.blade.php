@@ -18,10 +18,10 @@
                                 class="form-control input-flat border-0" id="search">
                         </div>
                         @if (Auth::user()->hasRole('admin'))
-                        <a href="{{ route('sanksi.create') }}"
-                            class="btn btn-default app-shadow d-none d-md-inline-block ml-auto">
-                            <i class="fas fa-user-plus fa-fw"></i> Tambah
-                        </a>
+                            <a href="{{ route('sanksi.create') }}"
+                                class="btn btn-default app-shadow d-none d-md-inline-block ml-auto">
+                                <i class="fas fa-user-plus fa-fw"></i> Tambah
+                            </a>
                         @endif
                     </div>
                 </form>
@@ -45,9 +45,10 @@
                                         <th>Staff</th>
                                         <th>Posisi</th>
                                         <th>Keterangan</th>
+                                        <th>Surat Peringatan</th>
                                         <th>Status</th>
                                         @if (Auth::user()->hasRole('admin'))
-                                        <th class="text-center" style="width: 100px;">Action</th>
+                                            <th class="text-center" style="width: 100px;">Action</th>
                                         @endif
                                     </tr>
                                 </thead>
@@ -59,6 +60,9 @@
                                             <td>{{ $item->position->name ?? '' }}</td>
                                             <td>{{ $item->keterangan ?? '' }}</td>
                                             <td>
+                                                <a href="{{ Storage::url($item->dokumen) }}" target="_blank"><button class="btn btn-success">Download Surat</button></a>
+                                            </td>
+                                            <td>
                                                 <span
                                                     class="badge {{ $item->peringatan->name == 'SP1'
                                                         ? 'badge-info'
@@ -69,23 +73,24 @@
                                                                 : 'badge-secondary')) }}">{{ $item->peringatan->name ?? '' }}</span>
                                             </td>
                                             @if (Auth::user()->hasRole('admin'))
-                                            <td class="text-center">
-                                                <a href="#" class="text-secondary nav-link p-0" role="button"
-                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    <i class="fas fa-ellipsis-v"></i>
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-right">
-                                                    <a class="dropdown-item" href="{{ route('sanksi.edit', $item->id) }}">
+                                                <td class="text-center">
+                                                    <a href="#" class="text-secondary nav-link p-0" role="button"
+                                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="fas fa-ellipsis-v"></i>
+                                                    </a>
+                                                    <div class="dropdown-menu dropdown-menu-right">
+                                                        <a class="dropdown-item"
+                                                            href="{{ route('sanksi.edit', $item->id) }}">
 
-                                                        <i class="far fa-edit mr-1"></i> Edit
-                                                    </a>
-                                                    <div class="dropdown-divider"></div>
-                                                    <a class="dropdown-item" href="javascript:void(0)"
-                                                        onClick="hapus({{ $item->id }})">
-                                                        <i class="far fa-trash-alt mr-2"></i> Hapus
-                                                    </a>
-                                                </div>
-                                            </td>
+                                                            <i class="far fa-edit mr-1"></i> Edit
+                                                        </a>
+                                                        <div class="dropdown-divider"></div>
+                                                        <a class="dropdown-item" href="javascript:void(0)"
+                                                            onClick="hapus({{ $item->id }})">
+                                                            <i class="far fa-trash-alt mr-2"></i> Hapus
+                                                        </a>
+                                                    </div>
+                                                </td>
                                             @endif
                                         </tr>
                                     @endforeach
