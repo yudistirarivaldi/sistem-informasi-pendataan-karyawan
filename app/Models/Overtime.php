@@ -9,7 +9,7 @@ use App\Models\Master\Staff;
 class Overtime extends Model
 {
     protected $table = 'tb_overtime';
-    protected $fillable = ['staff_id', 'departement_id', 'jumlah_overtime', 'tgl_overtime'];
+    protected $fillable = ['staff_id', 'departement_id', 'waktu_mulai', 'waktu_selesai', 'tgl_overtime'];
 
     public function staff()
     {

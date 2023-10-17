@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Overtime;
 use App\Models\Master\Staff;
 use Illuminate\Http\Request;
@@ -11,23 +12,45 @@ use Illuminate\Support\Facades\Auth;
 
 class OvertimeController extends Controller
 {
-    public function index()
+   public function index()
     {
-
-        if(Auth::user()->hasRole('admin'))
-        {
-            $data['overtime'] = Overtime::all();
-            $data['count']    = Overtime::count();
-            return view('overtime.index', $data);
-
-        }
-        else
-        {
-            $data['overtime'] = Overtime::where('staff_id', Auth::user()->staff->id)->get();
-            $data['count'] = 1;
-            return view('overtime.index', $data);
-        }
+    if (Auth::user()->hasRole('admin')) {
+        $overtime = Overtime::all();
+    } else {
+        $overtime = Overtime::where('staff_id', Auth::user()->staff->id)->get();
     }
+
+    $totalJamLemburPerBulan = $this->calculateTotalJamLemburPerBulan($overtime);
+
+    $data = [
+        'overtime' => $overtime,
+        'count' => count($overtime),
+        'totalJamLemburPerBulan' => $totalJamLemburPerBulan,
+    ];
+
+    return view('overtime.index', $data);
+    }
+
+    private function calculateTotalJamLemburPerBulan($overtime)
+    {
+    $totalJamLemburPerBulan = [];
+
+    foreach ($overtime as $item) {
+        $tglOvertime = $item->tgl_overtime;
+        $bulanTahun = date('Y-m', strtotime($tglOvertime));
+
+        if (!isset($totalJamLemburPerBulan[$bulanTahun])) {
+            $totalJamLemburPerBulan[$bulanTahun] = 0;
+        }
+
+        // Hitung total jam lembur dalam jam
+        $waktuMulai = strtotime($item->waktu_mulai);
+        $waktuSelesai = strtotime($item->waktu_selesai);
+        $totalJamLemburPerBulan[$bulanTahun] += ($waktuSelesai - $waktuMulai) / 3600;
+    }
+
+    return $totalJamLemburPerBulan;
+}
 
     public function create()
     {
@@ -42,8 +65,19 @@ class OvertimeController extends Controller
         $request->validate([
             'staff_id'=>'required',
             'departement_id'=>'required',
-            'jumlah_overtime'=>'required|max:2',
-            'tgl_overtime'=>'required|date',
+            'waktu_mulai'=>'required',
+            'waktu_selesai'=>'required',
+            'tgl_overtime' => [
+            'required',
+            'date',
+            function ($attribute, $value, $fail) {
+                $tanggalHariIni = Carbon::now()->format('Y-m-d');
+                if ($value != $tanggalHariIni) {
+                    $fail('Tanggal harus sesuai dengan tanggal hari ini.');
+                }
+            },
+        ],
+
             'latitude'  => '',
         ]);
 
@@ -72,6 +106,8 @@ class OvertimeController extends Controller
         ];
         return redirect()->route('overtime.index')->with($message);
     }
+
+
 
     public function edit(Overtime $overtime)
     {

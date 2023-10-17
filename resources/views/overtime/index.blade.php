@@ -17,10 +17,10 @@
                             <input type="search" placeholder="Search" aria-label="Search..."
                                 class="form-control input-flat border-0" id="search">
                         </div>
-                        <a href="{{ route('overtime.create') }}"
+                        {{-- <a href="{{ route('overtime.create') }}"
                             class="btn btn-default app-shadow d-none d-md-inline-block ml-auto">
                             <i class="fas fa-user-plus fa-fw"></i> Tambah
-                        </a>
+                        </a> --}}
                     </div>
                 </form>
             </div>
@@ -32,49 +32,27 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header bg-light">
-                                Data Gaji Lembur
+                                Total Lembur Perbulan
                                 <span id="count"
                                     class="badge badge-dark float-right float-xl-right mt-1">{{ $count }}</span>
                             </div>
                             <table id="datatable" class="table table-hover">
                                 <thead>
                                     <tr>
-                                        <th>No</th>
-                                        <th>Staff</th>
-                                        <th>Departement</th>
-                                        <th>Jumlah Lembur</th>
-                                        <th>Tgl. Lembur</th>
-                                        <th class="text-center" style="width: 100px;">Action</th>
+                                        <th>Bulan</th>
+                                        <th>Total Jam Lembur</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($overtime as $item)
-                                        <tr id="hide{{ $item->id }}">
-                                            <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $item->staff->name ?? '' }}</td>
-                                            <td>{{ $item->departement->name ?? '' }}</td>
-                                            <td>{{ $item->jumlah_overtime . ' Jam' ?? '' }}</td>
-                                            <td>{{ $item->tgl_overtime ?? '' }}</td>
-                                            <td class="text-center">
-                                                <a href="#" class="text-secondary nav-link p-0" role="button"
-                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    <i class="fas fa-ellipsis-v"></i>
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-right">
-                                                    <a class="dropdown-item" href="{{ route('overtime.edit', $item->id) }}">
-                                                        <i class="far fa-edit mr-1"></i> Edit
-                                                    </a>
-                                                    <div class="dropdown-divider"></div>
-                                                    <a class="dropdown-item" href="javascript:void(0)"
-                                                        onClick="hapus({{ $item->id }})">
-                                                        <i class="far fa-trash-alt mr-2"></i> Hapus
-                                                    </a>
-                                                </div>
-                                            </td>
+                                    @foreach ($totalJamLemburPerBulan as $bulanTahun => $totalJamLembur)
+                                        <tr>
+                                            <td>{{ date('M Y', strtotime($bulanTahun . '-01')) }}</td>
+                                            <td>{{ number_format($totalJamLembur, 2) }} jam</td>
                                         </tr>
                                     @endforeach
                                 </tbody>
                             </table>
+
                             <div id="loading"></div>
 
                         </div>

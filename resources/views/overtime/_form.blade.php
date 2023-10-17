@@ -2,8 +2,9 @@
     <div class="card card-solid">
         <div class="card-body pb-0 pt-3">
             <blockquote>
-            <b>Keterangan!!</b><br>
-            <small><cite title="Source Title">Inputan Yang Ditanda Bintang Merah (<span class="text-danger">*</span>) Harus Di Isi !!</cite></small>
+                <b>Keterangan!!</b><br>
+                <small><cite title="Source Title">Inputan Yang Ditanda Bintang Merah (<span class="text-danger">*</span>)
+                        Harus Di Isi !!</cite></small>
             </blockquote>
         </div>
     </div>
@@ -35,13 +36,17 @@
                 <select name="staff_id" class="form-control select2 @error('staff_id') is-invalid @enderror">
                     <option value=""></option>
                     @foreach ($staff as $item)
-                        <option value="{{ $item->id }}" {{ $item->id == old('staff_id', $overtime->staff_id ?? '') ? 'selected' : '' }}>{{ $item->name }}</option>
+                        <option value="{{ $item->id }}"
+                            {{ $item->id == old('staff_id', $overtime->staff_id ?? '') ? 'selected' : '' }}>
+                            {{ $item->name }}</option>
                     @endforeach
                 </select>
             @else
                 <select name="staff_id" class="form-control select2 @error('staff_id') is-invalid @enderror">
                     @foreach ($staff->where('id', Auth::user()->staff->id) as $item)
-                        <option value="{{ $item->id }}" {{ $item->id == old('staff_id', $overtime->staff_id ?? '') ? 'selected' : '' }}>{{ $item->name }}</option>
+                        <option value="{{ $item->id }}"
+                            {{ $item->id == old('staff_id', $overtime->staff_id ?? '') ? 'selected' : '' }}>
+                            {{ $item->name }}</option>
                     @endforeach
                 </select>
             @endif
@@ -54,7 +59,7 @@
         </div>
     </div>
 
-     {{-- <div class="form-group row">
+    {{-- <div class="form-group row">
         <label class="col-md-4 col-xs-4 col-form-label justify-flex-end">Departement<span class="text-danger">*</span></label>
         <div class="col-12 col-md-5 col-lg-5">
             <select name="departement_id" class="form-control select3 @error('departement_id') is-invalid @enderror">
@@ -71,20 +76,27 @@
         </div>
     </div> --}}
 
-     <div class="form-group row">
-        <label class="col-md-4 col-xs-4 col-form-label justify-flex-end">Departement <span class="text-danger">*</span></label>
+    <div class="form-group row">
+        <label class="col-md-4 col-xs-4 col-form-label justify-flex-end">Departement <span
+                class="text-danger">*</span></label>
         <div class="col-12 col-md-5 col-lg-5">
             @if (Auth::user()->hasRole('admin'))
-                <select name="departement_id" class="form-control select2 @error('departement_id') is-invalid @enderror">
+                <select name="departement_id"
+                    class="form-control select2 @error('departement_id') is-invalid @enderror">
                     <option value=""></option>
                     @foreach ($departement as $item)
-                        <option value="{{ $item->id }}" {{ $item->id == old('departement_id', $overtime->departement_id ?? '') ? 'selected' : '' }}>{{ $item->name }}</option>
+                        <option value="{{ $item->id }}"
+                            {{ $item->id == old('departement_id', $overtime->departement_id ?? '') ? 'selected' : '' }}>
+                            {{ $item->name }}</option>
                     @endforeach
                 </select>
             @else
-                <select name="departement_id" class="form-control select2 @error('departement_id') is-invalid @enderror">
+                <select name="departement_id"
+                    class="form-control select2 @error('departement_id') is-invalid @enderror">
                     @foreach ($departement->where('id', Auth::user()->staff->departement_id) as $item)
-                        <option value="{{ $item->id }}" {{ $item->id == old('departement_id', $overtime->departement_id ?? '') ? 'selected' : '' }}>{{ $item->name }}</option>
+                        <option value="{{ $item->id }}"
+                            {{ $item->id == old('departement_id', $overtime->departement_id ?? '') ? 'selected' : '' }}>
+                            {{ $item->name }}</option>
                     @endforeach
                 </select>
             @endif
@@ -97,26 +109,11 @@
     </div>
 
     <div class="form-group row">
-        <label class="col-md-4 col-xs-4 col-form-label justify-flex-end">Jam Lembur<span class="text-danger">*</span></label>
+        <label class="col-md-4 col-xs-4 col-form-label justify-flex-end">Tgl. Lembur <span
+                class="text-danger">*</span></label>
         <div class="col-12 col-md-5 col-lg-5">
-            <div class="input-group">
-                <input type="number" name="jumlah_overtime" class="form-control @error('jumlah_overtime') is-invalid @enderror" value="{{ old('jumlah_overtime', $overtime->jumlah_overtime ?? '') }}" min="0" autocomplete="off" placeholder="0">
-                <div class="input-group-append">
-                    <span class="input-group-text">Jam</span>
-                </div>
-            </div>
-            @error('jumlah_overtime')
-                <span class="text-danger" role="alert">
-                   {{ $errors->first('jumlah_overtime') }}
-                </span>
-            @enderror
-        </div>
-    </div>
-
-    <div class="form-group row">
-        <label class="col-md-4 col-xs-4 col-form-label justify-flex-end">Tgl. Lembur <span class="text-danger">*</span></label>
-        <div class="col-12 col-md-5 col-lg-5">
-            <input type="date" name="tgl_overtime" class="form-control @error('tgl_overtime') is-invalid @enderror" value="{{ old('tgl_overtime', $overtime->tgl_overtime ?? '') }}" autocomplete="off">
+            <input type="date" name="tgl_overtime" class="form-control @error('tgl_overtime') is-invalid @enderror"
+                value="{{ old('tgl_overtime', $overtime->tgl_overtime ?? '') }}" autocomplete="off">
             @error('tgl_overtime')
                 <span class="text-danger" role="alert">
                     {{ $errors->first('tgl_overtime') }}
@@ -125,7 +122,46 @@
         </div>
     </div>
 
-        <div class="form-group row">
+    <div class="form-group row">
+        <label class="col-md-4 col-xs-4 col-form-label justify-flex-end">Waktu Mulai<span
+                class="text-danger">*</span></label>
+        <div class="col-12 col-md-5 col-lg-5">
+            <div class="input-group">
+                <input type="time" name="waktu_mulai" class="form-control @error('waktu_mulai') is-invalid @enderror"
+                    value="{{ old('waktu_mulai', $overtime->waktu_mulai ?? '') }}" min="0" autocomplete="off"
+                    placeholder="0">
+                <div class="input-group-append">
+                </div>
+            </div>
+            @error('waktu_mulai')
+                <span class="text-danger" role="alert">
+                    {{ $errors->first('waktu_mulai') }}
+                </span>
+            @enderror
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-md-4 col-xs-4 col-form-label justify-flex-end">Waktu Selesai<span
+                class="text-danger">*</span></label>
+        <div class="col-12 col-md-5 col-lg-5">
+            <div class="input-group">
+                <input type="time" name="waktu_selesai"
+                    class="form-control @error('waktu_selesai') is-invalid @enderror"
+                    value="{{ old('waktu_selesai', $overtime->waktu_selesai ?? '') }}" min="0"
+                    autocomplete="off" placeholder="0">
+                <div class="input-group-append">
+                </div>
+            </div>
+            @error('waktu_selesai')
+                <span class="text-danger" role="alert">
+                    {{ $errors->first('waktu_selesai') }}
+                </span>
+            @enderror
+        </div>
+    </div>
+
+    <div class="form-group row">
         <label class="col-md-4 col-xs-4 col-form-label justify-flex-end"></label>
         <div class="col-12 col-md-5 col-lg-5">
             <button type="button" class="btn btn-primary" id="updateLocationBtn">Update Lokasi Saat Ini</button>
@@ -135,7 +171,8 @@
     <div class="form-group row">
         {{-- <label class="col-md-4 col-xs-4 col-form-label">Latitude</label> --}}
         <div class="col-12 col-md-5 col-lg-5">
-            <input type="text" class="form-control" name="latitude" style="display: none;" >
+            <input type="text" class="form-control" name="latitude" style="display: none;">
+            {{-- <input type="text" class="form-control" name="latitude"> --}}
         </div>
     </div>
 

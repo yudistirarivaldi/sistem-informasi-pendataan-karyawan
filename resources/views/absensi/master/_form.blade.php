@@ -71,9 +71,10 @@
     </div>
 
     <div class="form-group row">
-        {{-- <label class="col-md-4 col-xs-4 col-form-label">Latitude</label> --}}
+        <label class="col-md-4 col-xs-4 col-form-label">Latitude</label>
         <div class="col-12 col-md-5 col-lg-5">
             <input type="text" class="form-control" name="latitude" style="display: none;" >
+            <input type="text" class="form-control" name="latitude">
         </div>
     </div>
 
