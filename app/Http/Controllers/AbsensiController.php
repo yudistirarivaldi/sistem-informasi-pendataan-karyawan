@@ -57,61 +57,89 @@ class AbsensiController extends Controller
 
     public function store(Request $request)
     {
-         $request->validate([
-            'code'  => 'required',
-            'periode'  => 'required',
-            'tanggal'  => 'required',
-            'latitude'  => '',
+        $request->validate([
+            'code'    => 'required',
+            'periode' => 'required',
+            'tanggal' => 'required|date',
+            'latitude' => '',
         ]);
 
-        if ($request->latitude == "") {
-        $message = [
-            'alert-type' => 'error',
-            'message' => 'Anda harus update lokasi'
-        ];
-        return redirect()->back()->with($message);
+        $tanggal_absen = date('Y-m-d', strtotime($request->tanggal));
+
+        // 1. Cari Jadwal Staff (Berdasarkan staff_id pengguna yang login)
+        $schedule = Schedule::where('staff_id', Auth::user()->staff->id)->first();
+
+        // 2. Jika tidak ada jadwal, kembalikan dengan pesan error
+        if (!$schedule) {
+            $message = [
+                'alert-type' => 'error',
+                'message' => 'Anda tidak memiliki jadwal absen yang terdaftar.'
+            ];
+            return redirect()->back()->with($message);
         }
 
+        // 3. Validasi Waktu (07:30 - 08:30)
+        $currentTime = now();
+        $startTime = now()->setTime(7, 30);
+        $endTime = now()->setTime(8, 30);
 
-        if ($request->latitude != -0.502106) {
-        $message = [
-            'alert-type' => 'error',
-            'message' => 'Anda harus berada di area kantor'
-        ];
-        return redirect()->back()->with($message);
+        // if ($currentTime->lessThan($startTime) || $currentTime->greaterThan($endTime)) {
+        //     $message = [
+        //         'alert-type' => 'error',
+        //         'message' => 'Absen hanya diperbolehkan antara pukul 07:30 sampai 08:30.'
+        //     ];
+        //     return redirect()->back()->with($message);
+        // }
+
+        // 4. Cek Apakah Sudah Absen pada Tanggal Tersebut (Berdasarkan schedule_id)
+        $cek_absen = Absensi::where([
+            'tanggal_absen' => $tanggal_absen,
+            'schedule_id'   => $schedule->id
+        ])->exists();
+
+        if ($cek_absen) {
+            $message = [
+                'alert-type' => 'error',
+                'message' => 'Anda sudah absen pada tanggal ' . tgl_indo($tanggal_absen) . '.'
+            ];
+            return redirect()->back()->with($message);
         }
 
+        // 5. Validasi Lokasi (Jika latitude kosong atau di luar area kantor)
+        // if (empty($request->latitude)) {
+        //     $message = [
+        //         'alert-type' => 'error',
+        //         'message' => 'Anda harus memperbarui lokasi untuk absen.'
+        //     ];
+        //     return redirect()->back()->with($message);
+        // }
+
+        // if ($request->latitude != -0.502106) {
+        //     $message = [
+        //         'alert-type' => 'error',
+        //         'message' => 'Anda harus berada di area kantor untuk melakukan absen.'
+        //     ];
+        //     return redirect()->back()->with($message);
+        // }
+
+        // Simulasi Data ke View
         $cek_schedule = Schedule::get();
-
         if (is_null($cek_schedule)) {
             $data['schedule'] = true;
             $data['info'] = 'disabled';
         }
-        $absen_detail = new Absensi();
-        $tanggal_absen = date('Y-m-d', strtotime($request->tanggal));
-
-        // $cek_absen = $absen_detail->where(['tanggal_absen' => $tanggal_absen])->count();
-
-        // if ($cek_absen == 1 ){
-        //     $message = [
-        //         'alert-type' => 'error',
-        //         'message' => 'Anda sudah absen pada tanggal '.tgl_indo($tanggal_absen).' ini, Absen lagi ditanggal berikutnya.'
-        //     ];
-        //     return redirect()->back()->with($message);
-        // }
 
         $data['title'] = "Absen Harian";
         $data['request']  = $request;
         $keterangan = new Keterangan();
         $data['attendance'] = Attendance::all();
-        // $data['overtime'] = Overtime::where('staff_id', Auth::user()->staff->id)->get();
         $data['status'] = $keterangan->status;
         $data['schedule'] = Schedule::orderBy('a.name', 'asc')
                                     ->select(DB::raw('tb_schedule.*, a.name'))
                                     ->join('tb_staff AS a', 'a.id', '=', 'tb_schedule.staff_id')
                                     ->where('a.id', Auth::user()->staff->id)
                                     ->get();
-        // $data['schedule'] = Schedule::where('staff_id', Auth::user()->staff->id)->get();
+
         return view('absensi.detail.create', $data);
     }
 

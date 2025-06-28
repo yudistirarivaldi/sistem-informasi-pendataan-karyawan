@@ -12,45 +12,49 @@ use Illuminate\Support\Facades\Auth;
 
 class OvertimeController extends Controller
 {
-   public function index()
+    public function index()
     {
-    if (Auth::user()->hasRole('admin')) {
-        $overtime = Overtime::all();
-    } else {
-        $overtime = Overtime::where('staff_id', Auth::user()->staff->id)->get();
-    }
-
-    $totalJamLemburPerBulan = $this->calculateTotalJamLemburPerBulan($overtime);
-
-    $data = [
-        'overtime' => $overtime,
-        'count' => count($overtime),
-        'totalJamLemburPerBulan' => $totalJamLemburPerBulan,
-    ];
-
-    return view('overtime.index', $data);
-    }
-
-    private function calculateTotalJamLemburPerBulan($overtime)
-    {
-    $totalJamLemburPerBulan = [];
-
-    foreach ($overtime as $item) {
-        $tglOvertime = $item->tgl_overtime;
-        $bulanTahun = date('Y-m', strtotime($tglOvertime));
-
-        if (!isset($totalJamLemburPerBulan[$bulanTahun])) {
-            $totalJamLemburPerBulan[$bulanTahun] = 0;
+        if (Auth::user()->hasRole('admin') || Auth::user()->hasRole('pimpinan')) {
+            $overtime = Overtime::all();
+        } else {
+            $overtime = Overtime::where('staff_id', Auth::user()->staff->id)->get();
         }
 
-        // Hitung total jam lembur dalam jam
-        $waktuMulai = strtotime($item->waktu_mulai);
-        $waktuSelesai = strtotime($item->waktu_selesai);
-        $totalJamLemburPerBulan[$bulanTahun] += ($waktuSelesai - $waktuMulai) / 3600;
+        $totalJamLemburPerBulan = $this->calculateTotalJamLemburPerBulan($overtime);
+
+        $data = [
+            'overtime' => $overtime,
+            'count' => count($overtime),
+            'totalJamLemburPerBulan' => $totalJamLemburPerBulan,
+        ];
+
+        return view('overtime.index', $data);
     }
 
-    return $totalJamLemburPerBulan;
-}
+    private function calculateTotalJamLemburPerBulan($overtimes)
+    {
+        $result = [];
+
+        foreach ($overtimes as $ot) {
+            // Ganti dari $ot->tanggal ke $ot->tgl_overtime
+            $bulanTahun = date('Y-m', strtotime($ot->tgl_overtime));
+
+            if ($ot->waktu_mulai && $ot->waktu_selesai) {
+                $mulai = \Carbon\Carbon::createFromFormat('H:i:s', $ot->waktu_mulai);
+                $selesai = \Carbon\Carbon::createFromFormat('H:i:s', $ot->waktu_selesai);
+
+                $jam = $selesai->diffInMinutes($mulai) / 60;
+
+                if (!isset($result[$bulanTahun])) {
+                    $result[$bulanTahun] = 0;
+                }
+
+                $result[$bulanTahun] += $jam;
+            }
+        }
+
+        return $result;
+    }
 
     public function create()
     {
@@ -81,22 +85,22 @@ class OvertimeController extends Controller
             'latitude'  => '',
         ]);
 
-        if ($request->latitude == "") {
-        $message = [
-            'alert-type' => 'error',
-            'message' => 'Anda harus update lokasi'
-        ];
-        return redirect()->back()->with($message);
-        }
+        // if ($request->latitude == "") {
+        // $message = [
+        //     'alert-type' => 'error',
+        //     'message' => 'Anda harus update lokasi'
+        // ];
+        // return redirect()->back()->with($message);
+        // }
 
 
-        if ($request->latitude != -0.502106) {
-        $message = [
-            'alert-type' => 'error',
-            'message' => 'Anda harus berada di area kantor'
-        ];
-        return redirect()->back()->with($message);
-        }
+        // if ($request->latitude != -0.502106) {
+        // $message = [
+        //     'alert-type' => 'error',
+        //     'message' => 'Anda harus berada di area kantor'
+        // ];
+        // return redirect()->back()->with($message);
+        // }
 
         overtime::create($request->all());
 

@@ -15,7 +15,7 @@
     <div class="form-group row">
         <label class="col-md-4 col-xs-4 col-form-label justify-flex-end">Staff <span class="text-danger">*</span></label>
         <div class="col-12 col-md-5 col-lg-5">
-            @if (Auth::user()->hasRole('admin'))
+            @if (Auth::user()->hasRole('admin') || Auth::user()->hasRole('pimpinan'))
                 <select name="staff_id" class="form-control select2 @error('staff_id') is-invalid @enderror">
                     <option value=""></option>
                     @foreach ($staff as $item)

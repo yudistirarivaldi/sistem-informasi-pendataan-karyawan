@@ -108,20 +108,14 @@
                             <div class="card-footer">
                                 <div class="text-right">
                                     @if (!empty($filter))
-                                        <a href="{{ route('salary.export.excel', [$staff->id, $filter]) }}"
-                                            class="btn btn-success btn-sm" id="export-excel">
-                                            <i class="fa fa-file-excel-o fa-fw"></i> Export Excel
-                                        </a>
+                                        
 
                                         <a href="{{ route('salary.export.pdf', [$staff->id, $filter]) }}"
                                             class="btn btn-danger btn-sm" id="export-pdf">
                                             <i class="fa fa-file-pdf-o fa-fw"></i> Export PDF
                                         </a>
                                     @else
-                                        <a href="{{ route('salary.export.excel', [$staff->id, 'all']) }}"
-                                            class="btn btn-success btn-sm" id="export-excel">
-                                            <i class="fa fa-file-excel-o fa-fw"></i> Export Excel
-                                        </a>
+
 
                                         <a href="{{ route('salary.export.pdf', [$staff->id, 'all']) }}"
                                             class="btn btn-danger btn-sm" id="export-pdf">

@@ -18,7 +18,7 @@ class MutasiController extends Controller
      */
     public function index()
     {
-        if(Auth::user()->hasRole('admin'))
+        if(Auth::user()->hasRole('admin') || Auth::user()->hasRole('pimpinan'))
         {
             $data['mutasi'] = Mutasi::all();
             $data['count'] = Mutasi::count();

@@ -42,12 +42,13 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Staff</th>
-                                        {{-- <th>Tgl. Mulai</th>
-                                        <th>Tgl. Selesai</th> --}}
+                                        <th>Tgl. Mulai</th>
+                                        <th>Tgl. Selesai</th>
                                         <th>Durasi</th>
                                         <th>Keterangan</th>
-                                        <th>Catatan</th>
-                                        <th class="text-left">Status</th>
+                                        {{-- <th>Catatan</th> --}}
+                                        <th class="text-center">Status</th>
+                                        <th class="text-center">Berkas</th>
                                         <th class="text-center" style="width: 100px;">Action</th>
                                     </tr>
                                 </thead>
@@ -56,13 +57,13 @@
                                         <tr id="hide{{ $item->id }}">
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $item->staff->name ?? '' }}</td>
-                                            {{-- <td>{{ tgl_indo($item->tgl_mulai ?? '') }}</td>
-                                            <td>{{ tgl_indo($item->tgl_selesai ?? '') }}</td> --}}
+                                            <td>{{ tgl_indo($item->tgl_mulai ?? '') }}</td>
+                                            <td>{{ tgl_indo($item->tgl_selesai ?? '') }}</td>
                                             <td>{{ $item->jumlah_cuti ?? '' }} Hari</td>
                                             <td>{{ $item->keterangan }}</td>
-                                            <td>
+                                            {{-- <td>
                                                 @if ($item->catatan == null)
-                                                    @if (Auth::user()->hasRole('admin'))
+                                                    @if (Auth::user()->hasRole('admin') || Auth::user()->hasRole('pimpinan'))
                                                         <form action="{{ route('cuti.validated.catatan', $item->id) }}"
                                                             method="POST">
                                                             @csrf
@@ -86,10 +87,10 @@
                                                     </div>
                                                 @endif
 
-                                            </td>
+                                            </td> --}}
                                             <td>
-                                                @if ($item->status == 0)
-                                                    @if (Auth::user()->hasRole('admin'))
+                                                @if ($item->status == null)
+                                                    @if (Auth::user()->hasRole('admin') || Auth::user()->hasRole('pimpinan'))
                                                         <form action="{{ route('cuti.validated', $item->id) }}"
                                                             method="POST">
                                                             @csrf
@@ -120,6 +121,12 @@
 
                                             </td>
                                             <td class="text-center">
+                                                <a href="{{ route('cuti.export.pdf_approve', $item->id) }}"
+                                                class="btn btn-danger btn-sm" id="export-pdf">
+                                                    <i class="fa fa-file-pdf-o fa-fw"></i> Cetak Surat
+                                                </a>
+                                            </td>
+                                            <td class="text-center">
                                                 <a href="#" class="text-secondary" role="button"
                                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                     <i class="fas fa-ellipsis-v"></i>
@@ -134,7 +141,7 @@
                                                         <span class="m-3">Cuti telah di verifikasi tdk dapat di
                                                             edit</span>
                                                     @endif
-                                                    @if (Auth::user()->hasRole('admin'))
+                                                    @if (Auth::user()->hasRole('admin') || Auth::user()->hasRole('pimpinan'))
                                                         <div class="dropdown-divider"></div>
                                                         <a class="dropdown-item" href="javascript:void(0)"
                                                             onClick="hapus({{ $item->id }})">

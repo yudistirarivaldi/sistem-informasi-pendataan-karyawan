@@ -20,11 +20,7 @@ class SanksiController extends Controller
      */
     public function index()
     {
-        // $data['sanksi'] = Sanksi::all();
-        // $data['count'] = Sanksi::count();
-        // return view('sanksi.index', $data);
-
-        if(Auth::user()->hasRole('admin'))
+        if(Auth::user()->hasRole('admin') || Auth::user()->hasRole('pimpinan'))
         {
             $data['sanksi'] = Sanksi::all();
             $data['count']    = Sanksi::count();

@@ -87,7 +87,7 @@
                     <div id="loading"></div>
 
                     <div class="card-footer text-center text-secondary">
-                        by <a href="#" class="font-weight-bold text-secondary" target="_blank">Yudistira Rivaldi</a>.
+                        by <a href="#" class="font-weight-bold text-secondary" target="_blank">ABDUL HADI</a>.
                     </div>
                 </div>
             </div>

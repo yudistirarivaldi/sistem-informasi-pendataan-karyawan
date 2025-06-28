@@ -31,7 +31,7 @@
                             <td class="text-center">#</td>
                             <td>Staff</td>
                             <td>Status</td>
-                            <td>Tgl. Masuk</td>
+                            {{-- <td>Tgl. Masuk</td> --}}
                             <td>Ket. Schedule</td>
                             <td class="text-center" style="min-width: 150px;">Attendance</td>
                         </tr>
@@ -48,7 +48,7 @@
                                 <td>
                                     <span class="badge {{ $item->staff->position->status == 'Staff' ? 'badge-info' : 'badge-secondary' }}">{{ $item->staff->position->status }}</span>
                                 </td>
-                                <td>{{ date('d-m-Y', strtotime($item->tgl_masuk)) }}</td>
+                                {{-- <td>{{ date('d-m-Y', strtotime($item->tgl_masuk)) }}</td> --}}
                                 <td>{{ $item->ket_schedule }}</td>
                                 <td>
                                     <div class="float-right">

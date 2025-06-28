@@ -54,84 +54,79 @@
                             <div class="table-responsive">
                                 <div class="card-body p-0">
                                     <table class="table table-bordered mb-0" style="font-size: 14px;">
-                                        <tbody>
-                                            <tr class="text-center bg-light" style="font-weight: bold;line-height: 1;">
-                                                <td colspan="4" style="vertical-align : middle;width: 10px;">KEAHLIAN
-                                                </td>
+                                        <thead>
+                                            <tr class="text-center bg-light" style="font-weight: bold; line-height: 1;">
+                                                <td colspan="4" style="vertical-align: middle;">KEAHLIAN</td>
                                                 @if (count($attendance_date) > 0)
-                                                    <td colspan="{{ count($attendance_date) }}"
-                                                        style="vertical-align : middle;white-space:normal;
-                                                    width: auto;
-                                                    height: auto;
-                                                    word-wrap: break-word;">
-                                                        TANGGAL ABSEN</td>
+                                                    <td colspan="{{ count($attendance_date) }}" style="vertical-align: middle;">
+                                                        TANGGAL ABSEN
+                                                    </td>
                                                 @endif
-                                                <td rowspan="2"
-                                                    style="vertical-align : middle; white-space: normal; width:50px; text-align: center;">
-                                                    TOTAL</td>
+                                                <td rowspan="2" style="vertical-align: middle;">TOTAL</td>
                                             </tr>
-                                            <tr class="text-center bg-light" style="line-height: 0.2;">
+                                            <tr class="text-center bg-light">
                                                 <td style="width:5px;">NO.</td>
                                                 <td>Nama</td>
                                                 <td>Status</td>
                                                 <td>Departement</td>
-
                                                 @foreach ($attendance_date as $d)
-                                                    <td class="count_date_absen"
-                                                        style="width:20px; vertical-align: middle; text-align: center;">
-                                                        {{ date('d', strtotime($d->tanggal_absen)) }}</td>
+                                                    <td class="count_date_absen">
+                                                        {{ date('d', strtotime($d->tanggal_absen)) }}
+                                                    </td>
                                                 @endforeach
                                             </tr>
+                                        </thead>
+                                        <tbody>
                                             @php
                                                 $grand_total = 0;
                                             @endphp
-
+                            
                                             @forelse ($schedules as $schedule)
-                                                <tr style="line-height: 0.2;">
+                                                <tr>
                                                     <td class="text-center">{{ $loop->iteration }}</td>
                                                     <td>{{ $schedule->staff->name }}</td>
                                                     <td class="text-center">
-                                                        <span
-                                                            class="badge {{ $schedule->staff->position->status == 'Staff' ? 'badge-info' : 'badge-secondary' }}">{{ $schedule->staff->position->status ?? '' }}</span>
+                                                        <span class="badge {{ $schedule->staff->position->status == 'Staff' ? 'badge-info' : 'badge-secondary' }}">
+                                                            {{ $schedule->staff->position->status ?? '-' }}
+                                                        </span>
                                                     </td>
-                                                    <td class="text-center">{{ $schedule->staff->departement->name }}</td>
+                                                    <td class="text-center">{{ $schedule->staff->departement->name ?? '-' }}</td>
+                            
                                                     @php
                                                         $sum_kehadiran = 0;
-                                                        $count_absen_staff = $schedule->absensi->where('periode', $absensi->periode)->count();
+                                                        $absensi_per_tanggal = $schedule->absensi->where('periode', $absensi->periode);
                                                     @endphp
-
-                                                    @foreach ($schedule->absensi->where('periode', $absensi->periode) as $item)
-                                                        @if ($loop->first)
-                                                            @if (count($attendance_date) != $count_absen_staff)
-                                                                <td
-                                                                    colspan="{{ intval(count($attendance_date)) - intval($count_absen_staff) }}">
-                                                                    <hr class="p-0 m-0 label-danger">
-                                                                </td>
-                                                            @endif
-                                                        @endif
-
-                                                        @if ($item->attendance_id != '')
+                            
+                                                    @foreach ($attendance_date as $d)
+                                                        @php
+                                                            // Cek apakah ada absensi di tanggal tertentu
+                                                            $absen = $absensi_per_tanggal->firstWhere('tanggal_absen', $d->tanggal_absen);
+                                                        @endphp
+                            
+                                                        @if ($absen)
                                                             <td class="text-center">
-                                                                {!! '<span class="' . $item->attendance->label . '">' . $item->attendance->singkatan . '</span>' !!}
+                                                                {!! '<span class="' . $absen->attendance->label . '">' . $absen->attendance->singkatan . '</span>' !!}
+                                                                @php
+                                                                    $sum_kehadiran += $absen->attendance->value;
+                                                                @endphp
                                                             </td>
                                                         @else
-                                                            <td class="text-center" style="width:20px;"><i
-                                                                    class="fa fa-remove text-danger"
-                                                                    style="line-height: 0.2;"></i></td>
+                                                            <td class="text-center">
+                                                                <i class="fa fa-minus text-danger"></i>
+                                                            </td>
                                                         @endif
-                                                        @php
-                                                            $sum_kehadiran += $item->attendance->value;
-                                                        @endphp
                                                     @endforeach
-                                                    @if ($count_absen_staff == 0)
-                                                        <td class="not_absen text-center">-</td>
-                                                    @endif
-                                                    <td style="vertical-align: middle; text-align: center;">
-                                                        {{ $sum_kehadiran }}</td>
+                            
+                                                    <td class="text-center" style="vertical-align: middle;">
+                                                        {{ $sum_kehadiran }}
+                                                    </td>
                                                 </tr>
                                             @empty
-                                                <td class="text-center" colspan="{{ 4 + count($attendance_date) + 7 }}">
-                                                    Tidak ada data</td>
+                                                <tr>
+                                                    <td class="text-center" colspan="{{ 5 + count($attendance_date) }}">
+                                                        Tidak ada data
+                                                    </td>
+                                                </tr>
                                             @endforelse
                                         </tbody>
                                     </table>
@@ -143,19 +138,13 @@
 
 
                                         @if (!empty($filter))
-                                            <a href="{{ route('absensi.export.excel', [$absensi->periode, $filter]) }}"
-                                                class="btn btn-success btn-sm" id="export-excel">
-                                                <i class="fa fa-file-excel-o fa-fw"></i> Export Excel
-                                            </a>
+
                                             <a href="{{ route('absensi.export.pdf', [$absensi->periode, $filter]) }}"
                                                 class="btn btn-danger btn-sm" id="export-pdf">
                                                 <i class="fa fa-file-pdf-o fa-fw"></i> Export PDF
                                             </a>
                                         @else
-                                            <a href="{{ route('absensi.export.excel', [$absensi->periode, 'all']) }}"
-                                                class="btn btn-success btn-sm" id="export-excel">
-                                                <i class="fa fa-file-excel-o fa-fw"></i> Export Excel
-                                            </a>
+
                                             <a href="{{ route('absensi.export.pdf', [$absensi->periode, 'all']) }}"
                                                 class="btn btn-danger btn-sm" id="export-pdf">
                                                 <i class="fa fa-file-pdf-o fa-fw"></i> Export PDF

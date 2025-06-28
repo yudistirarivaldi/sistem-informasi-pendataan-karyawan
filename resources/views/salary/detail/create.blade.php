@@ -168,35 +168,55 @@
             $('#grand_total_salary_hidden').val(total);
         });
 
-        function  HitungTotalLembur()
+        function HitungTotalLembur() 
         {
-            let jam_lembur = $("#jam_lembur").val();
-            let gaji_lembur = $('#gaji_lembur').val();
-            let total_lembur = parseInt(jam_lembur) * parseInt(gaji_lembur);
-            let salary    = $('#total_salary_hidden').val();
-            let pot_bpjs    = $('#pot_bpjs').val();
-            let transportasi = $('#transportasi').val();
-            let total = parseInt(pot_bpjs) + parseInt(transportasi) + parseInt(salary) + parseInt(total_lembur);
+            let jam_lembur = parseInt($("#jam_lembur").val()) || 0;
+            let gaji_lembur = parseInt($('#gaji_lembur').val()) || 0;
+            let total_lembur = jam_lembur * gaji_lembur;
+            
+            let salary = parseInt($('#total_salary_hidden').val()) || 0;
+            let pot_bpjs = parseInt($('#pot_bpjs').val()) || 0;
+            let transportasi = parseInt($('#transportasi').val()) || 0;
+            
+            let total = salary - pot_bpjs - transportasi + total_lembur;
+            
             $('#grand_total_salary').html(to_rupiah(total));
             $('#grand_total_salary_hidden').val(total);
         }
 
-        function HitungTotal()
+        function HitungTotal() 
         {
-            let salary    = $('#total_salary_hidden').val();
-            let pot_bpjs    = $('#pot_bpjs').val();
-            let transportasi = $('#transportasi').val();
-            let total = parseInt(pot_bpjs) + parseInt(transportasi) + parseInt(salary);
+            let salary = parseInt($('#total_salary_hidden').val()) || 0;
+            let pot_bpjs = parseInt($('#pot_bpjs').val()) || 0;
+            let transportasi = parseInt($('#transportasi').val()) || 0;
+            
+            let total = salary - pot_bpjs - transportasi;
+            
             $('#grand_total_salary').html(to_rupiah(total));
             $('#grand_total_salary_hidden').val(total);
         }
 
-        function to_rupiah(angka){
-            var rev     = parseInt(angka, 10).toString().split('').reverse().join('');
-            var rev2    = '';
-            for(var i = 0; i < rev.length; i++){
-                rev2  += rev[i];
-                if((i + 1) % 3 === 0 && i !== (rev.length - 1)){
+        $(document).on('keyup', '#pot_bpjs, #transportasi', function() {
+            HitungTotal();
+            $('#pot_bpjs_preview').html(to_rupiah($('#pot_bpjs').val()));
+            $('#transportasi_preview').html(to_rupiah($('#transportasi').val()));
+        });
+
+        $(document).on('keyup', '#gaji_lembur, #jam_lembur', function() {
+            HitungTotalLembur();
+            let jam_lembur = parseInt($("#jam_lembur").val()) || 0;
+            let gaji_lembur = parseInt($('#gaji_lembur').val()) || 0;
+            let total_lembur = jam_lembur * gaji_lembur;
+            
+            $('#gaji_lembur_preview').html(to_rupiah(total_lembur));
+        });
+
+        function to_rupiah(angka) {
+            var rev = parseInt(angka, 10).toString().split('').reverse().join('');
+            var rev2 = '';
+            for (var i = 0; i < rev.length; i++) {
+                rev2 += rev[i];
+                if ((i + 1) % 3 === 0 && i !== (rev.length - 1)) {
                     rev2 += '.';
                 }
             }

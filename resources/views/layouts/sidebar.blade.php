@@ -1,10 +1,10 @@
 <aside class="main-sidebar sidebar-light-dark elevation-4">
     <a href="{{ route('home') }}" class="brand-link bg-dark">
-        <img src="{{ asset('img/logo-2.png') }}" alt="Logo" class="brand-image elevation-3" style="opacity: .8">
+        <img src="{{ asset('img/logo-perumda.png') }}" alt="Logo" class="brand-image elevation-3" style="opacity: .8">
 
         {{-- <i class="nav-icon fas fa-chart-line"></i> --}}
 
-        <span class="brand-text font-weight-lighter font-weight-bolder">SIPK - APP</span>
+        <span class="brand-text font-weight-lighter font-weight-bolder">SMKP-MARTAPURA</span>
     </a>
 
     <div class="sidebar">
@@ -29,7 +29,7 @@
                     </a>
                 </li>
 
-                @if (!Auth::user()->hasRole('karyawan'))
+                @if (Auth::user()->hasRole('admin'))
                     <li class="nav-item has-treeview {{ $page == 'master' ? 'menu-open' : '' }}">
                         <a href="#" class="nav-link {{ $page == 'master' ? 'active' : '' }}">
                             <i class="nav-icon fa fa-laptop"></i>
@@ -69,6 +69,7 @@
 
                 <li class="nav-header">Manajemen Karyawan</li>
 
+                @if (!Auth::user()->hasRole('admin'))
                 <li class="nav-item">
                     <a href="{{ route('overtime.index') }}"
                         class="nav-link {{ $page == 'overtime' ? 'active' : '' }}">
@@ -76,6 +77,7 @@
                         <p>Lembur</p>
                     </a>
                 </li>
+                @endif
 
                 <li class="nav-item">
                     <a href="{{ route('schedule.index') }}"
@@ -85,31 +87,37 @@
                     </a>
                 </li>
 
+                {{-- @if (!Auth::user()->hasRole('admin')) --}}
                 <li class="nav-item">
                     <a href="{{ route('cuti.index') }}" class="nav-link {{ $page == 'cuti' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-calendar-times"></i>
                         <p>Permohonan Cuti</p>
                     </a>
                 </li>
+                {{-- @endif --}}
+
                 <li class="nav-item">
                     <a href="{{ route('sanksi.index') }}" class="nav-link {{ $page == 'sanksi' ? 'active' : '' }}">
                         <i class="nav-icon fa fa-user-times"></i>
                         <p>Sanksi Karyawan</p>
                     </a>
                 </li>
+
                 <li class="nav-item">
                     <a href="{{ route('mutasi.index') }}" class="nav-link {{ $page == 'mutasi' ? 'active' : '' }}">
                         <i class="nav-icon fa fa-exchange"></i>
                         <p>Mutasi Karyawan</p>
                     </a>
                 </li>
+
                 <li class="nav-item">
                     <a href="{{ route('absensi.index') }}" class="nav-link {{ $page == 'absensi' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-tasks"></i>
                         <p>Absensi</p>
                     </a>
                 </li>
-                @if (Auth::user()->hasRole('admin'))
+
+                @if (Auth::user()->hasRole('admin') || Auth::user()->hasRole('pimpinan'))
                     <li class="nav-item">
                         <a href="{{ route('salary.index') }}"
                             class="nav-link {{ $page == 'salary' ? 'active' : '' }}">
@@ -120,7 +128,7 @@
                 @endif
 
 
-                @if (Auth::user()->hasRole('admin'))
+                @if (Auth::user()->hasRole('admin') || Auth::user()->hasRole('pimpinan'))
                 <li class="nav-header">Laporan Data Karyawan</li>
                     <li class="nav-item has-treeview {{ $page == 'laporan' ? 'menu-open' : '' }}">
                         <a href="#" class="nav-link {{ $page == 'laporan' ? 'active' : '' }}">
@@ -175,8 +183,6 @@
                             </li>
 
                         </ul>
-
-
                     </li>
                 @endif
 

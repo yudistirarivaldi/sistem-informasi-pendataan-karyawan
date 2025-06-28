@@ -1,7 +1,3 @@
-@php
-    use Carbon\Carbon;
-@endphp
-
 <!DOCTYPE html>
 <html>
 
@@ -20,7 +16,6 @@
 
         body {
             font-family: arial;
-
         }
 
         table {
@@ -31,6 +26,16 @@
         .tengah {
             text-align: center;
             line-height: 5px;
+        }
+
+        .ttd {
+            margin-top: 50px;
+            text-align: right;
+        }
+
+        .ttd img {
+            width: 150px;
+            height: auto;
         }
     </style>
 
@@ -47,9 +52,7 @@
     </div>
 
     <center>
-        <h5>Laporan Data Lembur Karyawan
-
-        </h5>
+        <h5>Laporan Data Cuti Karyawan</h5>
     </center>
 
     <br>
@@ -59,33 +62,42 @@
             <tr>
                 <th>No</th>
                 <th>Staff</th>
-                <th>Departement</th>
-                <th>Jumlah Lembur</th>
-                <th>Tgl Lembur</th>
+                <th>NIK</th>
+                <th>Jenis Kelamin</th>
+                <th>Tanggal Mulai</th>
+                <th>Tanggal Selesai</th>
+                <th>Durasi</th>
+                <th>Keterangan</th>
+                <th>Status</th>
             </tr>
         </thead>
         <tbody>
-            @forelse ($overtime as $item)
+            @forelse ($cuti as $item)
                 <tr style="line-height: 1;">
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $item->staff->name }}</td>
-                    <td>{{ $item->departement->name }}</td>
-                    @php
-
-                        $start = Carbon::createFromFormat('H:i:s', $item->waktu_mulai);
-                        $end = Carbon::createFromFormat('H:i:s', $item->waktu_selesai);
-                        $hours = $end->diffInMinutes($start) / 60;
-                    @endphp
-                    <td>{{ $hours . ' Jam' }}</td>
-                    <td>{{ date('d-m-Y', strtotime($item->tgl_overtime)) }}</td>
+                    <td>{{ $item->staff->nik }}</td>
+                    <td>{{ $item->staff->jenis_kelamin }}</td>
+                    <td>{{ $item->tgl_mulai }}</td>
+                    <td>{{ $item->tgl_selesai }}</td>
+                    <td>{{ $item->jumlah_cuti }}</td>
+                    <td>{{ $item->keterangan }}</td>
+                    <td>{{ $item->status }}</td>
                 </tr>
             @empty
                 <tr>
-                    <td class="text-center" colspan="7">Tidak ada data untuk ditampilkan</td>
+                    <td class="text-center" colspan="9">Tidak ada data untuk ditampilkan</td>
                 </tr>
             @endforelse
         </tbody>
     </table>
+
+    <div class="ttd">
+        <p>Banjarbaru, {{ date('d F Y') }}</p>
+        <p>Manager HRD</p>
+        <img src="https://upload.wikimedia.org/wikipedia/id/b/b7/Tanda_Tangan_Sjachroedin_ZP.png" alt="Tanda Tangan">
+        <p><b>Muhammad Yamin</b></p>
+    </div>
 
 </body>
 

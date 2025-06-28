@@ -1,3 +1,7 @@
+@php
+    use Carbon\Carbon;
+@endphp
+
 @extends('layouts.app')
 @section('styles')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.0.6-rc.1/dist/css/select2.min.css">
@@ -54,7 +58,13 @@
                                                     <td>{{ $loop->iteration }}</td>
                                                     <td>{{ $item->staff->name }}</td>
                                                     <td>{{ $item->departement->name }}</td>
-                                                    <td>{{ $item->jumlah_overtime . ' Jam' }}</td>
+                                                    @php
+
+                                                        $start = Carbon::createFromFormat('H:i:s', $item->waktu_mulai);
+                                                        $end = Carbon::createFromFormat('H:i:s', $item->waktu_selesai);
+                                                        $hours = $end->diffInMinutes($start) / 60;
+                                                    @endphp
+                                                    <td>{{ $hours . ' Jam' }}</td>
                                                     <td>{{ date('d-m-Y', strtotime($item->tgl_overtime)) }}</td>
                                                 </tr>
                                             @empty

@@ -164,7 +164,7 @@
     <div class="form-group row">
         <label class="col-md-4 col-xs-4 col-form-label justify-flex-end"></label>
         <div class="col-12 col-md-5 col-lg-5">
-            <button type="button" class="btn btn-primary" id="updateLocationBtn">Update Lokasi Saat Ini</button>
+            {{-- <button type="button" class="btn btn-primary" id="updateLocationBtn">Update Lokasi Saat Ini</button> --}}
         </div>
     </div>
 

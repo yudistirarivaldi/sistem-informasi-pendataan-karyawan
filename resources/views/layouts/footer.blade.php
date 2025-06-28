@@ -16,5 +16,5 @@
 </nav>
 
 <footer class="main-footer d-none d-md-block">
-    <strong>Copyright &copy; {{ date('Y') }} <a href="#" data-toggle="tooltip" title="Lihat Situs" target="_blank">Yudistira Rivaldi</a>.</strong>
+    <strong>Copyright &copy; {{ date('Y') }} <a href="#" data-toggle="tooltip" title="Lihat Situs" target="_blank">ABDUL HADI</a>.</strong>
 </footer>

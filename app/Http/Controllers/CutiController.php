@@ -13,7 +13,7 @@ class CutiController extends Controller
     public function index()
     {
 
-        if(Auth::user()->hasRole('admin'))
+        if(Auth::user()->hasRole('admin') || Auth::user()->hasRole('pimpinan'))
         {
             $data['cuti'] = Cuti::orderby('created_at', 'desc')->get();
             $data['count'] = Cuti::count();
@@ -165,6 +165,7 @@ class CutiController extends Controller
                 'status' => $request->validasi
             ]);
         }
+
         $message = [
             'alert-type' => 'success',
             'message' => 'permohonan cuti berhasil di-verifikasi.'
@@ -187,6 +188,15 @@ class CutiController extends Controller
         return redirect()->back()->with($message);
     }
 
+    public function pdf_cuti_approve($id)
+    {
+
+        $data['cuti'] = Cuti::with('staff')->where('id', $id)->get();
+
+        $customPaper = array(0,0,500,700);
+        $pdf = Pdf::loadview('cuti.pdf_approve', $data)->setPaper($customPaper,'landscape');
+    	return $pdf->download('laporan-cuti-karyawan.pdf');
+    }
 
     public function excel()
     {
@@ -198,13 +208,10 @@ class CutiController extends Controller
         ]);
     }
 
-     public function pdf()
+    public function pdf()
     {
 
         $items = Cuti::all();
-
-
-
         $customPaper = array(0,0,567.00,1000);
 
         $pdf = Pdf::loadview('cuti.pdf', [ 'items'=> $items ])->setPaper($customPaper);

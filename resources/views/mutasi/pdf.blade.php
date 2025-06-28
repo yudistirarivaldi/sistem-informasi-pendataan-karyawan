@@ -33,10 +33,10 @@
     <div class="rangkasurat">
         <table width="100%">
             <tr>
-                <td><img src="img/hicol.png" alt="" width="140px"></td>
+                <td><img src="{{-- <td><img src="https://i.pinimg.com/736x/c6/82/73/c68273edeb333a7f3765c02ed509b55d.jpg" alt="" width="140px"></td> --}}" alt="" width="140px"></td>
                 <td class="tengah">
-                    <h4>PT. GENERASI ANAK MUDA BERKARYA</h4>
-                    <p>Jl. Letjen S. Parman No.24, RT.1/RW.4, Palmerah Kota Jakarta Barat</p>
+                    <h4>PERUMDA PASAR MARTAPURA</h4>
+                    <p>Cindai Alus, Martapura, Banjar Regency, South Kalimantan 71213</p>
                 </td>
             </tr>
         </table>
