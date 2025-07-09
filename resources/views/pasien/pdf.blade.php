@@ -33,7 +33,7 @@
     <div class="rangkasurat">
         <table width="100%">
             <tr>
-                <td><img src="{{-- <td><img src="https://i.pinimg.com/736x/c6/82/73/c68273edeb333a7f3765c02ed509b55d.jpg" alt="" width="140px"></td> --}}" alt="" width="140px"></td>
+                <td><img src="{{-- <td><img src="{{ asset('img/logo-perumda.png') }}" alt="" width="140px"></td> --}}" alt="" width="140px"></td>
                 <td class="tengah">
                     <h4>PERUMDA PASAR MARTAPURA</h4>
                     <p>Cindai Alus, Martapura, Banjar Regency, South Kalimantan 71213</p>

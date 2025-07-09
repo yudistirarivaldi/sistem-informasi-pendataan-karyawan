@@ -132,6 +132,19 @@
                     HitungTotalLembur();
                 }
             });
+
+            $.get("{{URL::to('/staff/get-overtime')}}", {
+                staff_id: staff_id,
+                periode: periode
+            }, function(response) {
+                if (response.jam_lembur > 0) {
+                    $('#lembur').prop('checked', true).trigger('change');
+                    $('#jam_lembur').val(response.jam_lembur);
+                    $('#gaji_lembur').val(response.gaji_per_jam);
+                    HitungTotalLembur();
+                }
+            });
+
         });
 
         $(document).ready(function(){

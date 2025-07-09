@@ -69,7 +69,6 @@
 
                 <li class="nav-header">Manajemen Karyawan</li>
 
-                @if (!Auth::user()->hasRole('admin'))
                 <li class="nav-item">
                     <a href="{{ route('overtime.index') }}"
                         class="nav-link {{ $page == 'overtime' ? 'active' : '' }}">
@@ -77,7 +76,30 @@
                         <p>Lembur</p>
                     </a>
                 </li>
-                @endif
+
+                <li class="nav-item">
+                    <a href="{{ route('staff.karir.index') }}"
+                        class="nav-link {{ $page == 'riwayatkarir' ? 'active' : '' }}">
+                        <i class="nav-icon fa fa-briefcase"></i>
+                        <p>Riwayat Karir</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('kinerja.index') }}"
+                        class="nav-link {{ $page == 'kinerja' ? 'active' : '' }}">
+                        <i class="nav-icon fa fa-chart-line"></i>
+                        <p>Kinerja</p>
+                    </a>
+                </li>
+
+                 <li class="nav-item">
+                    <a href="{{ route('penghargaan.index') }}"
+                        class="nav-link {{ $page == 'penghargaan' ? 'active' : '' }}">
+                        <i class="nav-icon fa fa-trophy"></i>
+                        <p>Penghargaan</p>
+                    </a>
+                </li>
 
                 <li class="nav-item">
                     <a href="{{ route('schedule.index') }}"

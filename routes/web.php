@@ -23,6 +23,9 @@ Route::middleware('auth')->group(function(){
     Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/home/getStaffPosition', 'HomeController@getStaffPosition');
     Route::get('/home/getStaffDepartement', 'HomeController@getStaffDepartement');
+    Route::get('/home/getAbsensiByMonth', 'HomeController@getAbsensiByMonth');
+    Route::get('/home/getKinerjaStaff', 'HomeController@getStaffKinerja');
+
 
     //personal karyawan
     Route::get('/users/account/{id}/edit', 'UsersController@editAccount')->name('users.account.edit');
@@ -59,6 +62,7 @@ Route::middleware('auth')->group(function(){
 
             Route::get('departement', 'DepartementController@index')->name('departement.index');
             Route::get('staff', 'StaffController@index')->name('staff.index');
+
             Route::middleware('role:admin|accounting|pimpinan')->group(function(){
                 Route::get('departement/create', 'DepartementController@create')->name('departement.create');
                 Route::post('departement', 'DepartementController@store')->name('departement.store');
@@ -152,6 +156,9 @@ Route::middleware('auth')->group(function(){
     Route::get('overtime/{overtime}/edit', 'OvertimeController@edit')->name('overtime.edit');
     Route::patch('overtime/{overtime}/update', 'OvertimeController@update')->name('overtime.update');
     Route::get('overtime/{id}', 'OvertimeController@destroy')->name('overtime.destroy');
+    
+    Route::get('api/overtime/monthly-total', 'OvertimeController@getMonthlyOvertime');
+
     Route::middleware('role:admin|pimpinan')->group(function(){
         Route::get('overtime/export/excel', 'OvertimeController@excel')->name('overtime.export.excel');
         Route::get('overtime/export/pdf', 'OvertimeController@pdf')->name('overtime.export.pdf');
@@ -184,6 +191,26 @@ Route::middleware('auth')->group(function(){
             Route::get('mutasi/export/pdf', 'MutasiController@pdf')->name('mutasi.export.pdf');
             Route::get('mutasi', 'MutasiController@index')->name('mutasi.index');
 
+            Route::get('penghargaan/create', 'PenghargaanController@create')->name('penghargaan.create');
+            Route::post('penghargaan', 'PenghargaanController@store')->name('penghargaan.store');
+            Route::get('penghargaan/{penghargaan}/edit', 'PenghargaanController@edit')->name('penghargaan.edit');
+            Route::patch('penghargaan/{mutasi}/update', 'PenghargaanController@update')->name('penghargaan.update');
+            Route::get('penghargaan/{id}', 'PenghargaanController@destroy')->name('penghargaan.destroy');
+            Route::get('penghargaan/export/excel', 'PenghargaanController@excel')->name('penghargaan.export.excel');
+            Route::get('penghargaan/export/pdf', 'PenghargaanController@pdf')->name('penghargaan.export.pdf');
+            Route::get('penghargaan', 'PenghargaanController@index')->name('penghargaan.index');
+
+            Route::get('kinerja/create', 'KinerjaController@create')->name('kinerja.create');
+            Route::post('kinerja', 'KinerjaController@store')->name('kinerja.store');
+            Route::get('kinerja/{kinerja}/edit', 'KinerjaController@edit')->name('kinerja.edit');
+            Route::patch('kinerja/{kinerja}/update', 'KinerjaController@update')->name('kinerja.update');
+            Route::get('kinerja/{id}', 'KinerjaController@destroy')->name('kinerja.destroy');
+            Route::get('kinerja', 'KinerjaController@index')->name('kinerja.index');
+
+            Route::get('riwayatkarir', 'RiwayatKarirController@index')->name('staff.karir.index');
+            Route::get('riwayatkarir/{riwayat_karir}/edit', 'RiwayatKarirController@edit')->name('staff.karir.edit');
+            Route::patch('riwayatkarir/{riwayat_karir}/update', 'RiwayatKarirController@update')->name('staff.karir.update');
+            Route::get('riwayatkarir/{id}', 'RiwayatKarirController@destroy')->name('staff.karir.delete');
 
         Route::middleware('role:admin|pimpinan')->group(function(){
         Route::get('cuti/{id}', 'CutiController@destroy')->name('cuti.destroy');

@@ -20,8 +20,8 @@
                 <option value=""></option>
                 <option value="Staff" {{ 'Staff' == old('status', $salary['status'] ?? '') ? 'selected' : '' }}>Staff
                 </option>
-                <option value="Daily Worker"
-                    {{ 'Daily Worker' == old('status', $salary->status ?? '') ? 'selected' : '' }}>Daily Worker</option>
+                {{-- <option value="Daily Worker"
+                    {{ 'Daily Worker' == old('status', $salary->status ?? '') ? 'selected' : '' }}>Daily Worker</option> --}}
             </select>
             @error('status')
                 <span class="invalid-feedback" role="alert">

@@ -7,9 +7,11 @@ use App\Models\Users;
 use App\Models\Master\Staff;
 use Illuminate\Http\Request;
 use App\Models\Master\Position;
+use App\Models\RiwayatKarir;
 use App\Models\Master\Departement;
 use App\Http\Controllers\Controller;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Auth;
 
 
 class StaffController extends Controller
@@ -97,6 +99,15 @@ class StaffController extends Controller
             'addres'=>'required',
         ]);
 
+        if ($staff->position_id != $request->position_id) {
+            RiwayatKarir::create([
+                'staff_id'        => $staff->id,
+                'position_id'     => $staff->position_id,
+                'position_new_id' => $request->position_id,
+                'keterangan'      => "Dipromosikan menjadi ",
+            ]);
+        }
+
         if ($request->has('makeUserAccount')) {
             $msg = [
                 'username.min' => 'Username harus terdiri dari minimal 6 karakter.',
@@ -113,6 +124,7 @@ class StaffController extends Controller
                 'password' => bcrypt($request->username),
                 'role_id' => $request->role_id
             ]);
+
             $request->request->add(['users_id' => $user->id]);
         }
 

@@ -85,7 +85,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Rp</span>
                             </div>
-                            <input type="text" name="pot_bpjs" class="form-control @error('pot_bpjs') is-invalid @enderror" id="pot_bpjs" value="0" placeholder="0" onkeypress="return hanyaAngka(this)" maxlength="8" autocomplete="off">
+                            <input type="text" name="pot_bpjs" class="form-control" id="pot_bpjs" value="150000" readonly>
                         </div>
                         @error('pot_bpjs')
                             <span class="invalid-feedback" role="alert">
@@ -94,7 +94,7 @@
                         @enderror
                     </td>
                     <td class="text-right">
-                        <span id="pot_bpjs_preview">Rp. 0</span>
+                        <span id="pot_bpjs_preview">Rp. 150.000</span>
                     </td>
                 </tr>
                 <tr>
@@ -117,6 +117,14 @@
                     </td>
                 </tr>
                 </tbody>
+                <tr>
+                    <td colspan="3">
+                        <button type="button" class="btn btn-info btn-sm" id="btnCekLembur">
+                            Cek Total Jam Lembur Bulanan
+                        </button>
+                        <div id="resultLembur" class="mt-2"></div>
+                    </td>
+                </tr>
                 <tr>
                     <td>Apakah Karyawan ini lembur?</td>
                     <td colspan="2">
@@ -193,3 +201,87 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="modalLembur" tabindex="-1" role="dialog" aria-labelledby="modalLemburLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Rekap Total Jam Lembur</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modalLemburBody">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Bulan</th>
+                                <th>Total Jam Lembur</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableLemburBody">
+                            <tr><td colspan="2" class="text-center">Memuat...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="modalLemburError" class="text-danger mt-2"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+<script>
+    $(document).ready(function () {
+        $('select[name=staff_id]').change(function () {
+            const staffId = $(this).val();
+            if (staffId) {
+                $('#btnCekLembur').show().data('staff-id', staffId);
+            } else {
+                $('#btnCekLembur').hide();
+            }
+        }).trigger('change');
+
+        $('#btnCekLembur').click(function () {
+            const staffId = $(this).data('staff-id');
+            if (!staffId) return;
+
+            $('#modalLembur').modal('show');
+            $('#tableLemburBody').html(`<tr><td colspan="2" class="text-center">Memuat...</td></tr>`);
+            $('#modalLemburError').html('');
+
+            $.ajax({
+                url: `/api/overtime/monthly-total?staff_id=${staffId}`,
+                type: 'GET',
+                success: function (res) {
+                    const lemburData = res.total_jam_lembur_per_bulan || {};
+                    let html = '';
+
+                    if (Object.keys(lemburData).length === 0) {
+                        html = `<tr><td colspan="2" class="text-center"><em>Tidak ada data lembur</em></td></tr>`;
+                    } else {
+                        for (const [key, value] of Object.entries(lemburData)) {
+                            html += `<tr><td>${key}</td><td>${value} jam</td></tr>`;
+                        }
+                    }
+
+                    $('#tableLemburBody').html(html);
+                },
+                error: function () {
+                    $('#tableLemburBody').html('');
+                    $('#modalLemburError').html('Gagal mengambil data lembur.');
+                }
+            });
+        });
+    });
+</script>
+

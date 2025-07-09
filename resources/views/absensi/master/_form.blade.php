@@ -66,7 +66,7 @@
     <div class="form-group row">
         <label class="col-md-4 col-xs-4 col-form-label justify-flex-end"></label>
         <div class="col-12 col-md-5 col-lg-5">
-            {{-- <button type="button" class="btn btn-primary" id="updateLocationBtn">Update Lokasi Saat Ini</button> --}}
+            <button type="button" class="btn btn-primary" id="updateLocationBtn">Update Lokasi Saat Ini</button>
         </div>
     </div>
 
@@ -92,17 +92,30 @@
 <script>
     function updateLocation() {
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function(position) {
-                var latitude = position.coords.latitude;
-                var longitude = position.coords.longitude;
+            navigator.geolocation.getCurrentPosition(
+                function (position) {
+                    const latitude = position.coords.latitude;
+                    const longitude = position.coords.longitude;
 
-                // Isi input field latitude dan longitude dalam formulir
-                document.querySelector('input[name="latitude"]').value = latitude;
-            });
+                    // Update semua input latitude jika ada lebih dari satu
+                    document.querySelectorAll('input[name="latitude"]').forEach(el => {
+                        el.value = latitude;
+                    });
+
+                    alert('Lokasi berhasil diperbarui!');
+                },
+                function (error) {
+                    console.error('Geolocation error:', error);
+                    alert('Gagal mendapatkan lokasi: ' + error.message);
+                }
+            );
         } else {
-            alert("Geolocation tidak didukung di perangkat ini.");
+            alert("Browser tidak mendukung geolocation.");
         }
     }
 
-    document.getElementById('updateLocationBtn').addEventListener('click', updateLocation);
+    document.addEventListener('DOMContentLoaded', function () {
+        document.getElementById('updateLocationBtn').addEventListener('click', updateLocation);
+    });
 </script>
+

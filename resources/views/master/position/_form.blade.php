@@ -45,7 +45,7 @@
             <select name="status" class="form-control select2 @error('status') is-invalid @enderror">
                 <option value="">Pilih</option>
                 <option value="Staff" {{ 'Staff' == old('status', $position->status ?? '') ? 'selected' : '' }}>Staff</option>
-                <option value="Daily Worker" {{ 'Daily Worker' == old('status', $position->status ?? '') ? 'selected' : '' }}>Daily Worker</option>
+                {{-- <option value="Daily Worker" {{ 'Daily Worker' == old('status', $position->status ?? '') ? 'selected' : '' }}>Daily Worker</option> --}}
             </select>
             @error('status')
                 <span class="invalid-feedback" role="alert">

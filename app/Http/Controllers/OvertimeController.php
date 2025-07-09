@@ -111,8 +111,6 @@ class OvertimeController extends Controller
         return redirect()->route('overtime.index')->with($message);
     }
 
-
-
     public function edit(Overtime $overtime)
     {
         $data['title'] = "Edit overtime";
@@ -171,7 +169,7 @@ class OvertimeController extends Controller
         ]);
     }
 
-     public function pdf()
+    public function pdf()
     {
 
         $items = Overtime::all();
@@ -186,4 +184,46 @@ class OvertimeController extends Controller
 
     }
 
+    public function getMonthlyOvertime(Request $request)
+    {
+        
+        $staff_id = $request->input('staff_id');
+
+        $overtimes = Overtime::where('staff_id', $staff_id)->get();
+        
+        $monthlyTotals = $this->calculateTotalJamLemburPerBulanAPI($overtimes);
+
+        return response()->json([
+            'staff_id' => $staff_id,
+            'total_jam_lembur_per_bulan' => $monthlyTotals,
+        ]);
+    }
+
+    private function calculateTotalJamLemburPerBulanAPI($overtimes)
+    {
+         $result = [];
+
+        foreach ($overtimes as $ot) {
+            // Ambil objek Carbon dari tanggal lembur
+            $carbonDate = \Carbon\Carbon::parse($ot->tgl_overtime);
+
+            // Format: "Juni 2025"
+            $bulanTahun = $carbonDate->translatedFormat('F Y'); // default pakai Bahasa Indonesia jika locale diset
+
+            if ($ot->waktu_mulai && $ot->waktu_selesai) {
+                $mulai = \Carbon\Carbon::createFromFormat('H:i:s', $ot->waktu_mulai);
+                $selesai = \Carbon\Carbon::createFromFormat('H:i:s', $ot->waktu_selesai);
+
+                $jam = $selesai->diffInMinutes($mulai) / 60;
+
+                if (!isset($result[$bulanTahun])) {
+                    $result[$bulanTahun] = 0;
+                }
+
+                $result[$bulanTahun] += $jam;
+            }
+        }
+
+        return $result;
+    }
 }
