@@ -106,9 +106,9 @@ class PenghargaanController extends Controller
     public function update(Request $request, Penghargaan $penghargaan)
     {
          $request->validate([
-            'staff_id'=>'required',
-            'position_id'=>'required',
-            'keterangan'=>'required',
+            'staff_id' => 'required',
+            'position_id' => 'required',
+            'keterangan' => 'required',
         ]);
 
         $penghargaan->update($request->all());

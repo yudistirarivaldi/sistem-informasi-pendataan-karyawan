@@ -106,6 +106,7 @@ class AbsensiController extends Controller
         }
 
         // validasi lokasi
+
         // if (empty($request->latitude)) {
         //     $message = [
         //         'alert-type' => 'error',
@@ -115,6 +116,7 @@ class AbsensiController extends Controller
         // }
 
         // validasi area kantor
+
         // if ($request->latitude != -0.502106) {
         //     $message = [
         //         'alert-type' => 'error',

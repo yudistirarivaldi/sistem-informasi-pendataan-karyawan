@@ -194,7 +194,7 @@ Route::middleware('auth')->group(function(){
             Route::get('penghargaan/create', 'PenghargaanController@create')->name('penghargaan.create');
             Route::post('penghargaan', 'PenghargaanController@store')->name('penghargaan.store');
             Route::get('penghargaan/{penghargaan}/edit', 'PenghargaanController@edit')->name('penghargaan.edit');
-            Route::patch('penghargaan/{mutasi}/update', 'PenghargaanController@update')->name('penghargaan.update');
+            Route::patch('penghargaan/{penghargaan}/update', 'PenghargaanController@update')->name('penghargaan.update');
             Route::get('penghargaan/{id}', 'PenghargaanController@destroy')->name('penghargaan.destroy');
             Route::get('penghargaan/export/excel', 'PenghargaanController@excel')->name('penghargaan.export.excel');
             Route::get('penghargaan/export/pdf', 'PenghargaanController@pdf')->name('penghargaan.export.pdf');
